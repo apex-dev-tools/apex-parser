@@ -37,14 +37,14 @@ import 'CommonTokenStream' & 'ParseTreeWalker' from 'apex-parser' instead of fro
 Maven
 
     <dependency>
-        <groupId>com.github.nawforce</groupId>
+        <groupId>io.github.apex-dev-tools</groupId>
         <artifactId>apex-parser</artifactId>
-        <version>2.14.0</version>
+        <version>3.0.0</version>
     </dependency>
 
 NPM
 
-    "apex-parser": "^2.14.0"
+    "@apexdevtools/apex-parser": "^3.0.0"
 
 ### Building
 To build both distributions:
@@ -52,6 +52,7 @@ To build both distributions:
     npm run build
 
 ### History
+    3.0.0 - Move to @apexdevtools/apex-parser
     2.14.0 - Change npm api to replace ANTLRInputStream with CharStream, for Unicode char positions  
     2.13.0 - Fixes for negative numerics & Currency literals in SOQL 
     2.12.0 - Replace deprecated ANTLRInputStream, DateTime & Currency literals fixes (contrib Aaron Hurst) 

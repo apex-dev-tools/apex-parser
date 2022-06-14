@@ -1,0 +1,31 @@
+name: Publish to NPM
+on:
+  release:
+    types: [created]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node 14
+        uses: actions/setup-node@v4
+        with:
+          node-version: 14
+          registry-url: 'https://registry.npmjs.org'        
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
+        with:
+          distribution: adopt
+          java-version: 8
+          cache: "maven"
+
+      - run: 
+          npm run init
+          cd npm
+          npm ci
+          npm publish --access public
+
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

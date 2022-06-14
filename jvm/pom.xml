@@ -2,14 +2,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.nawforce</groupId>
+  <groupId>io.github.apex-dev-tools</groupId>
   <artifactId>apex-parser</artifactId>
-  <version>2.14.0</version>
+  <version>3.0.0</version>
   <packaging>jar</packaging>
 
   <name>apex-parser</name>
   <description>Salesforce Apex parser</description>
-  <url>https://github.com/nawforce/apex-parser</url>
+  <url>https://github.com/apex-dev-tools/apex-parser</url>
   <licenses>
     <license>
       <name>BSD-3-Clause</name>
@@ -18,14 +18,14 @@
   </licenses>
   <developers>
     <developer>
-      <name>Kevin Jones</name>
-      <email>nawforce@gmail.com</email>
+      <name>Apex Dev Tools Team</name>
+      <email>apexdevtools@gmail.com</email>
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git://github.com/nawforce/apex-parser.git</connection>
-    <developerConnection>scm:git:git://github.com/nawforce/apex-parser.git</developerConnection>
-    <url>http://github.com/nawforce/apex-parser.git</url>
+    <connection>scm:git:git://github.com/apex-dev-tools/apex-parser.git</connection>
+    <developerConnection>scm:git:git://github.com/apex-dev-tools/apex-parser.git</developerConnection>
+    <url>http://github.com/apex-dev-tools/apex-parser.git</url>
   </scm>
 
   <!-- https://central.sonatype.org/pages/ossrh-guide.html -->

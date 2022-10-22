@@ -20,21 +20,21 @@ public class ApexLexerTest {
 
     @Test
     void testCaseInsensitivityLowerCase() throws IOException {
-        ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(new StringReader("public")));
+        ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("public")));
         CommonTokenStream tokens  = new CommonTokenStream(lexer);
         assertEquals(2, tokens.getNumberOfOnChannelTokens());
     }
 
     @Test
     void testCaseInsensitivityUpperCase() throws IOException {
-        ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(new StringReader("PUBLIC")));
+        ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("PUBLIC")));
         CommonTokenStream tokens  = new CommonTokenStream(lexer);
         assertEquals(2, tokens.getNumberOfOnChannelTokens());
     }
 
     @Test
     void testCaseInsensitivityMixedCase() throws IOException {
-        ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(new StringReader("PuBliC")));
+        ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("PuBliC")));
         CommonTokenStream tokens  = new CommonTokenStream(lexer);
         assertEquals(2, tokens.getNumberOfOnChannelTokens());
     }

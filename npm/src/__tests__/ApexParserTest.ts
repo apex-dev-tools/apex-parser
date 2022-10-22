@@ -1,88 +1,76 @@
-import { ApexLexer } from "../ApexLexer";
-import { ApexParser, LiteralContext, Arth1ExpressionContext } from "../ApexParser";
-import { CaseInsensitiveInputStream } from "../CaseInsensitiveInputStream"
-import { CharStreams, CommonTokenStream } from 'antlr4ts';
+import {
+    LiteralContext, Arth1ExpressionContext, CompilationUnitContext,
+    QueryContext, StatementContext, TriggerUnitContext
+} from "../ApexParser";
 import { ThrowingErrorListener, SyntaxException } from "../ThrowingErrorListener";
+import { createParser } from "./SyntaxErrorCounter";
 
 test('Boolean Literal', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("true")));
-    const tokens  = new CommonTokenStream(lexer);
 
-    const parser = new ApexParser(tokens)
+    const [parser, errorCounter] = createParser("true")
     const context = parser.literal()
 
+    expect(errorCounter.getNumErrors()).toEqual(0)
     expect(context).toBeInstanceOf(LiteralContext)
     expect(context.BooleanLiteral()).toBeTruthy()
     expect(context.BooleanLiteral().text).toBe("true")
 })
 
 test('Expression', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("a * 5")));
-    const tokens  = new CommonTokenStream(lexer);
-
-    const parser = new ApexParser(tokens)
+    const [parser, errorCounter] = createParser("a * 5")
     const context = parser.expression()
 
+    expect(errorCounter.getNumErrors()).toEqual(0)
     expect(context).toBeInstanceOf(Arth1ExpressionContext)
-
     const arthExpression = context as Arth1ExpressionContext
     expect(arthExpression.expression().length).toBe(2)
 })
 
 test('Compilation Unit', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString( "public class Hello {}")));
-    const tokens  = new CommonTokenStream(lexer);
+    const [parser, errorCounter] = createParser("public class Hello {}")
 
-    const parser = new ApexParser(tokens)
     const context = parser.compilationUnit()
 
-    expect(context.typeDeclaration).toBeTruthy()
+    expect(context).toBeInstanceOf(CompilationUnitContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
 })
 
 test('Compilation Unit (case insensitive)', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString( "Public CLASS Hello {}")));
-    const tokens  = new CommonTokenStream(lexer);
+    const [parser, errorCounter] = createParser("Public CLASS Hello {}")
 
-    const parser = new ApexParser(tokens)
     const context = parser.compilationUnit()
 
-    expect(context.typeDeclaration).toBeTruthy()
+    expect(context).toBeInstanceOf(CompilationUnitContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
 })
 
 test('Compilation Unit (bug test)', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString(`public class Hello {
+    const [parser, errorCounter] = createParser(`public class Hello {
         public testMethod void func() {
             System.runAs(u) {
             }
         }
-    }`)));
-    const tokens  = new CommonTokenStream(lexer);
-
-    const parser = new ApexParser(tokens)
+    }`)
     const context = parser.compilationUnit()
 
-    expect(context.typeDeclaration).toBeTruthy()
+    expect(context).toBeInstanceOf(CompilationUnitContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
 })
 
 test('Compilation Unit (inline SOQL)', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString( `public class Hello {
+    const [parser, errorCounter] = createParser(`public class Hello {
         public void func() {
             List<Account> accounts = [Select Id from Accounts];
         }
-    }`)));
-    const tokens  = new CommonTokenStream(lexer);
-
-    const parser = new ApexParser(tokens)
+    }`)
     const context = parser.compilationUnit()
 
-    expect(context.typeDeclaration).toBeTruthy()
+    expect(context).toBeInstanceOf(CompilationUnitContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
 })
 
 test('Compilation Unit (throwing errors)', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("public class Hello {")));
-    const tokens  = new CommonTokenStream(lexer);
-
-    const parser = new ApexParser(tokens)
+    const [parser] = createParser("public class Hello {")
 
     parser.removeErrorListeners()
     parser.addErrorListener(new ThrowingErrorListener());
@@ -90,89 +78,118 @@ test('Compilation Unit (throwing errors)', () => {
     try {
         parser.compilationUnit()
         expect(true).toBe(false)
-    }  catch (ex) {
+    } catch (ex) {
         expect(ex).toBeInstanceOf(SyntaxException)
     }
 })
 
 test('Trigger Unit', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("trigger test on Account (before update, after update) {}")));
-    const tokens  = new CommonTokenStream(lexer);
-
-    const parser = new ApexParser(tokens)
+    const [parser, errorCounter] = createParser("trigger test on Account (before update, after update) {}")
     const context = parser.triggerUnit()
 
-    expect(context).toBeTruthy()
+    expect(context).toBeInstanceOf(TriggerUnitContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
 })
 
 test('SOQL Query', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("Select Id from Account")));
-    const tokens  = new CommonTokenStream(lexer);
-
-    const parser = new ApexParser(tokens)
+    const [parser, errorCounter] = createParser("Select Id from Account")
     const context = parser.query()
 
-    expect(context).toBeTruthy()
+    expect(context).toBeInstanceOf(QueryContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
 })
 
 test('SOQL Query Using Field function', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("Select Fields(All) from Account")));
-    const tokens  = new CommonTokenStream(lexer);
+    const [parser, errorCounter] = createParser("Select Fields(All) from Account")
 
-    const parser = new ApexParser(tokens)
     const context = parser.query()
 
-    expect(context).toBeTruthy()
-})
-
-
-test('SOSL Query', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("[Find {something} RETURNING Account]")));
-    const tokens  = new CommonTokenStream(lexer);
-
-    const parser = new ApexParser(tokens)
-    const context = parser.soslLiteral()
-
-    expect(context).toBeTruthy()
+    expect(context).toBeInstanceOf(QueryContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
 })
 
 test('CurrencyLiteral', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("SELECT Id FROM Account WHERE Amount > USD100.01 AND Amount < USD200")));
-    const tokens  = new CommonTokenStream(lexer);
+    const [parser, errorCounter] = createParser("SELECT Id FROM Account WHERE Amount > USD100.01 AND Amount < USD200")
 
-    const parser = new ApexParser(tokens)
     const context = parser.query()
 
-    expect(context).toBeTruthy()
+    expect(context).toBeInstanceOf(QueryContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
 })
 
 test('IdentifiersThatCouldBeCurrencyLiterals', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString( "USD100.name = 'name';")));
-    const tokens  = new CommonTokenStream(lexer);
+    const [parser, errorCounter] = createParser("USD100.name = 'name';")
 
-    const parser = new ApexParser(tokens)
     const context = parser.statement()
 
-    expect(context).toBeTruthy()
+    expect(context).toBeInstanceOf(StatementContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
 })
 
 test('DateTimeLiteral', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("SELECT Name, (SELECT Id FROM Account WHERE createdDate > 2020-01-01T12:00:00Z) FROM Opportunity")));
-    const tokens  = new CommonTokenStream(lexer);
+    const [parser, errorCounter] = createParser("SELECT Name, (SELECT Id FROM Account WHERE createdDate > 2020-01-01T12:00:00Z) FROM Opportunity")
 
-    const parser = new ApexParser(tokens)
     const context = parser.query()
 
-    expect(context).toBeTruthy()
+    expect(context).toBeInstanceOf(QueryContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
 })
 
 test('testNegativeNumericLiteral', () => {
-    const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("SELECT Name FROM Opportunity WHERE Value = -100.123")));
-    const tokens  = new CommonTokenStream(lexer);
+    const [parser, errorCounter] = createParser("SELECT Name FROM Opportunity WHERE Value = -100.123")
 
-    const parser = new ApexParser(tokens)
     const context = parser.query()
 
-    expect(context).toBeTruthy()
+    expect(context).toBeInstanceOf(QueryContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
 })
 
+test('testLastQuarterKeyword', () => {
+    const [parser, errorCounter] = createParser("SELECT Id FROM Account WHERE DueDate = LAST_QUARTER")
+
+    const context = parser.query()
+
+    expect(context).toBeInstanceOf(QueryContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
+})
+
+test('testSemiAllowedAsWhileBody', () => {
+    const [parser, errorCounter] = createParser("while (x++ < 10 && !(y-- < 0));")
+
+    const context = parser.statement()
+
+    expect(context).toBeInstanceOf(StatementContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
+})
+
+test('testSemiAllowedAsForBody', () => {
+    const [parser, errorCounter] = createParser("for(x=0; x<10; x++);")
+
+    const context = parser.statement()
+
+    expect(context).toBeInstanceOf(StatementContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
+})
+
+test('testSemiDisallowedAsGeneralStatement', () => {
+    const [parser, errorCounter] = createParser("if (x == 3); else { ; }")
+
+    const context = parser.statement()
+
+    expect(context).toBeInstanceOf(StatementContext)
+    expect(errorCounter.getNumErrors()).toEqual(1)
+})
+
+test('testWhenLiteralParens', () => {
+    const [parser, errorCounter] = createParser(`
+    switch on (x) {
+        when 1 { return 1; }
+        when ((2)) { return 2; }
+        when (3), (4) { return 3; }
+     }`);
+
+    const context = parser.statement()
+
+    expect(context).toBeInstanceOf(StatementContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
+})

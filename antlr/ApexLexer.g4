@@ -363,7 +363,6 @@ DIV             : '/';
 BITAND          : '&';
 BITOR           : '|';
 CARET           : '^';
-MOD             : '%';
 MAPTO           : '=>';
 
 ADD_ASSIGN      : '+=';
@@ -373,7 +372,6 @@ DIV_ASSIGN      : '/=';
 AND_ASSIGN      : '&=';
 OR_ASSIGN       : '|=';
 XOR_ASSIGN      : '^=';
-MOD_ASSIGN      : '%=';
 LSHIFT_ASSIGN   : '<<=';
 RSHIFT_ASSIGN   : '>>=';
 URSHIFT_ASSIGN  : '>>>=';

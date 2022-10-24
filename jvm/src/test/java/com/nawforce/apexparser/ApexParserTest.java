@@ -73,59 +73,6 @@ public class ApexParserTest {
     }
 
     @Test
-    void testSOQL() {
-        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser("Select Fields(All) from Account");
-        ApexParser.QueryContext context = parserAndCounter.getKey().query();
-        assertNotNull(context);
-        assertEquals(0, parserAndCounter.getValue().getNumErrors());
-    }
-
-    @Test
-    void testCurrencyLiteral() {
-        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
-                "SELECT Id FROM Account WHERE Amount > USD100.01 AND Amount < USD200");
-        ApexParser.QueryContext context = parserAndCounter.getKey().query();
-        assertNotNull(context);
-        assertEquals(0, parserAndCounter.getValue().getNumErrors());
-    }
-
-    @Test
-    void testIdentifiersThatCouldBeCurrencyLiterals() {
-        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
-                "USD100.name = 'name';");
-        ApexParser.StatementContext context = parserAndCounter.getKey().statement();
-        assertNotNull(context);
-        assertEquals(0, parserAndCounter.getValue().getNumErrors());
-    }
-
-    @Test
-    void testDateTimeLiteral() {
-        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
-                "SELECT Name, (SELECT Id FROM Account WHERE createdDate > 2020-01-01T12:00:00Z) FROM Opportunity");
-        ApexParser.QueryContext context = parserAndCounter.getKey().query();
-        assertNotNull(context);
-        assertEquals(0, parserAndCounter.getValue().getNumErrors());
-    }
-
-    @Test
-    void testNegativeNumericLiteral() {
-        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
-                "SELECT Name FROM Opportunity WHERE Value = -100.123");
-        ApexParser.QueryContext context = parserAndCounter.getKey().query();
-        assertNotNull(context);
-        assertEquals(0, parserAndCounter.getValue().getNumErrors());
-    }
-
-    @Test
-    void testLastQuarterKeyword() {
-        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
-                "SELECT Id FROM Account WHERE DueDate = LAST_QUARTER");
-        ApexParser.QueryContext context = parserAndCounter.getKey().query();
-        assertNotNull(context);
-        assertEquals(0, parserAndCounter.getValue().getNumErrors());
-    }
-
-    @Test
     void testSemiAllowedAsWhileBody() {
         Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
                 "while (x++ < 10 && !(y-- < 0));");

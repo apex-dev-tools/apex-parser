@@ -305,14 +305,17 @@ whenLiteral
     | StringLiteral
     | NULL
     | id
+    // Salesforce tolerates paren pairs around each literal,
+    // although this is not explicitly documented.
+    | LPAREN whenLiteral RPAREN
     ;
 
 forStatement
-    : FOR LPAREN forControl RPAREN statement
+    : FOR LPAREN forControl RPAREN (statement | SEMI)
     ;
 
 whileStatement
-    : WHILE parExpression statement
+    : WHILE parExpression (statement | SEMI)
     ;
 
 doWhileStatement
@@ -780,6 +783,10 @@ soqlId
 soslLiteral
     : FindLiteral soslClauses RBRACK
     | LBRACK FIND boundExpression soslClauses RBRACK
+    ;
+
+soslLiteralAlt
+    : FindLiteralAlt soslClauses RBRACK
     ;
 
 soslClauses

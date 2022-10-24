@@ -1,5 +1,6 @@
 package com.nawforce.apexparser;
 
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +28,7 @@ public class ApexVisitorTest {
 
     @Test
     void testVisitorIsVisited() throws IOException {
-        ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(new StringReader(
+        ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString(
                 "public class Hello { public void func(){} }")));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ApexParser parser = new ApexParser(tokens);

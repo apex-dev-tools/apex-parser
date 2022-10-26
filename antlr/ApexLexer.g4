@@ -162,6 +162,8 @@ TRACKING        : 'tracking';
 VIEWSTAT        : 'viewstat';
 CUSTOM          : 'custom';
 STANDARD        : 'standard';
+DISTANCE        : 'distance';
+GEOLOCATION     : 'geolocation';
 
 // SOQL Date functions
 CALENDAR_MONTH      : 'calendar_month';

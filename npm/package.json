@@ -12,7 +12,7 @@
     "antlr4ts": "npm run antlr-build && npm run antlr-patch",
     "antlr-build": "(cd antlr; antlr4ts -visitor -o ../src ApexLexer.g4 ApexParser.g4)",
     "antlr-patch": "node patch",
-    "check": "node -e require(\"./lib/index.js\").check()'"
+    "check": "node -e 'require(\"./lib/index.js\").check()'"
   },
   "files": [
     "lib/**/*"

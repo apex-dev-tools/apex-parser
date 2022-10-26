@@ -26,37 +26,38 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import { resolve } from 'path'
-import * as dir from 'node-dir'
+import { resolve } from "path"
+import * as dir from "node-dir"
 import { ApexLexer } from "./ApexLexer";
-import { ApexParser} from "./ApexParser";
+import { ApexParser } from "./ApexParser";
 import { CaseInsensitiveInputStream } from "./CaseInsensitiveInputStream"
-import { CharStreams, CommonTokenStream } from 'antlr4ts';
+import { CharStreams, CommonTokenStream } from "antlr4ts";
 import { ThrowingErrorListener } from "./ThrowingErrorListener";
-import { readFileSync } from 'fs';
-import { lstatSync } from 'fs';
+import { readFileSync } from "fs";
+import { lstatSync } from "fs";
 
-export * from './ApexLexer'
-export * from './ApexParser'
-export * from './CaseInsensitiveInputStream'
-export * from './ThrowingErrorListener'
-export * from './ApexParserListener'
-export * from './ApexParserVisitor'
-export {CommonTokenStream} from 'antlr4ts'
-export {ParseTreeWalker} from 'antlr4ts/tree/ParseTreeWalker'
+export * from "./ApexLexer"
+export * from "./ApexParser"
+export * from "./CaseInsensitiveInputStream"
+export * from "./ThrowingErrorListener"
+export * from "./ApexParserListener"
+export * from "./ApexParserVisitor"
+export { CommonTokenStream } from "antlr4ts"
+export { ParseTreeWalker } from "antlr4ts/tree/ParseTreeWalker"
 
 export function check(): void {
     const path = resolve(process.argv[1] || process.cwd())
 
-    dir.files(path, function(err, files) {
+    dir.files(path, function (err, files) {
         if (err) throw err;
 
         let parsedCount = 0;
         files.filter(name => name.endsWith(".cls")).forEach(file => {
             if (lstatSync(file).isFile()) {
+                console.log(`Parsing ${file}`);
                 const content = readFileSync(file);
                 const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString(content.toString())));
-                const tokens  = new CommonTokenStream(lexer);
+                const tokens = new CommonTokenStream(lexer);
 
                 const parser = new ApexParser(tokens);
                 parser.removeErrorListeners();

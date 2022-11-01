@@ -1,8 +1,10 @@
 name: Publish to Maven
+
 on:
   release:
-    types: [created]
-  workflow_dispatch:    
+    types: [ released ]
+  workflow_dispatch:
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -12,14 +14,14 @@ jobs:
       - name: Set up Node 14
         uses: actions/setup-node@v3
         with:
-          node-version: 14        
+          node-version: 14
 
       - name: Set up Maven Central Repository
         uses: actions/setup-java@v3
         with:
           java-version: '8'
-          distribution: 'adopt'
-          cache: "maven"
+          distribution: 'temurin'
+          cache: 'maven'
           server-id: ossrh
           server-username: MAVEN_USERNAME
           server-password: MAVEN_TOKEN

@@ -44,35 +44,23 @@ export * from "./ApexParserVisitor"
 export { CommonTokenStream } from "antlr4ts"
 export { ParseTreeWalker } from "antlr4ts/tree/ParseTreeWalker"
 
-interface SfdxProject {
-    packageDirectories?: {
-        path?: string
-    }[]
-}
-
-interface ParseError {
+interface ParseCheckError {
     path: string;
     error: string;
 }
 
-interface CheckProjectResult {
+interface ProjectCheckResult {
     name: string;
-    pkg: string;
-    errors: ParseError[];
+    pkg?: string;
+    errors: ParseCheckError[];
 }
 
-export class SfdxProjectError extends Error {
-    constructor(message: string) {
-        super(message);
-    }
-}
-
-export async function check(pathStr?: string): Promise<ParseError[]> {
+export async function check(pathStr?: string): Promise<ParseCheckError[]> {
     const path = resolve(pathStr || process.argv[1] || process.cwd());
     const files = await dir.promiseFiles(path);
 
     let parsedCount = 0;
-    const errors: ParseError[] = [];
+    const errors: ParseCheckError[] = [];
     files.filter(name => name.endsWith(".cls")).forEach(file => {
         if (lstatSync(file).isFile()) {
             const content = readFileSync(file);
@@ -99,33 +87,29 @@ export async function check(pathStr?: string): Promise<ParseError[]> {
     return errors;
 }
 
-export function checkProject(pathStr?: string): Promise<CheckProjectResult[]> {
+export async function checkProject(pathStr?: string): Promise<ProjectCheckResult[]> {
     const path = resolve(pathStr || process.argv[1] || process.cwd());
     const name = basename(path);
     const project = findProjectFile(path, 1);
+    const packages = getProjectPackages(project);
 
-    if (!project) {
-        throw new SfdxProjectError(`SFDX project not found: "${name}"`);
-    }
-
-    const config: SfdxProject = JSON.parse(readFileSync(project, { encoding: "utf8" }));
-    const packages = config.packageDirectories || [];
     if (packages.length == 0) {
-        throw new SfdxProjectError(`No packages defined in SFDX project: "${name}"`);
+        console.log(`[${name}]: No valid SFDX project, checking all cls files`);
+        return [{
+            name,
+            errors: await check(path)
+        }];
     }
 
     const projectDir = dirname(project);
     return Promise.all(
         packages
-            .filter(p => p.path)
-            .map(async ({ path: pkg }) => {
+            .map(async (pkg) => {
                 console.log(`[${name}]: Checking package "${pkg}"`);
-                const errors = await check(resolve(projectDir, pkg));
-
                 return {
                     name,
                     pkg,
-                    errors
+                    errors: await check(resolve(projectDir, pkg))
                 };
             })
     );
@@ -148,4 +132,17 @@ function findProjectFile(wd: string, depth: number): string | undefined {
         }
     }
     return undefined;
+}
+
+function getProjectPackages(projectFilePath?: string): string[] {
+    if (!projectFilePath) {
+        return [];
+    }
+    const config: {
+        packageDirectories?: {
+            path?: string
+        }[]
+    } = JSON.parse(readFileSync(projectFilePath, { encoding: "utf8" }));
+    const packages = config.packageDirectories || [];
+    return packages.flatMap((p) => p.path ? p.path : []);
 }

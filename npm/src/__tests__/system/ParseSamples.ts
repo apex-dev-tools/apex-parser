@@ -1,6 +1,6 @@
 import { readdirSync, lstatSync } from "fs";
 import { basename, resolve } from "path"
-import { check, SfdxProjectError, checkProject } from "../..";
+import { checkProject } from "../..";
 
 describe("Parse samples", () => {
 
@@ -27,19 +27,8 @@ describe("Parse samples", () => {
     });
 
     test.each(getSamples())("Sample: %s", async (_name, path) => {
-        try {
-            const result = await checkProject(path);
-            expect(result).toMatchSnapshot();
-        } catch (err: unknown) {
-            if (err instanceof SfdxProjectError) {
-                // Not a valid sfdx project, try to parse full dir
-                const errors = await check(path);
-                expect(errors).toMatchSnapshot();
-                // path + res.pkg + res.errors[0].path = path + check.path
-            } else {
-                throw err;
-            }
-        }
+        const result = await checkProject(path);
+        expect(result).toMatchSnapshot();
     }, 10000);
 
 });

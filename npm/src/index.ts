@@ -26,15 +26,14 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import { resolve } from "path"
+import { basename, dirname, resolve, relative } from "path"
 import * as dir from "node-dir"
 import { ApexLexer } from "./ApexLexer";
 import { ApexParser } from "./ApexParser";
 import { CaseInsensitiveInputStream } from "./CaseInsensitiveInputStream"
 import { CharStreams, CommonTokenStream } from "antlr4ts";
 import { ThrowingErrorListener } from "./ThrowingErrorListener";
-import { readFileSync } from "fs";
-import { lstatSync } from "fs";
+import { readdirSync, readFileSync, lstatSync } from "fs";
 
 export * from "./ApexLexer"
 export * from "./ApexParser"
@@ -45,32 +44,108 @@ export * from "./ApexParserVisitor"
 export { CommonTokenStream } from "antlr4ts"
 export { ParseTreeWalker } from "antlr4ts/tree/ParseTreeWalker"
 
-export function check(): void {
-    const path = resolve(process.argv[1] || process.cwd())
+interface SfdxProject {
+    packageDirectories?: {
+        path?: string
+    }[]
+}
 
-    dir.files(path, function (err, files) {
-        if (err) throw err;
+interface ParseError {
+    path: string;
+    error: string;
+}
 
-        let parsedCount = 0;
-        files.filter(name => name.endsWith(".cls")).forEach(file => {
-            if (lstatSync(file).isFile()) {
-                console.log(`Parsing ${file}`);
-                const content = readFileSync(file);
-                const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString(content.toString())));
-                const tokens = new CommonTokenStream(lexer);
+interface CheckProjectResult {
+    name: string;
+    pkg: string;
+    errors: ParseError[];
+}
 
-                const parser = new ApexParser(tokens);
-                parser.removeErrorListeners();
-                parser.addErrorListener(new ThrowingErrorListener());
-                try {
-                    parser.compilationUnit();
-                } catch (err) {
-                    console.log(`Error parsing ${file}`);
-                    console.log(err);
-                }
-                parsedCount += 1;
+export class SfdxProjectError extends Error {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+export async function check(pathStr?: string): Promise<ParseError[]> {
+    const path = resolve(pathStr || process.argv[1] || process.cwd());
+    const files = await dir.promiseFiles(path);
+
+    let parsedCount = 0;
+    const errors: ParseError[] = [];
+    files.filter(name => name.endsWith(".cls")).forEach(file => {
+        if (lstatSync(file).isFile()) {
+            const content = readFileSync(file);
+            const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString(content.toString())));
+            const tokens = new CommonTokenStream(lexer);
+
+            const parser = new ApexParser(tokens);
+            parser.removeErrorListeners();
+            parser.addErrorListener(new ThrowingErrorListener());
+            try {
+                parser.compilationUnit();
+            } catch (err) {
+                console.log(`Error parsing ${file}`);
+                console.log(err);
+                errors.push({
+                    path: relative(path, file),
+                    error: JSON.stringify(err)
+                });
             }
-        })
-        console.log(`Parsed ${parsedCount} files`);
-    })
+            parsedCount += 1;
+        }
+    });
+    console.log(`Parsed ${parsedCount} files in: ${path}`);
+    return errors;
+}
+
+export function checkProject(pathStr?: string): Promise<CheckProjectResult[]> {
+    const path = resolve(pathStr || process.argv[1] || process.cwd());
+    const name = basename(path);
+    const project = findProjectFile(path, 1);
+
+    if (!project) {
+        throw new SfdxProjectError(`SFDX project not found: "${name}"`);
+    }
+
+    const config: SfdxProject = JSON.parse(readFileSync(project, { encoding: "utf8" }));
+    const packages = config.packageDirectories || [];
+    if (packages.length == 0) {
+        throw new SfdxProjectError(`No packages defined in SFDX project: "${name}"`);
+    }
+
+    const projectDir = dirname(project);
+    return Promise.all(
+        packages
+            .filter(p => p.path)
+            .map(async ({ path: pkg }) => {
+                console.log(`[${name}]: Checking package "${pkg}"`);
+                const errors = await check(resolve(projectDir, pkg));
+
+                return {
+                    name,
+                    pkg,
+                    errors
+                };
+            })
+    );
+}
+
+function findProjectFile(wd: string, depth: number): string | undefined {
+    const proj = "sfdx-project.json";
+    const files = readdirSync(wd).filter(i => !(/(^|\/)\.[^\/\.]/g).test(i));
+    if (files.includes(proj)) {
+        return resolve(wd, proj);
+    }
+    if (depth) {
+        const dirs = files.map(f => resolve(wd, f)).filter(f => lstatSync(f).isDirectory())
+        const newDepth = depth - 1;
+        for (const d of dirs) {
+            const p = findProjectFile(d, newDepth);
+            if (p) {
+                return p;
+            }
+        }
+    }
+    return undefined;
 }

@@ -15,13 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Checkout samples repo
-      uses: actions/checkout@v3
-      with:
-        submodules: recursive
-        repository: apex-dev-tools/apex-samples
-        path: apex-samples
-
     - name: Set up Node 14
       uses: actions/setup-node@v3
       with:
@@ -36,6 +29,13 @@ jobs:
 
     - name: Build & Test
       run: npm run build
+
+    - name: Checkout samples repo
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        repository: apex-dev-tools/apex-samples
+        path: apex-samples
 
     - name: System Test
       run: npm run test-samples

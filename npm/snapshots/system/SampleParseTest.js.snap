@@ -1,0 +1,1186 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Parse samples Sample: ActionPlansV4 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "ActionPlansV4",
+    "pkg": "sfdx-source/LabsActionPlans",
+  },
+  Object {
+    "errors": Array [],
+    "name": "ActionPlansV4",
+    "pkg": "sfdx-source/unmanaged",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Angular 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Angular",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Apex-Opensource-Library 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Apex-Opensource-Library",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Apex-XML-Serializer 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Apex-XML-Serializer",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Apex-for-Xero 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Apex-for-Xero",
+  },
+]
+`;
+
+exports[`Parse samples Sample: ApexTestKit 1`] = `
+Array [
+  Object {
+    "errors": Array [
+      Object {
+        "error": "{\\"line\\":614,\\"column\\":87,\\"message\\":\\"mismatched input 'void' expecting {'after', 'before', 'get', 'inherited', 'instanceof', 'new', 'null', 'set', 'sharing', 'super', 'switch', 'this', 'transient', 'trigger', 'when', 'with', 'without', 'list', 'map', 'select', 'count', 'from', 'as', 'using', 'scope', 'where', 'order', 'by', 'limit', 'and', 'or', 'not', 'avg', 'count_distinct', 'min', 'max', 'sum', 'typeof', 'end', 'then', 'like', 'in', 'includes', 'excludes', 'asc', 'desc', 'nulls', 'first', 'last', 'group', 'all', 'rows', 'view', 'having', 'rollup', 'tolabel', 'offset', 'data', 'category', 'at', 'above', 'below', 'above_or_below', 'security_enforced', 'reference', 'cube', 'format', 'tracking', 'viewstat', 'custom', 'standard', 'distance', 'geolocation', 'calendar_month', 'calendar_quarter', 'calendar_year', 'day_in_month', 'day_in_week', 'day_in_year', 'day_only', 'fiscal_month', 'fiscal_quarter', 'fiscal_year', 'hour_in_day', 'week_in_month', 'week_in_year', 'converttimezone', 'yesterday', 'today', 'tomorrow', 'last_week', 'this_week', 'next_week', 'last_month', 'this_month', 'next_month', 'last_90_days', 'next_90_days', 'last_n_days', 'next_n_days', 'next_n_weeks', 'last_n_weeks', 'next_n_months', 'last_n_months', 'this_quarter', 'last_quarter', 'next_quarter', 'next_n_quarters', 'last_n_quarters', 'this_year', 'last_year', 'next_year', 'next_n_years', 'last_n_years', 'this_fiscal_quarter', 'last_fiscal_quarter', 'next_fiscal_quarter', 'next_n_fiscal_quarters', 'last_n_fiscal_quarters', 'this_fiscal_year', 'last_fiscal_year', 'next_fiscal_year', 'next_n_fiscal_years', 'last_n_fiscal_years', IntegralCurrencyLiteral, 'find', 'email', 'name', 'phone', 'sidebar', 'fields', 'metadata', 'pricebookid', 'network', 'snippet', 'target_length', 'division', 'returning', 'listview', FindLiteral, IntegerLiteral, LongLiteral, NumberLiteral, BooleanLiteral, StringLiteral, '(', '[', '!', '~', '++', '--', '+', '-', Identifier}\\"}",
+        "path": "main/classes/ATKMock.cls",
+      },
+    ],
+    "name": "ApexTestKit",
+    "pkg": "apex-test-kit",
+  },
+]
+`;
+
+exports[`Parse samples Sample: ApexTriggerHandler 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "ApexTriggerHandler",
+    "pkg": "apex-trigger-handler",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Automated-Testing-for-Force 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Automated-Testing-for-Force",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Centralized-Salesforce-Dev-Framework 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Centralized-Salesforce-Dev-Framework",
+  },
+]
+`;
+
+exports[`Parse samples Sample: ConnectApiHelper 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "ConnectApiHelper",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Cumulus 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Cumulus",
+    "pkg": "Cumulus/force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: CustomMetadataLoader 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "CustomMetadataLoader",
+  },
+]
+`;
+
+exports[`Parse samples Sample: EDA 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "EDA",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: EnhancedLightningGrid 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "EnhancedLightningGrid",
+  },
+]
+`;
+
+exports[`Parse samples Sample: FindNearby 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "FindNearby",
+    "pkg": "FindNearBy/src",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Force.com-Helper-Classes 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Force.com-Helper-Classes",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Force.com-Toolkit-for-Facebook 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Force.com-Toolkit-for-Facebook",
+  },
+]
+`;
+
+exports[`Parse samples Sample: ForceDotComSprintWall 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "ForceDotComSprintWall",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Forceea-data-factory 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Forceea-data-factory",
+  },
+]
+`;
+
+exports[`Parse samples Sample: FormulaShare-DX 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "FormulaShare-DX",
+    "pkg": "fs-core",
+  },
+  Object {
+    "errors": Array [],
+    "name": "FormulaShare-DX",
+    "pkg": "./fs-sample-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: HEDAP 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "HEDAP",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: HyperBatch 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "HyperBatch",
+    "pkg": "HyperBatch/src",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Interactions-for-Student-Recruitment 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Interactions-for-Student-Recruitment",
+    "pkg": "extra",
+  },
+  Object {
+    "errors": Array [],
+    "name": "Interactions-for-Student-Recruitment",
+    "pkg": "Interactions-for-Student-Recruitment/src",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Lightweight-Trigger-Framework 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Lightweight-Trigger-Framework",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Milestones-PM 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Milestones-PM",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Multi-File-Uploader-Force 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Multi-File-Uploader-Force",
+  },
+]
+`;
+
+exports[`Parse samples Sample: MyTriggers 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "MyTriggers",
+    "pkg": "MyTriggers",
+  },
+  Object {
+    "errors": Array [],
+    "name": "MyTriggers",
+    "pkg": "./MyTriggers",
+  },
+]
+`;
+
+exports[`Parse samples Sample: NPSP 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "NPSP",
+    "pkg": "NPSP/force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: NebulaLogger 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "NebulaLogger",
+    "pkg": "./nebula-logger/core",
+  },
+  Object {
+    "errors": Array [],
+    "name": "NebulaLogger",
+    "pkg": "./nebula-logger/plugins/async-failure-additions/plugin",
+  },
+  Object {
+    "errors": Array [],
+    "name": "NebulaLogger",
+    "pkg": "./nebula-logger/plugins/big-object-archiving/plugin",
+  },
+  Object {
+    "errors": Array [],
+    "name": "NebulaLogger",
+    "pkg": "./nebula-logger/plugins/log-retention-rules/plugin",
+  },
+  Object {
+    "errors": Array [],
+    "name": "NebulaLogger",
+    "pkg": "./nebula-logger/plugins/logger-admin-dashboard/plugin",
+  },
+  Object {
+    "errors": Array [],
+    "name": "NebulaLogger",
+    "pkg": "./nebula-logger/plugins/slack/plugin",
+  },
+  Object {
+    "errors": Array [],
+    "name": "NebulaLogger",
+    "pkg": "./nebula-logger/extra-tests",
+  },
+  Object {
+    "errors": Array [],
+    "name": "NebulaLogger",
+    "pkg": "./nebula-logger/recipes",
+  },
+]
+`;
+
+exports[`Parse samples Sample: ObjectMerge 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "ObjectMerge",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Query.apex 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Query.apex",
+  },
+]
+`;
+
+exports[`Parse samples Sample: R-apex 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "R-apex",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: SFDCRules 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "SFDCRules",
+  },
+]
+`;
+
+exports[`Parse samples Sample: SObjectFabricator 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "SObjectFabricator",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Salesforce-Lookup-Rollup-Summaries 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Salesforce-Lookup-Rollup-Summaries",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Salesforce-Test-Factory 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Salesforce-Test-Factory",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: SalesforceDurableStreamingDemo 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "SalesforceDurableStreamingDemo",
+  },
+]
+`;
+
+exports[`Parse samples Sample: SimpleLightningComponents 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "SimpleLightningComponents",
+  },
+]
+`;
+
+exports[`Parse samples Sample: SmartFactory-for-Force 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "SmartFactory-for-Force",
+  },
+]
+`;
+
+exports[`Parse samples Sample: TestDataFactory 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "TestDataFactory",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: TriggerX 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "TriggerX",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Visualforce-Multiselect-Picklist 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Visualforce-Multiselect-Picklist",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Volunteers-for-Salesforce 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Volunteers-for-Salesforce",
+    "pkg": "src",
+  },
+]
+`;
+
+exports[`Parse samples Sample: Zippex 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "Zippex",
+  },
+]
+`;
+
+exports[`Parse samples Sample: amoss 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "amoss",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: apex-dml-manager 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "apex-dml-manager",
+  },
+]
+`;
+
+exports[`Parse samples Sample: apex-domainbuilder 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "apex-domainbuilder",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: apex-lambda 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "apex-lambda",
+    "pkg": "sfdx-source/apex-fp",
+  },
+]
+`;
+
+exports[`Parse samples Sample: apex-mdapi 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "apex-mdapi",
+  },
+]
+`;
+
+exports[`Parse samples Sample: apex-query-builder 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "apex-query-builder",
+  },
+]
+`;
+
+exports[`Parse samples Sample: apex-recipes 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "apex-recipes",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: apex-rest-route 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "apex-rest-route",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: apex-rollup 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "apex-rollup",
+    "pkg": "rollup",
+  },
+  Object {
+    "errors": Array [],
+    "name": "apex-rollup",
+    "pkg": "plugins/CustomObjectRollupLogger",
+  },
+  Object {
+    "errors": Array [],
+    "name": "apex-rollup",
+    "pkg": "plugins/NebulaLogger",
+  },
+  Object {
+    "errors": Array [],
+    "name": "apex-rollup",
+    "pkg": "plugins/RollupCallback",
+  },
+  Object {
+    "errors": Array [
+      Object {
+        "error": "{\\"line\\":646,\\"column\\":142,\\"message\\":\\"extraneous input 'N_QUARTERS_AGO' expecting {'null', 'yesterday', 'today', 'tomorrow', 'last_week', 'this_week', 'next_week', 'last_month', 'this_month', 'next_month', 'last_90_days', 'next_90_days', 'last_n_days', 'next_n_days', 'next_n_weeks', 'last_n_weeks', 'next_n_months', 'last_n_months', 'this_quarter', 'last_quarter', 'next_quarter', 'next_n_quarters', 'last_n_quarters', 'this_year', 'last_year', 'next_year', 'next_n_years', 'last_n_years', 'this_fiscal_quarter', 'last_fiscal_quarter', 'next_fiscal_quarter', 'next_n_fiscal_quarters', 'last_n_fiscal_quarters', 'this_fiscal_year', 'last_fiscal_year', 'next_fiscal_year', 'next_n_fiscal_years', 'last_n_fiscal_years', DateLiteral, DateTimeLiteral, IntegralCurrencyLiteral, IntegerLiteral, NumberLiteral, BooleanLiteral, StringLiteral, '(', ':', '+', '-'}\\"}",
+        "path": "classes/RollupDateLiteralTests.cls",
+      },
+    ],
+    "name": "apex-rollup",
+    "pkg": "extra-tests",
+  },
+  Object {
+    "errors": Array [],
+    "name": "apex-rollup",
+    "pkg": "plugins/ExtraCodeCoverage",
+  },
+]
+`;
+
+exports[`Parse samples Sample: apex-sobjectdataloader 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "apex-sobjectdataloader",
+  },
+]
+`;
+
+exports[`Parse samples Sample: apex-toolingapi 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "apex-toolingapi",
+  },
+]
+`;
+
+exports[`Parse samples Sample: apex-trigger-actions-framework 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "apex-trigger-actions-framework",
+    "pkg": "trigger-actions-framework",
+  },
+]
+`;
+
+exports[`Parse samples Sample: apex-unified-logging 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "apex-unified-logging",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: at4dx 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "at4dx",
+    "pkg": "fflib-apex-mocks/sfdx-source/apex-mocks",
+  },
+  Object {
+    "errors": Array [],
+    "name": "at4dx",
+    "pkg": "fflib-apex-common/sfdx-source/apex-common",
+  },
+  Object {
+    "errors": Array [],
+    "name": "at4dx",
+    "pkg": "force-di/force-di",
+  },
+  Object {
+    "errors": Array [],
+    "name": "at4dx",
+    "pkg": "at4dx/sfdx-source/core",
+  },
+]
+`;
+
+exports[`Parse samples Sample: automation-components 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "automation-components",
+    "pkg": "src-apex-formula-evaluator",
+  },
+  Object {
+    "errors": Array [],
+    "name": "automation-components",
+    "pkg": "src-collections",
+  },
+  Object {
+    "errors": Array [],
+    "name": "automation-components",
+    "pkg": "src-data",
+  },
+  Object {
+    "errors": Array [],
+    "name": "automation-components",
+    "pkg": "src-flows",
+  },
+  Object {
+    "errors": Array [],
+    "name": "automation-components",
+    "pkg": "src-messaging",
+  },
+  Object {
+    "errors": Array [],
+    "name": "automation-components",
+    "pkg": "src-security",
+  },
+  Object {
+    "errors": Array [],
+    "name": "automation-components",
+    "pkg": "src-strings",
+  },
+  Object {
+    "errors": Array [],
+    "name": "automation-components",
+    "pkg": "src-ui",
+  },
+  Object {
+    "errors": Array [],
+    "name": "automation-components",
+    "pkg": "src-utilities",
+  },
+]
+`;
+
+exports[`Parse samples Sample: box-salesforce-sdk 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "box-salesforce-sdk",
+  },
+]
+`;
+
+exports[`Parse samples Sample: declarative-lookup-rollup-summaries 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "declarative-lookup-rollup-summaries",
+    "pkg": "dlrs/libs/fflib-apexmocks",
+  },
+  Object {
+    "errors": Array [],
+    "name": "declarative-lookup-rollup-summaries",
+    "pkg": "dlrs/libs/fflib-common",
+  },
+  Object {
+    "errors": Array [],
+    "name": "declarative-lookup-rollup-summaries",
+    "pkg": "dlrs/libs/lrengine",
+  },
+  Object {
+    "errors": Array [],
+    "name": "declarative-lookup-rollup-summaries",
+    "pkg": "dlrs/libs/metadataservice",
+  },
+  Object {
+    "errors": Array [],
+    "name": "declarative-lookup-rollup-summaries",
+    "pkg": "dlrs/main",
+  },
+  Object {
+    "errors": Array [],
+    "name": "declarative-lookup-rollup-summaries",
+    "pkg": "dlrs/default",
+  },
+  Object {
+    "errors": Array [],
+    "name": "declarative-lookup-rollup-summaries",
+    "pkg": "unpackaged/config/test",
+  },
+]
+`;
+
+exports[`Parse samples Sample: df12-apex-enterprise-patterns 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "df12-apex-enterprise-patterns",
+  },
+]
+`;
+
+exports[`Parse samples Sample: df12-deployment-tools 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "df12-deployment-tools",
+  },
+]
+`;
+
+exports[`Parse samples Sample: dreamhouse-sfdx 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "dreamhouse-sfdx",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: einstein-ai 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "einstein-ai",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: esapi 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "esapi",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: eventlogging 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "eventlogging",
+  },
+]
+`;
+
+exports[`Parse samples Sample: ffhttp-core 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "ffhttp-core",
+  },
+]
+`;
+
+exports[`Parse samples Sample: fflib-apex-common 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "fflib-apex-common",
+    "pkg": "sfdx-source/apex-common",
+  },
+]
+`;
+
+exports[`Parse samples Sample: fflib-apex-common-samplecode 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "fflib-apex-common-samplecode",
+    "pkg": "fflib-apex-mocks/sfdx-source/apex-mocks",
+  },
+  Object {
+    "errors": Array [],
+    "name": "fflib-apex-common-samplecode",
+    "pkg": "fflib-apex-common/sfdx-source/apex-common",
+  },
+  Object {
+    "errors": Array [],
+    "name": "fflib-apex-common-samplecode",
+    "pkg": "fflib-apex-common-samplecode/sfdx-source/apex-common-samplecode",
+  },
+]
+`;
+
+exports[`Parse samples Sample: fflib-apex-mocks 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "fflib-apex-mocks",
+    "pkg": "sfdx-source/apex-mocks",
+  },
+]
+`;
+
+exports[`Parse samples Sample: flowtoolbelt 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "flowtoolbelt",
+    "pkg": "force-app",
+  },
+  Object {
+    "errors": Array [],
+    "name": "flowtoolbelt",
+    "pkg": "force-app-test",
+  },
+]
+`;
+
+exports[`Parse samples Sample: force-di 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "force-di",
+    "pkg": "force-di",
+  },
+]
+`;
+
+exports[`Parse samples Sample: forcedotcom-enterprise-architecture 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "forcedotcom-enterprise-architecture",
+  },
+]
+`;
+
+exports[`Parse samples Sample: forcelog 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "forcelog",
+    "pkg": "src",
+  },
+]
+`;
+
+exports[`Parse samples Sample: grid 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "grid",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: jsonparse 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "jsonparse",
+  },
+]
+`;
+
+exports[`Parse samples Sample: logger 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "logger",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: processBuilderBlocks 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "processBuilderBlocks",
+  },
+]
+`;
+
+exports[`Parse samples Sample: promise 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "promise",
+  },
+]
+`;
+
+exports[`Parse samples Sample: promiseV3 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "promiseV3",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: q 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "q",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: quiz-host-app 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "quiz-host-app",
+    "pkg": "src",
+  },
+]
+`;
+
+exports[`Parse samples Sample: rflib 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "rflib",
+    "pkg": "rflib",
+  },
+  Object {
+    "errors": Array [],
+    "name": "rflib",
+    "pkg": "rflib-fs",
+  },
+  Object {
+    "errors": Array [],
+    "name": "rflib",
+    "pkg": "rflib-tf",
+  },
+]
+`;
+
+exports[`Parse samples Sample: sObject-Remote 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "sObject-Remote",
+  },
+]
+`;
+
+exports[`Parse samples Sample: salesforce-bot-toolkit 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "salesforce-bot-toolkit",
+  },
+]
+`;
+
+exports[`Parse samples Sample: salesforce-limit-monitor 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "salesforce-limit-monitor",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: selector 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "selector",
+  },
+]
+`;
+
+exports[`Parse samples Sample: sendgrid-apex 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "sendgrid-apex",
+  },
+]
+`;
+
+exports[`Parse samples Sample: sf-sandbox-post-copy 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "sf-sandbox-post-copy",
+  },
+]
+`;
+
+exports[`Parse samples Sample: sfdc-convert-attachments-to-chatter-files 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "sfdc-convert-attachments-to-chatter-files",
+  },
+]
+`;
+
+exports[`Parse samples Sample: sfdc-oauth-playground 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "sfdc-oauth-playground",
+  },
+]
+`;
+
+exports[`Parse samples Sample: sfdc-related-files-lightning 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "sfdc-related-files-lightning",
+  },
+]
+`;
+
+exports[`Parse samples Sample: sfdc-trigger-framework 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "sfdc-trigger-framework",
+  },
+]
+`;
+
+exports[`Parse samples Sample: sfdx-mass-action-scheduler 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "sfdx-mass-action-scheduler",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: sfdx-simple 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "sfdx-simple",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: sirono-common 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "sirono-common",
+  },
+]
+`;
+
+exports[`Parse samples Sample: sobject-work-queue 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "sobject-work-queue",
+  },
+]
+`;
+
+exports[`Parse samples Sample: soql-secure 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "soql-secure",
+  },
+]
+`;
+
+exports[`Parse samples Sample: survey-force 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "survey-force",
+    "pkg": "force-app",
+  },
+]
+`;
+
+exports[`Parse samples Sample: twilio-salesforce 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "twilio-salesforce",
+  },
+]
+`;
+
+exports[`Parse samples Sample: user-access-visualization 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "user-access-visualization",
+  },
+]
+`;
+
+exports[`Parse samples Sample: visualforce-table-grid 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "visualforce-table-grid",
+  },
+]
+`;
+
+exports[`Parse samples Sample: visualforce-typeahead 1`] = `
+Array [
+  Object {
+    "errors": Array [],
+    "name": "visualforce-typeahead",
+  },
+]
+`;

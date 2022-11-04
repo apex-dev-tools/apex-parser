@@ -14,7 +14,7 @@
     "antlr-patch": "node patch",
     "check": "node -e 'require(\"./lib/index.js\").check()'",
     "test-samples": "jest lib/__tests__/system/ParseSamples.js",
-    "snapshot": "npm run test-samples -- --updateSnapshot"
+    "test-snapshot": "npm run test-samples -- --updateSnapshot"
   },
   "files": [
     "lib/**/*"

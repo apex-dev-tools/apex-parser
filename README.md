@@ -61,6 +61,18 @@ To build both distributions:
 
     npm run build
 
+## Testing
+
+Unit tests are executed during the respective package builds. The system tests use a collection of sample projects located in the [apex-samples](https://github.com/apex-dev-tools/apex-samples) repository. Follow the README instructions in apex-samples to checkout the submodules or use `git clone --recurse-submodules <repo-url>`. To run the tests:
+
+    # Set SAMPLES env var to samples repo location
+    export SAMPLES=<abs path to apex-samples>
+
+    # Exec test script
+    npm run test-samples
+
+System test failures relating to the snapshots may highlight regressions. Though if an error is expected or the samples have changed, instead use `npm run test-snapshot` to update the snapshots, then commit the changes.
+
 ## History
 
     3.0.0 - Move to @apexdevtools/apex-parser

@@ -33,7 +33,7 @@ import { ApexParser } from "./ApexParser";
 import { CaseInsensitiveInputStream } from "./CaseInsensitiveInputStream"
 import { CharStreams, CommonTokenStream } from "antlr4ts";
 import { ThrowingErrorListener } from "./ThrowingErrorListener";
-import { readdirSync, readFileSync, lstatSync } from "fs";
+import { readdirSync, readFileSync, lstatSync, existsSync } from "fs";
 
 export * from "./ApexLexer"
 export * from "./ApexParser"
@@ -57,9 +57,14 @@ interface ProjectCheckResult {
 
 export async function check(pathStr?: string): Promise<ParseCheckError[]> {
     const path = resolve(pathStr || process.argv[1] || process.cwd());
-    const files = await dir.promiseFiles(path);
+
+    if (!existsSync(path)) {
+        console.log(`Path does not exist, aborting: ${path}`);
+        return [];
+    }
 
     let parsedCount = 0;
+    const files = await dir.promiseFiles(path);
     const errors: ParseCheckError[] = [];
     files.filter(name => name.endsWith(".cls")).forEach(file => {
         if (lstatSync(file).isFile()) {
@@ -144,5 +149,5 @@ function getProjectPackages(projectFilePath?: string): string[] {
         }[]
     } = JSON.parse(readFileSync(projectFilePath, { encoding: "utf8" }));
     const packages = config.packageDirectories || [];
-    return packages.flatMap((p) => p.path ? p.path : []);
+    return packages.flatMap((p) => p.path ? p.path.replace(/\\/g, "/") : []);
 }

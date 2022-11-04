@@ -10,5 +10,6 @@
     "jsx",
     "json",
     "node"
-  ]
+  ],
+  "snapshotResolver": "./snapshots/resolver.js"
 }

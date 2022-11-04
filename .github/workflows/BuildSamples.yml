@@ -30,5 +30,7 @@ jobs:
 
     - name: Parse Samples NPM
       run: |
-        npm run check "$GITHUB_WORKSPACE/apex-samples"
+        npm run test-samples
       working-directory: npm
+      env:
+        SAMPLES: $GITHUB_WORKSPACE/apex-samples

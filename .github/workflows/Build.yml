@@ -38,7 +38,7 @@ jobs:
         path: apex-samples
 
     - name: System Test
-      run: npm run test-samples
+      run: |
+        echo "SAMPLES=$GITHUB_WORKSPACE/apex-samples" >> "$GITHUB_ENV"
+        npm run test-samples
       working-directory: npm
-      env:
-        SAMPLES: $GITHUB_WORKSPACE/apex-samples

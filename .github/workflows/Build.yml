@@ -37,8 +37,9 @@ jobs:
         repository: apex-dev-tools/apex-samples
         path: apex-samples
 
+    - name: Set samples env
+      run: echo "SAMPLES=$GITHUB_WORKSPACE/apex-samples" >> "$GITHUB_ENV"
+
     - name: System Test
-      run: |
-        echo "SAMPLES=$GITHUB_WORKSPACE/apex-samples" >> "$GITHUB_ENV"
-        npm run test-samples
+      run: npm run test-samples
       working-directory: npm

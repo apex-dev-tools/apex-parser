@@ -7,7 +7,7 @@ describe("Parse samples", () => {
     // .each runs first before any hooks like beforeAll
     function getSamples(): string[][] {
         if (!process.env.SAMPLES) {
-            throw new Error("Missing environment variable with path to samples.");
+            throw new Error("Missing environment variable 'SAMPLES' with path to samples.");
         }
         const sampleDir = resolve(process.env.SAMPLES);
         return readdirSync(sampleDir)

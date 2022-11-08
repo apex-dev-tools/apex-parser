@@ -1,11 +1,18 @@
 {
   "compilerOptions": {
     "target": "es2015",
+    "lib": [
+      "es2019"
+    ],
     "module": "commonjs",
     "sourceMap": true,
     "declaration": true,
     "rootDir": "src",
     "outDir": "lib",
     "allowJs": true
-  }
+  },
+  "exclude": [
+    "lib",
+    "snapshots"
+  ]
 }

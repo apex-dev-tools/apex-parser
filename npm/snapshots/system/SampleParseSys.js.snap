@@ -55,12 +55,7 @@ Array [
 exports[`Parse samples Sample: ApexTestKit 1`] = `
 Array [
   Object {
-    "errors": Array [
-      Object {
-        "error": "{\\"line\\":614,\\"column\\":87,\\"message\\":\\"mismatched input 'void' expecting {'after', 'before', 'get', 'inherited', 'instanceof', 'new', 'null', 'set', 'sharing', 'super', 'switch', 'this', 'transient', 'trigger', 'when', 'with', 'without', 'list', 'map', 'select', 'count', 'from', 'as', 'using', 'scope', 'where', 'order', 'by', 'limit', 'and', 'or', 'not', 'avg', 'count_distinct', 'min', 'max', 'sum', 'typeof', 'end', 'then', 'like', 'in', 'includes', 'excludes', 'asc', 'desc', 'nulls', 'first', 'last', 'group', 'all', 'rows', 'view', 'having', 'rollup', 'tolabel', 'offset', 'data', 'category', 'at', 'above', 'below', 'above_or_below', 'security_enforced', 'reference', 'cube', 'format', 'tracking', 'viewstat', 'custom', 'standard', 'distance', 'geolocation', 'calendar_month', 'calendar_quarter', 'calendar_year', 'day_in_month', 'day_in_week', 'day_in_year', 'day_only', 'fiscal_month', 'fiscal_quarter', 'fiscal_year', 'hour_in_day', 'week_in_month', 'week_in_year', 'converttimezone', 'yesterday', 'today', 'tomorrow', 'last_week', 'this_week', 'next_week', 'last_month', 'this_month', 'next_month', 'last_90_days', 'next_90_days', 'last_n_days', 'next_n_days', 'next_n_weeks', 'last_n_weeks', 'next_n_months', 'last_n_months', 'this_quarter', 'last_quarter', 'next_quarter', 'next_n_quarters', 'last_n_quarters', 'this_year', 'last_year', 'next_year', 'next_n_years', 'last_n_years', 'this_fiscal_quarter', 'last_fiscal_quarter', 'next_fiscal_quarter', 'next_n_fiscal_quarters', 'last_n_fiscal_quarters', 'this_fiscal_year', 'last_fiscal_year', 'next_fiscal_year', 'next_n_fiscal_years', 'last_n_fiscal_years', IntegralCurrencyLiteral, 'find', 'email', 'name', 'phone', 'sidebar', 'fields', 'metadata', 'pricebookid', 'network', 'snippet', 'target_length', 'division', 'returning', 'listview', FindLiteral, IntegerLiteral, LongLiteral, NumberLiteral, BooleanLiteral, StringLiteral, '(', '[', '!', '~', '++', '--', '+', '-', Identifier}\\"}",
-        "path": "main/classes/ATKMock.cls",
-      },
-    ],
+    "errors": Array [],
     "name": "ApexTestKit",
     "pkg": "apex-test-kit",
   },
@@ -575,12 +570,7 @@ Array [
     "pkg": "plugins/RollupCallback",
   },
   Object {
-    "errors": Array [
-      Object {
-        "error": "{\\"line\\":646,\\"column\\":142,\\"message\\":\\"extraneous input 'N_QUARTERS_AGO' expecting {'null', 'yesterday', 'today', 'tomorrow', 'last_week', 'this_week', 'next_week', 'last_month', 'this_month', 'next_month', 'last_90_days', 'next_90_days', 'last_n_days', 'next_n_days', 'next_n_weeks', 'last_n_weeks', 'next_n_months', 'last_n_months', 'this_quarter', 'last_quarter', 'next_quarter', 'next_n_quarters', 'last_n_quarters', 'this_year', 'last_year', 'next_year', 'next_n_years', 'last_n_years', 'this_fiscal_quarter', 'last_fiscal_quarter', 'next_fiscal_quarter', 'next_n_fiscal_quarters', 'last_n_fiscal_quarters', 'this_fiscal_year', 'last_fiscal_year', 'next_fiscal_year', 'next_n_fiscal_years', 'last_n_fiscal_years', DateLiteral, DateTimeLiteral, IntegralCurrencyLiteral, IntegerLiteral, NumberLiteral, BooleanLiteral, StringLiteral, '(', ':', '+', '-'}\\"}",
-        "path": "classes/RollupDateLiteralTests.cls",
-      },
-    ],
+    "errors": Array [],
     "name": "apex-rollup",
     "pkg": "extra-tests",
   },

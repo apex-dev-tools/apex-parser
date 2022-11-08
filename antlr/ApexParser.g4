@@ -469,6 +469,7 @@ primary
     | SUPER                                                                                          # superPrimary
     | literal                                                                                        # literalPrimary
     | typeRef DOT CLASS                                                                              # typeRefPrimary
+    | VOID DOT CLASS                                                                                 # voidPrimary
     | id                                                                                             # idPrimary
     | soqlLiteral                                                                                    # soqlPrimary
     | soslLiteral                                                                                    # soslPrimary

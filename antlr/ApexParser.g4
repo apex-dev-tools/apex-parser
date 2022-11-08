@@ -436,7 +436,7 @@ expression
     | expression (INC | DEC)                                                                          # postOpExpression
     | (ADD|SUB|INC|DEC) expression                                                                    # preOpExpression
     | (TILDE|BANG) expression                                                                         # negExpression
-    | expression (MUL|DIV) expression                                                             # arth1Expression
+    | expression (MUL|DIV) expression                                                                 # arth1Expression
     | expression (ADD|SUB) expression                                                                 # arth2Expression
     | expression (LT LT | GT GT GT | GT GT) expression                                                # bitExpression
     | expression (GT | LT) ASSIGN? expression                                                         # cmpExpression

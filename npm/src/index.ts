@@ -49,22 +49,84 @@ interface ParseCheckError {
     error: string;
 }
 
-interface ProjectCheckResult {
-    name: string;
-    pkg?: string;
+interface CheckResult {
+    status: number;
     errors: ParseCheckError[];
 }
 
-export async function check(pathStr?: string): Promise<ParseCheckError[]> {
+interface ProjectCheckResult {
+    name: string;
+    path: string;
+    pkg?: string;
+    status: number;
+    errors: ParseCheckError[];
+}
+
+export async function check(pathStr?: string): Promise<CheckResult> {
     const path = resolve(pathStr || process.argv[1] || process.cwd());
+
+    const result = {
+        status: 0,
+        errors: []
+    };
 
     if (!existsSync(path)) {
         console.log(`Path does not exist, aborting: ${path}`);
-        return [];
+        result.status = 2;
+    } else {
+        try {
+            await parseFiles(path);
+        } catch (err) {
+            console.log(`Error processing: ${path}`);
+            console.log(err);
+            result.status = 1;
+        }
     }
 
-    let parsedCount = 0;
+    process.exitCode = result.status;
+    return result;
+}
+
+export async function checkProject(pathStr?: string): Promise<ProjectCheckResult[]> {
+    const path = resolve(pathStr || process.argv[1] || process.cwd());
+    const name = basename(path);
+    const project = findProjectFile(path, 1);
+    const packages = getProjectPackages(project);
+
+    if (packages.length == 0) {
+        console.log(`[${name}]: No valid SFDX project, checking all cls files`);
+        const result = await check(path)
+        return [{
+            name,
+            path: ".",
+            ...result
+        }];
+    }
+
+    const projectDir = dirname(project);
+    const projectResult = await Promise.all(
+        packages
+            .map(async (pkg) => {
+                console.log(`[${name}]: Checking package "${pkg}"`);
+                const pkgPath = resolve(projectDir, pkg);
+                const result = await check(pkgPath);
+                return {
+                    name,
+                    pkg,
+                    path: relative(path, pkgPath),
+                    ...result
+                };
+            })
+    );
+
+    process.exitCode = Math.max(...projectResult.map(r => r.status));
+    return projectResult;
+}
+
+async function parseFiles(path: string): Promise<ParseCheckError[]> {
     const files = await dir.promiseFiles(path);
+
+    let parsedCount = 0;
     const errors: ParseCheckError[] = [];
     files.filter(name => name.endsWith(".cls")).forEach(file => {
         if (lstatSync(file).isFile()) {
@@ -78,7 +140,7 @@ export async function check(pathStr?: string): Promise<ParseCheckError[]> {
             try {
                 parser.compilationUnit();
             } catch (err) {
-                console.log(`Error parsing ${file}`);
+                console.log(`Error parsing: ${file}`);
                 console.log(err);
                 errors.push({
                     path: relative(path, file),
@@ -88,36 +150,9 @@ export async function check(pathStr?: string): Promise<ParseCheckError[]> {
             parsedCount += 1;
         }
     });
+
     console.log(`Parsed ${parsedCount} files in: ${path}`);
     return errors;
-}
-
-export async function checkProject(pathStr?: string): Promise<ProjectCheckResult[]> {
-    const path = resolve(pathStr || process.argv[1] || process.cwd());
-    const name = basename(path);
-    const project = findProjectFile(path, 1);
-    const packages = getProjectPackages(project);
-
-    if (packages.length == 0) {
-        console.log(`[${name}]: No valid SFDX project, checking all cls files`);
-        return [{
-            name,
-            errors: await check(path)
-        }];
-    }
-
-    const projectDir = dirname(project);
-    return Promise.all(
-        packages
-            .map(async (pkg) => {
-                console.log(`[${name}]: Checking package "${pkg}"`);
-                return {
-                    name,
-                    pkg,
-                    errors: await check(resolve(projectDir, pkg))
-                };
-            })
-    );
 }
 
 function findProjectFile(wd: string, depth: number): string | undefined {

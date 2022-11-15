@@ -5,12 +5,16 @@ Array [
   Object {
     "errors": Array [],
     "name": "ActionPlansV4",
+    "path": "ActionPlansV4/sfdx-source/LabsActionPlans",
     "pkg": "sfdx-source/LabsActionPlans",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "ActionPlansV4",
+    "path": "ActionPlansV4/sfdx-source/unmanaged",
     "pkg": "sfdx-source/unmanaged",
+    "status": 0,
   },
 ]
 `;
@@ -20,6 +24,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Angular",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -29,7 +35,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "Apex-Opensource-Library",
+    "path": "Apex-Opensource-Library/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -39,6 +47,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Apex-XML-Serializer",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -48,6 +58,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Apex-for-Xero",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -57,7 +69,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "ApexTestKit",
+    "path": "ApexTestKit/apex-test-kit",
     "pkg": "apex-test-kit",
+    "status": 0,
   },
 ]
 `;
@@ -67,7 +81,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "ApexTriggerHandler",
+    "path": "ApexTriggerHandler/apex-trigger-handler",
     "pkg": "apex-trigger-handler",
+    "status": 0,
   },
 ]
 `;
@@ -77,6 +93,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Automated-Testing-for-Force",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -86,6 +104,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Centralized-Salesforce-Dev-Framework",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -95,7 +115,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "ConnectApiHelper",
+    "path": "ConnectApiHelper/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -105,7 +127,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "Cumulus",
+    "path": "Cumulus/force-app",
     "pkg": "Cumulus/force-app",
+    "status": 0,
   },
 ]
 `;
@@ -115,6 +139,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "CustomMetadataLoader",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -124,7 +150,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "EDA",
+    "path": "EDA/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -134,6 +162,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "EnhancedLightningGrid",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -143,7 +173,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "FindNearby",
+    "path": "FindNearBy/src",
     "pkg": "FindNearBy/src",
+    "status": 0,
   },
 ]
 `;
@@ -153,6 +185,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Force.com-Helper-Classes",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -162,6 +196,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Force.com-Toolkit-for-Facebook",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -171,6 +207,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "ForceDotComSprintWall",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -180,6 +218,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Forceea-data-factory",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -189,12 +229,16 @@ Array [
   Object {
     "errors": Array [],
     "name": "FormulaShare-DX",
+    "path": "FormulaShare-DX/fs-core",
     "pkg": "fs-core",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "FormulaShare-DX",
+    "path": "FormulaShare-DX/fs-sample-app",
     "pkg": "./fs-sample-app",
+    "status": 0,
   },
 ]
 `;
@@ -204,7 +248,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "HEDAP",
+    "path": "HEDAP/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -214,7 +260,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "HyperBatch",
+    "path": "HyperBatch/src",
     "pkg": "HyperBatch/src",
+    "status": 0,
   },
 ]
 `;
@@ -224,12 +272,16 @@ Array [
   Object {
     "errors": Array [],
     "name": "Interactions-for-Student-Recruitment",
+    "path": "extra",
     "pkg": "extra",
+    "status": 2,
   },
   Object {
     "errors": Array [],
     "name": "Interactions-for-Student-Recruitment",
+    "path": "Interactions-for-Student-Recruitment/src",
     "pkg": "Interactions-for-Student-Recruitment/src",
+    "status": 0,
   },
 ]
 `;
@@ -239,6 +291,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Lightweight-Trigger-Framework",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -248,6 +302,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Milestones-PM",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -257,6 +313,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Multi-File-Uploader-Force",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -266,12 +324,16 @@ Array [
   Object {
     "errors": Array [],
     "name": "MyTriggers",
+    "path": "MyTriggers/MyTriggers",
     "pkg": "MyTriggers",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "MyTriggers",
+    "path": "MyTriggers/MyTriggers",
     "pkg": "./MyTriggers",
+    "status": 0,
   },
 ]
 `;
@@ -281,7 +343,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "NPSP",
+    "path": "NPSP/force-app",
     "pkg": "NPSP/force-app",
+    "status": 0,
   },
 ]
 `;
@@ -291,42 +355,58 @@ Array [
   Object {
     "errors": Array [],
     "name": "NebulaLogger",
+    "path": "NebulaLogger/nebula-logger/core",
     "pkg": "./nebula-logger/core",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "NebulaLogger",
+    "path": "NebulaLogger/nebula-logger/plugins/async-failure-additions/plugin",
     "pkg": "./nebula-logger/plugins/async-failure-additions/plugin",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "NebulaLogger",
+    "path": "NebulaLogger/nebula-logger/plugins/big-object-archiving/plugin",
     "pkg": "./nebula-logger/plugins/big-object-archiving/plugin",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "NebulaLogger",
+    "path": "NebulaLogger/nebula-logger/plugins/log-retention-rules/plugin",
     "pkg": "./nebula-logger/plugins/log-retention-rules/plugin",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "NebulaLogger",
+    "path": "NebulaLogger/nebula-logger/plugins/logger-admin-dashboard/plugin",
     "pkg": "./nebula-logger/plugins/logger-admin-dashboard/plugin",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "NebulaLogger",
+    "path": "NebulaLogger/nebula-logger/plugins/slack/plugin",
     "pkg": "./nebula-logger/plugins/slack/plugin",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "NebulaLogger",
+    "path": "NebulaLogger/nebula-logger/extra-tests",
     "pkg": "./nebula-logger/extra-tests",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "NebulaLogger",
+    "path": "NebulaLogger/nebula-logger/recipes",
     "pkg": "./nebula-logger/recipes",
+    "status": 0,
   },
 ]
 `;
@@ -336,6 +416,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "ObjectMerge",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -345,6 +427,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Query.apex",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -354,7 +438,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "R-apex",
+    "path": "R-apex/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -364,6 +450,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "SFDCRules",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -373,6 +461,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "SObjectFabricator",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -382,6 +472,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Salesforce-Lookup-Rollup-Summaries",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -391,7 +483,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "Salesforce-Test-Factory",
+    "path": "Salesforce-Test-Factory/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -401,6 +495,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "SalesforceDurableStreamingDemo",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -410,6 +506,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "SimpleLightningComponents",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -419,6 +517,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "SmartFactory-for-Force",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -428,7 +528,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "TestDataFactory",
+    "path": "TestDataFactory/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -438,6 +540,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "TriggerX",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -447,6 +551,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Visualforce-Multiselect-Picklist",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -456,7 +562,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "Volunteers-for-Salesforce",
+    "path": "Volunteers-for-Salesforce/src",
     "pkg": "src",
+    "status": 0,
   },
 ]
 `;
@@ -466,6 +574,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Zippex",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -475,7 +585,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "amoss",
+    "path": "amoss/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -485,6 +597,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-dml-manager",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -494,7 +608,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-domainbuilder",
+    "path": "apex-domainbuilder/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -504,7 +620,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-lambda",
+    "path": "apex-lambda/sfdx-source/apex-fp",
     "pkg": "sfdx-source/apex-fp",
+    "status": 0,
   },
 ]
 `;
@@ -514,6 +632,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-mdapi",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -523,6 +643,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-query-builder",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -532,7 +654,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-recipes",
+    "path": "apex-recipes/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -542,7 +666,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-rest-route",
+    "path": "apex-rest-route/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -552,32 +678,44 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-rollup",
+    "path": "apex-rollup/rollup",
     "pkg": "rollup",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "apex-rollup",
+    "path": "apex-rollup/plugins/CustomObjectRollupLogger",
     "pkg": "plugins/CustomObjectRollupLogger",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "apex-rollup",
+    "path": "apex-rollup/plugins/NebulaLogger",
     "pkg": "plugins/NebulaLogger",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "apex-rollup",
+    "path": "apex-rollup/plugins/RollupCallback",
     "pkg": "plugins/RollupCallback",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "apex-rollup",
+    "path": "apex-rollup/extra-tests",
     "pkg": "extra-tests",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "apex-rollup",
+    "path": "apex-rollup/plugins/ExtraCodeCoverage",
     "pkg": "plugins/ExtraCodeCoverage",
+    "status": 0,
   },
 ]
 `;
@@ -587,6 +725,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-sobjectdataloader",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -596,6 +736,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-toolingapi",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -605,7 +747,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-trigger-actions-framework",
+    "path": "apex-trigger-actions-framework/trigger-actions-framework",
     "pkg": "trigger-actions-framework",
+    "status": 0,
   },
 ]
 `;
@@ -615,7 +759,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-unified-logging",
+    "path": "apex-unified-logging/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -625,22 +771,30 @@ Array [
   Object {
     "errors": Array [],
     "name": "at4dx",
+    "path": "fflib-apex-mocks/sfdx-source/apex-mocks",
     "pkg": "fflib-apex-mocks/sfdx-source/apex-mocks",
+    "status": 2,
   },
   Object {
     "errors": Array [],
     "name": "at4dx",
+    "path": "fflib-apex-common/sfdx-source/apex-common",
     "pkg": "fflib-apex-common/sfdx-source/apex-common",
+    "status": 2,
   },
   Object {
     "errors": Array [],
     "name": "at4dx",
+    "path": "force-di/force-di",
     "pkg": "force-di/force-di",
+    "status": 2,
   },
   Object {
     "errors": Array [],
     "name": "at4dx",
+    "path": "at4dx/sfdx-source/core",
     "pkg": "at4dx/sfdx-source/core",
+    "status": 0,
   },
 ]
 `;
@@ -650,47 +804,65 @@ Array [
   Object {
     "errors": Array [],
     "name": "automation-components",
+    "path": "automation-components/src-apex-formula-evaluator",
     "pkg": "src-apex-formula-evaluator",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "automation-components",
+    "path": "automation-components/src-collections",
     "pkg": "src-collections",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "automation-components",
+    "path": "automation-components/src-data",
     "pkg": "src-data",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "automation-components",
+    "path": "automation-components/src-flows",
     "pkg": "src-flows",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "automation-components",
+    "path": "automation-components/src-messaging",
     "pkg": "src-messaging",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "automation-components",
+    "path": "automation-components/src-security",
     "pkg": "src-security",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "automation-components",
+    "path": "automation-components/src-strings",
     "pkg": "src-strings",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "automation-components",
+    "path": "automation-components/src-ui",
     "pkg": "src-ui",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "automation-components",
+    "path": "automation-components/src-utilities",
     "pkg": "src-utilities",
+    "status": 0,
   },
 ]
 `;
@@ -700,6 +872,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "box-salesforce-sdk",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -709,37 +883,51 @@ Array [
   Object {
     "errors": Array [],
     "name": "declarative-lookup-rollup-summaries",
+    "path": "declarative-lookup-rollup-summaries/dlrs/libs/fflib-apexmocks",
     "pkg": "dlrs/libs/fflib-apexmocks",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "declarative-lookup-rollup-summaries",
+    "path": "declarative-lookup-rollup-summaries/dlrs/libs/fflib-common",
     "pkg": "dlrs/libs/fflib-common",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "declarative-lookup-rollup-summaries",
+    "path": "declarative-lookup-rollup-summaries/dlrs/libs/lrengine",
     "pkg": "dlrs/libs/lrengine",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "declarative-lookup-rollup-summaries",
+    "path": "declarative-lookup-rollup-summaries/dlrs/libs/metadataservice",
     "pkg": "dlrs/libs/metadataservice",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "declarative-lookup-rollup-summaries",
+    "path": "declarative-lookup-rollup-summaries/dlrs/main",
     "pkg": "dlrs/main",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "declarative-lookup-rollup-summaries",
+    "path": "declarative-lookup-rollup-summaries/dlrs/default",
     "pkg": "dlrs/default",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "declarative-lookup-rollup-summaries",
+    "path": "declarative-lookup-rollup-summaries/unpackaged/config/test",
     "pkg": "unpackaged/config/test",
+    "status": 0,
   },
 ]
 `;
@@ -749,6 +937,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "df12-apex-enterprise-patterns",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -758,6 +948,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "df12-deployment-tools",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -767,7 +959,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "dreamhouse-sfdx",
+    "path": "dreamhouse-sfdx/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -777,7 +971,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "einstein-ai",
+    "path": "einstein-ai/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -787,7 +983,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "esapi",
+    "path": "esapi/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -797,6 +995,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "eventlogging",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -806,6 +1006,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "ffhttp-core",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -815,7 +1017,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "fflib-apex-common",
+    "path": "fflib-apex-common/sfdx-source/apex-common",
     "pkg": "sfdx-source/apex-common",
+    "status": 0,
   },
 ]
 `;
@@ -825,17 +1029,23 @@ Array [
   Object {
     "errors": Array [],
     "name": "fflib-apex-common-samplecode",
+    "path": "fflib-apex-mocks/sfdx-source/apex-mocks",
     "pkg": "fflib-apex-mocks/sfdx-source/apex-mocks",
+    "status": 2,
   },
   Object {
     "errors": Array [],
     "name": "fflib-apex-common-samplecode",
+    "path": "fflib-apex-common/sfdx-source/apex-common",
     "pkg": "fflib-apex-common/sfdx-source/apex-common",
+    "status": 2,
   },
   Object {
     "errors": Array [],
     "name": "fflib-apex-common-samplecode",
+    "path": "fflib-apex-common-samplecode/sfdx-source/apex-common-samplecode",
     "pkg": "fflib-apex-common-samplecode/sfdx-source/apex-common-samplecode",
+    "status": 0,
   },
 ]
 `;
@@ -845,7 +1055,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "fflib-apex-mocks",
+    "path": "fflib-apex-mocks/sfdx-source/apex-mocks",
     "pkg": "sfdx-source/apex-mocks",
+    "status": 0,
   },
 ]
 `;
@@ -855,12 +1067,16 @@ Array [
   Object {
     "errors": Array [],
     "name": "flowtoolbelt",
+    "path": "flowtoolbelt/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "flowtoolbelt",
+    "path": "flowtoolbelt/force-app-test",
     "pkg": "force-app-test",
+    "status": 0,
   },
 ]
 `;
@@ -870,7 +1086,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "force-di",
+    "path": "force-di/force-di",
     "pkg": "force-di",
+    "status": 0,
   },
 ]
 `;
@@ -880,6 +1098,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "forcedotcom-enterprise-architecture",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -889,7 +1109,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "forcelog",
+    "path": "forcelog/src",
     "pkg": "src",
+    "status": 0,
   },
 ]
 `;
@@ -899,7 +1121,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "grid",
+    "path": "grid/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -909,6 +1133,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "jsonparse",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -918,7 +1144,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "logger",
+    "path": "logger/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -928,6 +1156,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "processBuilderBlocks",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -937,6 +1167,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "promise",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -946,7 +1178,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "promiseV3",
+    "path": "promiseV3/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -956,7 +1190,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "q",
+    "path": "q/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -966,7 +1202,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "quiz-host-app",
+    "path": "quiz-host-app/src",
     "pkg": "src",
+    "status": 0,
   },
 ]
 `;
@@ -976,17 +1214,23 @@ Array [
   Object {
     "errors": Array [],
     "name": "rflib",
+    "path": "rflib/rflib",
     "pkg": "rflib",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "rflib",
+    "path": "rflib/rflib-fs",
     "pkg": "rflib-fs",
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "rflib",
+    "path": "rflib/rflib-tf",
     "pkg": "rflib-tf",
+    "status": 0,
   },
 ]
 `;
@@ -996,6 +1240,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "sObject-Remote",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1005,6 +1251,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "salesforce-bot-toolkit",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1014,7 +1262,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "salesforce-limit-monitor",
+    "path": "salesforce-limit-monitor/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -1024,6 +1274,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "selector",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1033,6 +1285,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "sendgrid-apex",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1042,6 +1296,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "sf-sandbox-post-copy",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1051,6 +1307,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "sfdc-convert-attachments-to-chatter-files",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1060,6 +1318,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "sfdc-oauth-playground",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1069,6 +1329,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "sfdc-related-files-lightning",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1078,6 +1340,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "sfdc-trigger-framework",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1087,7 +1351,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "sfdx-mass-action-scheduler",
+    "path": "sfdx-mass-action-scheduler/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -1097,7 +1363,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "sfdx-simple",
+    "path": "sfdx-simple/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -1107,6 +1375,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "sirono-common",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1116,6 +1386,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "sobject-work-queue",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1125,6 +1397,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "soql-secure",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1134,7 +1408,9 @@ Array [
   Object {
     "errors": Array [],
     "name": "survey-force",
+    "path": "survey-force/force-app",
     "pkg": "force-app",
+    "status": 0,
   },
 ]
 `;
@@ -1144,6 +1420,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "twilio-salesforce",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1153,6 +1431,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "user-access-visualization",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1162,6 +1442,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "visualforce-table-grid",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;
@@ -1171,6 +1453,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "visualforce-typeahead",
+    "path": ".",
+    "status": 0,
   },
 ]
 `;

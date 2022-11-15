@@ -20,8 +20,11 @@ public class Check {
             Files.walkFileTree(dir, parser);
 
             System.out.println("Parsed " + parser.getCount() + " files in: " + dir);
+        } catch (NoSuchFileException nsf) {
+            System.err.println("Path does not exist, aborting: " + args[0]);
+            System.exit(2);
         } catch (Exception ex) {
-            System.err.println("Error processing '" + args[0] + "':");
+            System.err.println("Error processing: " + args[0]);
             ex.printStackTrace();
             System.exit(1);
         }

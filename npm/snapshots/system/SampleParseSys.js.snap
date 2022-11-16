@@ -173,8 +173,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "FindNearby",
-    "path": "FindNearBy/src",
-    "pkg": "FindNearBy/src",
+    "path": "FindNearby/src",
+    "pkg": "FindNearby/src",
     "status": 0,
   },
 ]
@@ -408,6 +408,13 @@ Array [
     "pkg": "./nebula-logger/recipes",
     "status": 0,
   },
+  Object {
+    "errors": Array [],
+    "name": "NebulaLogger",
+    "path": "NebulaLogger/nebula-logger/unsorted",
+    "pkg": "./nebula-logger/unsorted",
+    "status": 0,
+  },
 ]
 `;
 
@@ -461,7 +468,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "SObjectFabricator",
-    "path": ".",
+    "path": "SObjectFabricator/force-app",
+    "pkg": "force-app",
     "status": 0,
   },
 ]
@@ -706,15 +714,15 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-rollup",
-    "path": "apex-rollup/extra-tests",
-    "pkg": "extra-tests",
+    "path": "apex-rollup/plugins/ExtraCodeCoverage",
+    "pkg": "plugins/ExtraCodeCoverage",
     "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "apex-rollup",
-    "path": "apex-rollup/plugins/ExtraCodeCoverage",
-    "pkg": "plugins/ExtraCodeCoverage",
+    "path": "apex-rollup/extra-tests",
+    "pkg": "extra-tests",
     "status": 0,
   },
 ]
@@ -1386,7 +1394,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "sobject-work-queue",
-    "path": ".",
+    "path": "sobject-work-queue/force-app",
+    "pkg": "force-app",
     "status": 0,
   },
 ]

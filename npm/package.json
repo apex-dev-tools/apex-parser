@@ -1,6 +1,6 @@
 {
   "name": "@apexdevtools/apex-parser",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "author": "Apex Dev Tools Team <apexdevtools@gmail.com> (https://github.com/apex-dev-tools)",
   "bugs": "https://github.com/apex-dev-tools/apex-parser/issues",
   "description": "Javascript parser for Salesforce Apex Language",
@@ -10,7 +10,7 @@
     "antlr4ts": "npm run antlr-build && npm run antlr-patch",
     "antlr-build": "(cd antlr; antlr4ts -visitor -o ../src ApexLexer.g4 ApexParser.g4)",
     "antlr-patch": "node patch",
-    "build": "npm run clean && npm run antlr4ts && cp ../README.md . && tsc",
+    "build": "npm run clean && npm run antlr4ts && cp ../*.md . && tsc",
     "check": "node -e 'require(\"./lib/index.js\").check()'",
     "clean": "rm -rf lib",
     "test": "jest --config jestconfig.json lib",

@@ -1,3 +1,4 @@
+import { spawnSync } from "child_process";
 import { readdirSync, lstatSync } from "fs";
 import { basename, resolve } from "path"
 import { checkProject } from "../..";
@@ -17,7 +18,7 @@ describe("Parse samples", () => {
             .map(d => [basename(d), d])
     }
 
-    // Disable jest wrapped logging
+    // disable jest wrapped logging
     const jestConsole = console;
     beforeEach(() => {
         global.console = require("console");
@@ -29,6 +30,44 @@ describe("Parse samples", () => {
     test.each(getSamples())("Sample: %s", async (_name, path) => {
         const result = await checkProject(path);
         expect(result).toMatchSnapshot();
-    }, 10000);
+
+        // run the jvm version of check over same dirs
+        result.forEach(r => {
+            const jvmCheck = spawnSync(
+                "java",
+                [
+                    "-cp",
+                    "jvm/target/dependency/*:jvm/target/apex-parser.jar",
+                    "com.nawforce.apexparser.Check",
+                    resolve(path, r.path)
+                ],
+                {
+                    // can only be run from npm dir
+                    cwd: resolve(process.cwd(), ".."),
+                    timeout: 10000
+                }
+            );
+
+            const errors: string[] = [];
+            const logs: string[] = [];
+            // either >1 or null, truthy check not enough
+            if (jvmCheck.status || jvmCheck.status == null) {
+                logs.push(...jvmCheck.stderr.toString("utf8").split("\n"));
+            } else {
+                jvmCheck.stdout
+                    .toString("utf8")
+                    .split("\n")
+                    .forEach(l => (l.startsWith("{") ? errors : logs).push(l));
+            }
+
+            console.log(logs.filter(l => l).map(s => `(JVM) ${s}`).join("\n"));
+
+            // catch unexpected failures or timeouts
+            expect(jvmCheck.status).toEqual(r.status);
+            // match syntax errors to snapshot value
+            expect(errors.map(j => JSON.parse(j))).toMatchObject(r.errors);
+        });
+
+    }, 15000);
 
 });

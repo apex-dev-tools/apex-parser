@@ -781,21 +781,21 @@ Array [
     "name": "at4dx",
     "path": "fflib-apex-mocks/sfdx-source/apex-mocks",
     "pkg": "fflib-apex-mocks/sfdx-source/apex-mocks",
-    "status": 2,
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "at4dx",
     "path": "fflib-apex-common/sfdx-source/apex-common",
     "pkg": "fflib-apex-common/sfdx-source/apex-common",
-    "status": 2,
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "at4dx",
     "path": "force-di/force-di",
     "pkg": "force-di/force-di",
-    "status": 2,
+    "status": 0,
   },
   Object {
     "errors": Array [],
@@ -1025,8 +1025,15 @@ Array [
   Object {
     "errors": Array [],
     "name": "fflib-apex-common",
+    "path": "fflib-apex-mocks/sfdx-source/apex-mocks",
+    "pkg": "fflib-apex-mocks/sfdx-source/apex-mocks",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "fflib-apex-common",
     "path": "fflib-apex-common/sfdx-source/apex-common",
-    "pkg": "sfdx-source/apex-common",
+    "pkg": "fflib-apex-common/sfdx-source/apex-common",
     "status": 0,
   },
 ]
@@ -1039,14 +1046,14 @@ Array [
     "name": "fflib-apex-common-samplecode",
     "path": "fflib-apex-mocks/sfdx-source/apex-mocks",
     "pkg": "fflib-apex-mocks/sfdx-source/apex-mocks",
-    "status": 2,
+    "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "fflib-apex-common-samplecode",
     "path": "fflib-apex-common/sfdx-source/apex-common",
     "pkg": "fflib-apex-common/sfdx-source/apex-common",
-    "status": 2,
+    "status": 0,
   },
   Object {
     "errors": Array [],

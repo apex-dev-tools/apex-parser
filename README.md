@@ -63,7 +63,7 @@ To build both distributions:
 
 ## Testing
 
-Unit tests are executed during the respective package builds. The system tests require both packages to be built, as the js test also spawns the jar version. They use a collection of sample projects located in the [apex-samples](https://github.com/apex-dev-tools/apex-samples) repository. Follow the README instructions in apex-samples to checkout the submodules or use `git clone -b <latest-tag> --recurse-submodules <repo-url>`. To run the tests:
+Unit tests are executed during the respective package builds. The system tests require both packages to be built, as the js test also spawns the jar version. They use a collection of sample projects located in the [apex-samples](https://github.com/apex-dev-tools/apex-samples) repository. Follow the README instructions in apex-samples to checkout the submodules. To run the tests:
 
     # Set SAMPLES env var to samples repo location
     export SAMPLES=<abs path to apex-samples>

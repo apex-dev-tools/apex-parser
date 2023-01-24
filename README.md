@@ -48,12 +48,12 @@ Maven
     <dependency>
         <groupId>io.github.apex-dev-tools</groupId>
         <artifactId>apex-parser</artifactId>
-        <version>3.0.0</version>
+        <version>3.2.0</version>
     </dependency>
 
 NPM
 
-    "@apexdevtools/apex-parser": "^3.0.0"
+    "@apexdevtools/apex-parser": "^3.2.0"
 
 ## Building
 
@@ -74,30 +74,6 @@ Unit tests are executed during the respective package builds. The system tests r
 System test failures relating to the snapshots may highlight regressions. Though if an error is expected or the samples have changed, instead use `npm run test-snapshot` to update the snapshots, then commit the changes.
 
 The tag version of apex-samples used by builds is set in the [build file](.github/workflows/Build.yml).
-
-## History
-
-    3.0.0 - Move to @apexdevtools/apex-parser
-    2.14.0 - Change npm api to replace ANTLRInputStream with CharStream, for Unicode char positions  
-    2.13.0 - Fixes for negative numerics & Currency literals in SOQL 
-    2.12.0 - Replace deprecated ANTLRInputStream, DateTime & Currency literals fixes (contrib Aaron Hurst) 
-    2.11.0 - Fix for SOQL UPDATE VIEWSTAT/TRACKING & removal of class type arguments
-    2.10.0 - Allow type arguments on Classes (non-standard!)
-    2.9.2 - Generate .d.ts files 
-    2.9.1 - JVM build and npm dependency updates
-    2.9.0 - Add SOQL Fields function
-    2.8.0 - Apex cast priority fix, SOSL & SOQL query format fixes, Added SOQL Date functions 
-    2.7.1 - Bugfix for 'Network' identifier
-    2.7.0 - Support inline SOSL queries
-    2.6.1 - Dependency security fixes
-    2.6.0 - Add SOQL parsing support
-    2.5.0 - Allow safe navigation operator ?.
-    2.4.0 - Enable Listener & Visitor use
-    2.3.0 - Removed modifers from enhanced for loop
-    2.2.1 - Dependency security fixes
-    2.2.0 - Parser performance improvements
-    2.1.0 - Supports trigger parsing and switch statement parsing syntax was corrected
-    1.0.0 - Initial version
 
 ## Source & Licenses
 

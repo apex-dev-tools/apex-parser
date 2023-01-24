@@ -1,5 +1,8 @@
 # apex-parser - Changelog
 
+## 3.2.0 - 2023-01-24
+* Adds user/system mode on DML and within SOQL queries
+
 ## 3.1.0 - 2022-11-17
 
 * Adds DISTANCE and GEOLOCATION literals for SOQL.

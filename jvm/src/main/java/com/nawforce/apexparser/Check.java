@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2022 FinancialForce.com, inc. All rights reserved.
+ */
 package com.nawforce.apexparser;
 
 import org.antlr.v4.runtime.*;

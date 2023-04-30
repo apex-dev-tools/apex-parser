@@ -48,12 +48,12 @@ Maven
     <dependency>
         <groupId>io.github.apex-dev-tools</groupId>
         <artifactId>apex-parser</artifactId>
-        <version>3.2.0</version>
+        <version>3.3.0</version>
     </dependency>
 
 NPM
 
-    "@apexdevtools/apex-parser": "^3.2.0"
+    "@apexdevtools/apex-parser": "^3.3.0"
 
 ## Building
 
@@ -77,4 +77,4 @@ The tag version of apex-samples used by builds is set in the [build file](.githu
 
 ## Source & Licenses
 
-All the source code included uses a 3-clause BSD license. The only third-party component included is the Apex Antlr4 grammar originally from [Tooling-force.com](https://github.com/neowit/tooling-force.com), although this version used is now markedly different from the original.  
+All the source code included uses a 3-clause BSD license. The only third-party component included is the Apex Antlr4 grammar originally from [Tooling-force.com](https://github.com/neowit/tooling-force.com), although this version used is now markedly different from the original.

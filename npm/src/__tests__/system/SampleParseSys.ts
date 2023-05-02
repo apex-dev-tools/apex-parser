@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2022 FinancialForce.com, inc. All rights reserved.
+ */
 import { spawnSync } from "child_process";
 import { readdirSync, lstatSync } from "fs";
 import { basename, resolve } from "path"

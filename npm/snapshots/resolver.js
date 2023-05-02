@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2022 FinancialForce.com, inc. All rights reserved.
+ */
 module.exports = {
 	// resolves from test to snapshot path
 	resolveSnapshotPath: (testPath, snapshotExtension) =>

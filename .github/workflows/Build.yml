@@ -2,45 +2,44 @@ name: Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ '**' ]
+    branches: ["**"]
   workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Node 14
-      uses: actions/setup-node@v3
-      with:
-        node-version: 14
+      - name: Set up Node 14
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
 
-    - name: Set up JDK 8
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: 8
-        cache: 'maven'
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: 8
+          cache: "maven"
 
-    - name: Build & Test
-      run: npm run build
+      - name: Build & Test
+        run: npm run build
 
-    - name: Checkout samples repo
-      uses: actions/checkout@v3
-      with:
-        submodules: recursive
-        repository: apex-dev-tools/apex-samples
-        path: apex-samples
-        ref: v1.0.0
+      - name: Checkout samples repo
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          repository: apex-dev-tools/apex-samples
+          path: apex-samples
+          ref: v1.0.2
 
-    - name: Set samples env
-      run: echo "SAMPLES=$GITHUB_WORKSPACE/apex-samples" >> "$GITHUB_ENV"
+      - name: Set samples env
+        run: echo "SAMPLES=$GITHUB_WORKSPACE/apex-samples" >> "$GITHUB_ENV"
 
-    - name: System Test
-      run: npm run test-samples
-      working-directory: npm
+      - name: System Test
+        run: npm run test-samples
+        working-directory: npm

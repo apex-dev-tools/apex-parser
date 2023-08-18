@@ -286,17 +286,6 @@ Array [
 ]
 `;
 
-exports[`Parse samples Sample: Lightweight-Trigger-Framework 1`] = `
-Array [
-  Object {
-    "errors": Array [],
-    "name": "Lightweight-Trigger-Framework",
-    "path": ".",
-    "status": 0,
-  },
-]
-`;
-
 exports[`Parse samples Sample: Milestones-PM 1`] = `
 Array [
   Object {

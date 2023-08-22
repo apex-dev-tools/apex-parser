@@ -1,5 +1,9 @@
 # apex-parser - Changelog
 
+## 3.4.0 - 2023-08-22
+
+- Support +/- sequences on numeric literals in switch 'when' expressions
+
 ## 3.3.0 - 2023-04-30
 
 - Update to ANTLR 4.9.1

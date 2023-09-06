@@ -126,6 +126,19 @@ public class ApexParserTest {
     }
 
     @Test
+    void testWhenLiteralSigns() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+                "switch on (x) { \n" +
+                        "  when -1 { return 1; } \n" +
+                        "  when (+2l) { return 1; } \n" +
+                        "  when -+-3 { return 3; } \n" +
+                        "}");
+        ApexParser.StatementContext context = parserAndCounter.getKey().statement();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
+
+    @Test
     void testSoqlModeKeywords() {
         String [] MODES = new String[] { "USER_MODE", "SYSTEM_MODE" };
         for (String mode : MODES) {

@@ -300,8 +300,8 @@ whenValue
     ;
 
 whenLiteral
-    : (SUB)? IntegerLiteral
-    | LongLiteral
+    : (SUB|ADD)* IntegerLiteral
+    | (SUB|ADD)* LongLiteral
     | StringLiteral
     | NULL
     | id

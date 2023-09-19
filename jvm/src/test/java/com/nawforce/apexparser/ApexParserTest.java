@@ -161,5 +161,25 @@ public class ApexParserTest {
             assertEquals(0, parserAndCounter.getValue().getNumErrors());
         }
     }
+
+    @Test
+    void testDoWhileBlock() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter =
+                createParser("public class Hello {{ do { System.debug(''); } while (true); }}");
+        ApexParser.CompilationUnitContext context = parserAndCounter.getKey().compilationUnit();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
+
+
+    @Test
+    void testDoWhileWithoutBlockFails() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter =
+                createParser("public class Hello {{ do System.debug(''); while (true); }}");
+        ApexParser.CompilationUnitContext context = parserAndCounter.getKey().compilationUnit();
+        assertNotNull(context);
+        assertEquals(3, parserAndCounter.getValue().getNumErrors());
+    }
+
 }
 

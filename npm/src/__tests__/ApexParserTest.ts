@@ -181,3 +181,21 @@ test('testDmlModeKeywords', () => {
         expect(errorCounter.getNumErrors()).toEqual(0)
     }
 })
+
+test('testDoWhileBlock', () => {
+    const [parser, errorCounter] = createParser("public class Hello {{ do { System.debug(''); } while (true); }}")
+
+    const context = parser.compilationUnit()
+
+    expect(context).toBeInstanceOf(CompilationUnitContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
+})
+
+test('testDoWhileWithoutBlockFails', () => {
+    const [parser, errorCounter] = createParser("public class Hello {{ do System.debug(''); while (true); }}")
+
+    const context = parser.compilationUnit()
+
+    expect(context).toBeInstanceOf(CompilationUnitContext)
+    expect(errorCounter.getNumErrors()).toEqual(3)
+})

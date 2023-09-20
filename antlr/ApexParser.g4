@@ -319,7 +319,7 @@ whileStatement
     ;
 
 doWhileStatement
-    : DO statement WHILE parExpression SEMI
+    : DO block WHILE parExpression SEMI
     ;
 
 tryStatement

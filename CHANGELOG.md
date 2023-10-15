@@ -1,5 +1,9 @@
 # apex-parser - Changelog
 
+## 3.5.0 - 2023-10-15
+
+- Correct do-while to require block rather than statement
+
 ## 3.4.0 - 2023-08-22
 
 - Support +/- sequences on numeric literals in switch 'when' expressions

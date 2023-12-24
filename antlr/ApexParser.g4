@@ -47,11 +47,20 @@ options {tokenVocab=ApexLexer;}
 
 // entry point for Apex trigger files
 triggerUnit
-    : TRIGGER id ON id LPAREN triggerCase (COMMA triggerCase)* RPAREN block EOF
+    : TRIGGER id ON id LPAREN triggerCase (COMMA triggerCase)* RPAREN triggerBlock EOF
     ;
 
 triggerCase
     : (BEFORE|AFTER) (INSERT|UPDATE|DELETE|UNDELETE)
+    ;
+
+triggerBlock
+    : LBRACE triggerBlockMember* RBRACE
+    ;
+
+triggerBlockMember
+    : modifier* triggerMemberDeclaration
+    | statement
     ;
 
 // entry point for Apex class files
@@ -127,6 +136,15 @@ memberDeclaration
     : methodDeclaration
     | fieldDeclaration
     | constructorDeclaration
+    | interfaceDeclaration
+    | classDeclaration
+    | enumDeclaration
+    | propertyDeclaration
+    ;
+
+triggerMemberDeclaration
+    : methodDeclaration
+    | fieldDeclaration
     | interfaceDeclaration
     | classDeclaration
     | enumDeclaration
@@ -582,7 +600,9 @@ subFieldList
 
 subFieldEntry
     : fieldName soqlId?
-    | soqlFunction soqlId?;
+    | soqlFunction soqlId?
+    | typeOf
+    ;
 
 soqlFieldsParameter
     : ALL

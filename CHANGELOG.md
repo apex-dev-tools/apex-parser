@@ -1,5 +1,10 @@
 # apex-parser - Changelog
 
+## 4.0.0 - 2023-12-24
+
+- Correct trigger body parsing to allow member declarations
+- Add support for TYPEOF in SOQL subqueries
+
 ## 3.5.0 - 2023-10-15
 
 - Correct do-while to require block rather than statement

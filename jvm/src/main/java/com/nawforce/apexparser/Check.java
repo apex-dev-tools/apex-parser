@@ -55,7 +55,8 @@ public class Check {
     }
 
     private static class FileParser extends SimpleFileVisitor<Path> {
-        private final PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:*.cls");
+        private final PathMatcher classMatcher = FileSystems.getDefault().getPathMatcher("glob:*.cls}");
+        private final PathMatcher triggerMatcher = FileSystems.getDefault().getPathMatcher("glob:*.trigger"); 
         private final Path rootDir;
         private int parsedCount = 0;
 
@@ -66,14 +67,18 @@ public class Check {
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
             Path name = file.getFileName();
-            if (name != null && matcher.matches(name)) {
-                parse(file);
+            if (name != null && classMatcher.matches(name)) {
+                parseClass(file);
+                parsedCount++;
+            }
+            else if (name != null && triggerMatcher.matches(name)) {
+                parseTrigger(file);
                 parsedCount++;
             }
             return FileVisitResult.CONTINUE;
         }
 
-        private void parse(Path path) throws IOException {
+        private void parseClass(Path path) throws IOException {
             ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromPath(path)));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             ApexParser parser = new ApexParser(tokens);
@@ -81,6 +86,16 @@ public class Check {
             parser.removeErrorListeners();
             parser.addErrorListener(new PrintJsonListener(rootDir.relativize(path).toString()));
             parser.compilationUnit();
+        }
+
+        private void parseTrigger(Path path) throws IOException {
+            ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromPath(path)));
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            ApexParser parser = new ApexParser(tokens);
+
+            parser.removeErrorListeners();
+            parser.addErrorListener(new PrintJsonListener(rootDir.relativize(path).toString()));
+            parser.triggerUnit();
         }
 
         int getCount() {

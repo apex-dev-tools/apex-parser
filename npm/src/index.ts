@@ -94,7 +94,7 @@ export async function checkProject(pathStr?: string): Promise<ProjectCheckResult
     const packages = getProjectPackages(project);
 
     if (packages.length == 0) {
-        console.log(`[${name}]: No valid SFDX project, checking all cls files`);
+        console.log(`[${name}]: No valid SFDX project, checking all cls & trigger files`);
         const result = await check(path)
         return [{
             name,
@@ -151,7 +151,34 @@ async function parseFiles(path: string): Promise<ParseCheckError[]> {
         }
     });
 
-    console.log(`Parsed ${parsedCount} files in: ${path}`);
+    console.log(`Parsed ${parsedCount} classes in: ${path}`);
+
+    parsedCount = 0;
+    files.filter(name => name.endsWith(".trigger")).forEach(file => {
+        if (lstatSync(file).isFile()) {
+            const content = readFileSync(file);
+            const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString(content.toString())));
+            const tokens = new CommonTokenStream(lexer);
+
+            const parser = new ApexParser(tokens);
+            parser.removeErrorListeners();
+            parser.addErrorListener(new ThrowingErrorListener());
+            try {
+                parser.triggerUnit();
+            } catch (err) {
+                console.log(`Error parsing: ${file}`);
+                console.log(err);
+                errors.push({
+                    path: relative(path, file),
+                    error: JSON.stringify(err)
+                });
+            }
+            parsedCount += 1;
+        }
+    });
+
+    console.log(`Parsed ${parsedCount} triggers in: ${path}`);
+
     return errors;
 }
 

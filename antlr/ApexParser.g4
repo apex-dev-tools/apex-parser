@@ -451,6 +451,7 @@ expression
     | expression BITOR expression                                                                     # bitOrExpression
     | expression AND expression                                                                       # logAndExpression
     | expression OR expression                                                                        # logOrExpression
+    | expression COAL expression                                                                      # coalExpression
     | <assoc=right> expression QUESTION expression COLON expression                                   # condExpression
     | <assoc=right> expression
       (   ASSIGN

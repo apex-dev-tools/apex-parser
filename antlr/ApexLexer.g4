@@ -384,6 +384,7 @@ LESSANDGREATER  : '<>';
 TRIPLENOTEQUAL  : '!==';
 AND             : '&&';
 OR              : '||';
+COAL            : '??';
 INC             : '++';
 DEC             : '--';
 ADD             : '+';

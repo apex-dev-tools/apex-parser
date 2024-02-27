@@ -15,6 +15,7 @@ package com.nawforce.apexparser;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Map;
 
 import static com.nawforce.apexparser.SyntaxErrorCounter.createParser;
@@ -38,6 +39,52 @@ public class ApexParserTest {
         ApexParser.ExpressionContext context = parserAndCounter.getKey().expression();
         assertTrue(context instanceof ApexParser.Arth1ExpressionContext);
         assertEquals(2, ((ApexParser.Arth1ExpressionContext) context).expression().size());
+    }
+
+    @Test
+    void testCoalesceExpression() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser("a ?? 5");
+        ApexParser.ExpressionContext context = parserAndCounter.getKey().expression();
+        assertTrue(context instanceof ApexParser.CoalExpressionContext);
+        assertEquals(2, ((ApexParser.CoalExpressionContext) context).expression().size());
+    }
+
+    @Test
+    void testCoalescePrecedence() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser("top ?? 100 - bottom ?? 0");
+        ApexParser.ExpressionContext context = parserAndCounter.getKey().expression();
+        assertTrue(context instanceof ApexParser.CoalExpressionContext);
+
+        List<ApexParser.ExpressionContext> outer = ((ApexParser.CoalExpressionContext) context).expression();
+        assertEquals(2, outer.size());
+
+        assertTrue(outer.get(0) instanceof ApexParser.CoalExpressionContext);
+        List<ApexParser.ExpressionContext> inner = ((ApexParser.CoalExpressionContext) outer.get(0)).expression();
+        assertEquals(2, inner.size());
+
+        assertTrue(inner.get(0) instanceof ApexParser.PrimaryExpressionContext);
+        assertTrue(inner.get(1) instanceof ApexParser.Arth2ExpressionContext);
+
+        assertTrue(outer.get(1) instanceof ApexParser.PrimaryExpressionContext);
+    }
+
+    @Test
+    void testCoalescePrecedenceBoolean() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser("a ?? false || b ?? false");
+        ApexParser.ExpressionContext context = parserAndCounter.getKey().expression();
+        assertTrue(context instanceof ApexParser.CoalExpressionContext);
+
+        List<ApexParser.ExpressionContext> outer = ((ApexParser.CoalExpressionContext) context).expression();
+        assertEquals(2, outer.size());
+
+        assertTrue(outer.get(0) instanceof ApexParser.CoalExpressionContext);
+        List<ApexParser.ExpressionContext> inner = ((ApexParser.CoalExpressionContext) outer.get(0)).expression();
+        assertEquals(2, inner.size());
+
+        assertTrue(inner.get(0) instanceof ApexParser.PrimaryExpressionContext);
+        assertTrue(inner.get(1) instanceof ApexParser.LogOrExpressionContext);
+
+        assertTrue(outer.get(1) instanceof ApexParser.PrimaryExpressionContext);
     }
 
     @Test

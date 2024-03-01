@@ -55,8 +55,8 @@ public class Check {
     }
 
     private static class FileParser extends SimpleFileVisitor<Path> {
-        private final PathMatcher classMatcher = FileSystems.getDefault().getPathMatcher("glob:*.cls}");
-        private final PathMatcher triggerMatcher = FileSystems.getDefault().getPathMatcher("glob:*.trigger"); 
+        private final PathMatcher classMatcher = FileSystems.getDefault().getPathMatcher("glob:*.cls");
+        private final PathMatcher triggerMatcher = FileSystems.getDefault().getPathMatcher("glob:*.trigger");
         private final Path rootDir;
         private int parsedCount = 0;
 
@@ -79,23 +79,23 @@ public class Check {
         }
 
         private void parseClass(Path path) throws IOException {
-            ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromPath(path)));
-            CommonTokenStream tokens = new CommonTokenStream(lexer);
-            ApexParser parser = new ApexParser(tokens);
-
-            parser.removeErrorListeners();
-            parser.addErrorListener(new PrintJsonListener(rootDir.relativize(path).toString()));
-            parser.compilationUnit();
+          ApexParser parser = getParserForPath(path);
+          parser.removeErrorListeners();
+          parser.addErrorListener(new PrintJsonListener(rootDir.relativize(path).toString()));
+          parser.compilationUnit();
         }
 
         private void parseTrigger(Path path) throws IOException {
-            ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromPath(path)));
-            CommonTokenStream tokens = new CommonTokenStream(lexer);
-            ApexParser parser = new ApexParser(tokens);
+          ApexParser parser = getParserForPath(path);
+          parser.removeErrorListeners();
+          parser.addErrorListener(new PrintJsonListener(rootDir.relativize(path).toString()));
+          parser.triggerUnit();
+        }
 
-            parser.removeErrorListeners();
-            parser.addErrorListener(new PrintJsonListener(rootDir.relativize(path).toString()));
-            parser.triggerUnit();
+        private ApexParser getParserForPath(Path path) throws IOException {
+          ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromPath(path)));
+          CommonTokenStream tokens = new CommonTokenStream(lexer);
+          return new ApexParser(tokens);
         }
 
         int getCount() {

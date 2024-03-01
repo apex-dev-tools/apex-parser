@@ -12,8 +12,16 @@
     derived from this software without specific prior written permission.
  */
 import {
-    LiteralContext, Arth1ExpressionContext, CompilationUnitContext,
-    StatementContext, TriggerUnitContext, QueryContext
+    LiteralContext,
+    Arth1ExpressionContext,
+    CompilationUnitContext,
+    StatementContext,
+    TriggerUnitContext,
+    QueryContext,
+    CoalExpressionContext,
+    PrimaryExpressionContext,
+    Arth2ExpressionContext,
+    LogOrExpressionContext
 } from "../ApexParser";
 import { ThrowingErrorListener, SyntaxException } from "../ThrowingErrorListener";
 import { createParser } from "./SyntaxErrorCounter";
@@ -38,6 +46,59 @@ test('Expression', () => {
     const arthExpression = context as Arth1ExpressionContext
     expect(arthExpression.expression().length).toBe(2)
 })
+
+test("Coalesce Expression", () => {
+    const [parser, errorCounter] = createParser("a ?? 5");
+    const context = parser.expression();
+
+    expect(errorCounter.getNumErrors()).toEqual(0);
+    expect(context).toBeInstanceOf(CoalExpressionContext);
+    const coalExpression = context as CoalExpressionContext;
+    expect(coalExpression.expression().length).toBe(2);
+});
+
+test("Coalesce Precedence - Arithmetic", () => {
+    // Based on the example in release notes / docs
+    // should NOT evaluate to (top ?? 100) - (bottom ?? 0) as you want
+    //
+    // left assoc  =   (top ?? (100 - bottom)) ?? 0
+    // right assoc =   top ?? ((100 - bottom) ?? 0)
+    const [parser, errorCounter] = createParser("top ?? 100 - bottom ?? 0");
+    const context = parser.expression();
+
+    expect(errorCounter.getNumErrors()).toEqual(0);
+    expect(context).toBeInstanceOf(CoalExpressionContext);
+    const outer = (context as CoalExpressionContext).expression();
+    expect(outer.length).toBe(2);
+    expect(outer[0]).toBeInstanceOf(CoalExpressionContext);
+
+    const inner = (outer[0] as CoalExpressionContext).expression(); // top ?? 100 - bottom
+    expect(inner.length).toBe(2);
+    expect(inner[0]).toBeInstanceOf(PrimaryExpressionContext); // top
+    expect(inner[1]).toBeInstanceOf(Arth2ExpressionContext); // 100 - bottom
+
+    expect(outer[1]).toBeInstanceOf(PrimaryExpressionContext); // 0
+});
+
+test("Coalesce Precedence - Boolean", () => {
+    // This is more nonsense but using a much lower precedence op
+    // should NOT evaluate to (a ?? false) || (b ?? false)
+    const [parser, errorCounter] = createParser("a ?? false || b ?? false");
+    const context = parser.expression();
+
+    expect(errorCounter.getNumErrors()).toEqual(0);
+    expect(context).toBeInstanceOf(CoalExpressionContext);
+    const outer = (context as CoalExpressionContext).expression();
+    expect(outer.length).toBe(2);
+    expect(outer[0]).toBeInstanceOf(CoalExpressionContext);
+
+    const inner = (outer[0] as CoalExpressionContext).expression(); // a ?? false || b
+    expect(inner.length).toBe(2);
+    expect(inner[0]).toBeInstanceOf(PrimaryExpressionContext); // a
+    expect(inner[1]).toBeInstanceOf(LogOrExpressionContext); // false || b
+
+    expect(outer[1]).toBeInstanceOf(PrimaryExpressionContext); // false
+});
 
 test('Compilation Unit', () => {
     const [parser, errorCounter] = createParser("public class Hello {}")

@@ -11,14 +11,14 @@
  3. The name of the author may not be used to endorse or promote products
     derived from this software without specific prior written permission.
  */
-package com.nawforce.apexparser;
+package io.github.apexdevtools.apexparser;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
 
-import static com.nawforce.apexparser.SyntaxErrorCounter.createParser;
+import static io.github.apexdevtools.apexparser.SyntaxErrorCounter.createParser;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ApexParserTest {

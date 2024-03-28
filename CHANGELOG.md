@@ -1,5 +1,10 @@
 # apex-parser - Changelog
 
+## 4.0.0 - 2023-03-01
+
+- Correct trigger body parsing to allow member declarations
+- Add support for TYPEOF in SOQL subqueries
+
 ## 3.6.0 - 2024-02-15
 
 - Add null coalesce operator and expression

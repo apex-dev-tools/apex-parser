@@ -48,12 +48,12 @@ Maven
     <dependency>
         <groupId>io.github.apex-dev-tools</groupId>
         <artifactId>apex-parser</artifactId>
-        <version>3.6.0</version>
+        <version>4.0.0</version>
     </dependency>
 
 NPM
 
-    "@apexdevtools/apex-parser": "^3.6.0"
+    "@apexdevtools/apex-parser": "^4.0.0"
 
 ## Building
 

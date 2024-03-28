@@ -94,7 +94,7 @@ export async function checkProject(pathStr?: string): Promise<ProjectCheckResult
     const packages = getProjectPackages(project);
 
     if (packages.length == 0) {
-        console.log(`[${name}]: No valid SFDX project, checking all cls files`);
+        console.log(`[${name}]: No valid SFDX project, checking all cls & trigger files`);
         const result = await check(path)
         return [{
             name,
@@ -124,11 +124,17 @@ export async function checkProject(pathStr?: string): Promise<ProjectCheckResult
 }
 
 async function parseFiles(path: string): Promise<ParseCheckError[]> {
-    const files = await dir.promiseFiles(path);
+    const files = await dir.promiseFiles(path)
+    const classErrors = parseByType(path, files, ".cls", (parser: ApexParser) => {parser.compilationUnit();});
+    const triggerErrors = parseByType(path, files, ".trigger", (parser: ApexParser) => {parser.triggerUnit();});
+    return classErrors.concat(triggerErrors)
+}
 
+function parseByType(rootPath: string, files: string[], endsWith: string, operation: (parser: ApexParser) => void): ParseCheckError[] {
+ 
     let parsedCount = 0;
     const errors: ParseCheckError[] = [];
-    files.filter(name => name.endsWith(".cls")).forEach(file => {
+    files.filter(name => name.endsWith(endsWith)).forEach(file => {
         if (lstatSync(file).isFile()) {
             const content = readFileSync(file);
             const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString(content.toString())));
@@ -138,12 +144,12 @@ async function parseFiles(path: string): Promise<ParseCheckError[]> {
             parser.removeErrorListeners();
             parser.addErrorListener(new ThrowingErrorListener());
             try {
-                parser.compilationUnit();
+                operation(parser)
             } catch (err) {
                 console.log(`Error parsing: ${file}`);
                 console.log(err);
                 errors.push({
-                    path: relative(path, file),
+                    path: relative(rootPath, file),
                     error: JSON.stringify(err)
                 });
             }
@@ -151,8 +157,8 @@ async function parseFiles(path: string): Promise<ParseCheckError[]> {
         }
     });
 
-    console.log(`Parsed ${parsedCount} files in: ${path}`);
-    return errors;
+    console.log(`Parsed ${parsedCount} '${endsWith}' files in: ${rootPath}`);
+    return errors
 }
 
 function findProjectFile(wd: string, depth: number): string | undefined {

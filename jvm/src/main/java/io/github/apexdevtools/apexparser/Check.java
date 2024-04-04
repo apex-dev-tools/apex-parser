@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2022 FinancialForce.com, inc. All rights reserved.
  */
-package com.nawforce.apexparser;
+package io.github.apexdevtools.apexparser;
 
 import org.antlr.v4.runtime.*;
 

@@ -41,7 +41,7 @@ describe("Parse samples", () => {
                 [
                     "-cp",
                     "jvm/target/dependency/*:jvm/target/apex-parser.jar",
-                    "com.nawforce.apexparser.Check",
+                    "io.github.apexdevtools.apexparser.Check",
                     resolve(path, r.path)
                 ],
                 {

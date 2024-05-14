@@ -61,3 +61,21 @@ test('testQuotesFailOnAltFormat', () => {
     expect(context).toBeInstanceOf(SoslLiteralAltContext)
     expect(errorCounter.getNumErrors()).toEqual(1)
 })
+
+test('testWithUserModeQuery', () => {
+    const [parser, errorCounter] = createParser("[Find 'something' RETURNING Account WITH USER_MODE WITH METADATA='Labels']")
+
+    const context = parser.soslLiteralAlt()
+
+    expect(context).toBeInstanceOf(SoslLiteralAltContext)
+    expect(errorCounter.getNumErrors()).toEqual(1)
+})
+
+test('testWithSystemModeQuery', () => {
+    const [parser, errorCounter] = createParser("[Find 'something' RETURNING Account WITH METADATA='Labels' WITH SYSTEM_MODE]")
+
+    const context = parser.soslLiteralAlt()
+
+    expect(context).toBeInstanceOf(SoslLiteralAltContext)
+    expect(errorCounter.getNumErrors()).toEqual(1)
+})

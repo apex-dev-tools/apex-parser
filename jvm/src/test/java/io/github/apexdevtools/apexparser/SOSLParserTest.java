@@ -60,4 +60,20 @@ public class SOSLParserTest {
         assertNotNull(context);
         assertEquals(1, parserAndCounter.getValue().getNumErrors());
     }
+
+    @Test
+    void testWithUserModeQuery() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser("[Find 'something' RETURNING Account WITH USER_MODE WITH METADATA='Labels']");
+        ApexParser.SoslLiteralContext context = parserAndCounter.getKey().soslLiteral();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
+
+    @Test
+    void testWithSystemModeQuery() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser("[Find 'something' RETURNING Account WITH METADATA='Labels' WITH SYSTEM_MODE]");
+        ApexParser.SoslLiteralContext context = parserAndCounter.getKey().soslLiteral();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
 }

@@ -1,6 +1,10 @@
 # apex-parser - Changelog
 
-## 4.0.0 - 2023-03-28
+## 4.1.0 - 2024-05-12
+
+- Allow WITH USER_MODE or SYSTEM_MODE on SOSL queries
+
+## 4.0.0 - 2024-03-28
 
 - Correct trigger body parsing to allow member declarations
 - Add support for TYPEOF in SOQL subqueries

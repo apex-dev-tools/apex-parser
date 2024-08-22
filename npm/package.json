@@ -8,7 +8,7 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "antlr4ts": "npm run antlr-build && npm run antlr-patch",
-    "antlr-build": "(cd antlr; antlr4ts -visitor -o ../src ApexLexer.g4 ApexParser.g4)",
+    "antlr-build": "cd antlr && antlr4ts -visitor -o ../src ApexLexer.g4 ApexParser.g4",
     "antlr-patch": "node patch",
     "build": "npm run clean && npm run antlr4ts && cp ../*.md . && tsc",
     "check": "node -e 'require(\"./lib/index.js\").check()'",

@@ -107,3 +107,14 @@ test("testGeoLocationFunction", () => {
   expect(context).toBeInstanceOf(QueryContext);
   expect(errorCounter.getNumErrors()).toEqual(0);
 });
+
+test("SubQuery", () => {
+  const [parser, errorCounter] = createParser(
+    "SELECT Name, (SELECT Id, (SELECT Id, (SELECT Id, (SELECT Id FROM Child4 ) FROM Child3 ) FROM Child2 ) FROM Child1) FROM Parent"
+  );
+
+  const context = parser.query();
+
+  expect(context).toBeInstanceOf(QueryContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});

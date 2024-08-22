@@ -602,6 +602,7 @@ subFieldList
 subFieldEntry
     : fieldName soqlId?
     | soqlFunction soqlId?
+    | LPAREN subQuery RPAREN soqlId?
     | typeOf
     ;
 

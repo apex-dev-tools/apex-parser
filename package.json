@@ -8,7 +8,7 @@
     "build": "npm run build-npm && npm run build-jvm",
     "build-npm": "npm run init-npm && cd npm && npm run build && npm run test && cd ..",
     "build-jvm": "npm run init-jvm && cd jvm && mvn package && cd ..",
-    "init-npm": "cp antlr/* npm/antlr && (cd npm; npm ci)",
+    "init-npm": "cp antlr/* npm/antlr && cd npm && npm ci",
     "init-jvm": "cp antlr/* jvm/src/main/antlr4/io/github/apexdevtools/apexparser"
   },
   "files": [],

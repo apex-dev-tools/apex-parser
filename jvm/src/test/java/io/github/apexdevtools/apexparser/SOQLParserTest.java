@@ -101,4 +101,14 @@ public class SOQLParserTest {
         assertNotNull(context);
         assertEquals(0, parserAndCounter.getValue().getNumErrors());
     }
+
+    @Test
+    void testSubQuery() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+                "SELECT Name, (SELECT Id, (SELECT Id, (SELECT Id, (SELECT Id FROM Child4 ) FROM Child3 ) FROM Child2 ) FROM Child1) FROM Parent"
+        );
+        ApexParser.QueryContext context = parserAndCounter.getKey().query();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
 }

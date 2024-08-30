@@ -111,4 +111,23 @@ public class SOQLParserTest {
         assertNotNull(context);
         assertEquals(0, parserAndCounter.getValue().getNumErrors());
     }
+
+    @Test
+    void testGroupingFunction() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+                        "SELECT\n" +
+                        "  OBJ1__c O1,\n" +
+                        "  OBJ2__c O2,\n" +
+                        "  OBJ3__c O3,\n" +
+                        "  SUM(OBJ4__c) O4,\n" +
+                        "  GROUPING(OBJ1__c) O1Group,\n" +
+                        "  GROUPING(OBJ2__c) O2Group,\n" +
+                        "  GROUPING(OBJ3__c) O3Group\n" +
+                        "FROM OBJ4__c\n" +
+                        "GROUP BY ROLLUP(OBJ1__c, OBJ2__c, OBJ3__c)"
+        );
+        ApexParser.QueryContext context = parserAndCounter.getKey().query();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
 }

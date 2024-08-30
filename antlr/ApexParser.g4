@@ -636,6 +636,7 @@ soqlFunction
     | WEEK_IN_YEAR LPAREN dateFieldName RPAREN
     | FIELDS LPAREN soqlFieldsParameter RPAREN
     | DISTANCE LPAREN locationValue COMMA locationValue COMMA StringLiteral RPAREN
+    | GROUPING LPAREN fieldName RPAREN
     ;
 
  dateFieldName
@@ -962,6 +963,7 @@ id
     | CUSTOM
     | DISTANCE
     | GEOLOCATION
+    | GROUPING
     // SOQL date functions
     | CALENDAR_MONTH
     | CALENDAR_QUARTER
@@ -1160,6 +1162,7 @@ anyId
     | CUSTOM
     | DISTANCE
     | GEOLOCATION
+    | GROUPING
     // SOQL date functions
     | CALENDAR_MONTH
     | CALENDAR_QUARTER

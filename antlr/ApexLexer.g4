@@ -170,6 +170,7 @@ CUSTOM          : 'custom';
 STANDARD        : 'standard';
 DISTANCE        : 'distance';
 GEOLOCATION     : 'geolocation';
+GROUPING        : 'grouping';
 
 // SOQL Date functions
 CALENDAR_MONTH      : 'calendar_month';

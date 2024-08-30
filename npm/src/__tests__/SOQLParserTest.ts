@@ -118,3 +118,23 @@ test("SubQuery", () => {
   expect(context).toBeInstanceOf(QueryContext);
   expect(errorCounter.getNumErrors()).toEqual(0);
 });
+
+test("Grouping function", () => {
+  const [parser, errorCounter] = createParser(
+   `SELECT
+     OBJ1__c O1,
+     OBJ2__c O2,
+     OBJ3__c O3,
+     SUM(OBJ4__c) O4,
+     GROUPING(OBJ1__c) O1Group,
+     GROUPING(OBJ2__c) O2Group,
+     GROUPING(OBJ3__c) O3Group
+   FROM OBJ4__c
+   GROUP BY ROLLUP(OBJ1__c, OBJ2__c, OBJ3__c)`
+  );
+
+  const context = parser.query();
+
+  expect(context).toBeInstanceOf(QueryContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});

@@ -65,17 +65,26 @@ test('testQuotesFailOnAltFormat', () => {
 test('testWithUserModeQuery', () => {
     const [parser, errorCounter] = createParser("[Find 'something' RETURNING Account WITH USER_MODE WITH METADATA='Labels']")
 
-    const context = parser.soslLiteralAlt()
+    const context = parser.soslLiteral()
 
-    expect(context).toBeInstanceOf(SoslLiteralAltContext)
-    expect(errorCounter.getNumErrors()).toEqual(1)
+    expect(context).toBeInstanceOf(SoslLiteralContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
 })
 
 test('testWithSystemModeQuery', () => {
     const [parser, errorCounter] = createParser("[Find 'something' RETURNING Account WITH METADATA='Labels' WITH SYSTEM_MODE]")
 
-    const context = parser.soslLiteralAlt()
+    const context = parser.soslLiteral()
 
-    expect(context).toBeInstanceOf(SoslLiteralAltContext)
-    expect(errorCounter.getNumErrors()).toEqual(1)
+    expect(context).toBeInstanceOf(SoslLiteralContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
+})
+
+test('testToLabel', () => {
+    const [parser, errorCounter] = createParser("[FIND :searchTerm IN ALL FIELDS RETURNING Account(Id, toLabel(Name)) LIMIT 10]")
+
+    const context = parser.soslLiteral()
+
+    expect(context).toBeInstanceOf(SoslLiteralContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
 })

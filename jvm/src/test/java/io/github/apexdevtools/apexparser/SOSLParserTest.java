@@ -76,4 +76,12 @@ public class SOSLParserTest {
         assertNotNull(context);
         assertEquals(0, parserAndCounter.getValue().getNumErrors());
     }
+
+    @Test
+    void testToLabel() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser("[FIND :searchTerm IN ALL FIELDS RETURNING Account(Id, toLabel(Name)) LIMIT 10]");
+        ApexParser.SoslLiteralContext context = parserAndCounter.getKey().soslLiteral();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
 }

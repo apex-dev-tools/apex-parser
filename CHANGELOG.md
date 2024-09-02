@@ -1,5 +1,11 @@
 # apex-parser - Changelog
 
+## 4.2.0 - 2024-09-02
+
+- Add support for multiple nested SOQL sub queries
+- Add support for `GROUPING` in SOQL query
+- Add support for `toLabel` in SOSL query
+
 ## 4.1.0 - 2024-05-12
 
 - Allow WITH USER_MODE or SYSTEM_MODE on SOSL queries

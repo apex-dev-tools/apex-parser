@@ -11,7 +11,7 @@
  3. The name of the author may not be used to endorse or promote products
     derived from this software without specific prior written permission.
  */
-import { QueryContext, StatementContext } from "../ApexParser";
+import { QueryContext, StatementContext, SoqlLiteralContext } from "../ApexParser";
 import { createParser } from "./SyntaxErrorCounter";
 
 test("SOQL Query", () => {
@@ -137,4 +137,38 @@ test("Grouping function", () => {
 
   expect(context).toBeInstanceOf(QueryContext);
   expect(errorCounter.getNumErrors()).toEqual(0);
+});
+
+test("Convert Currency function", () => {
+    const [parser, errorCounter] = createParser(
+        '[ SELECT convertCurrency(Amount) FROM Opportunity ]'
+    );
+    const context = parser.soqlLiteral();
+
+    expect(context).toBeInstanceOf(SoqlLiteralContext);
+    expect(errorCounter.getNumErrors()).toEqual(0);
+});
+
+test("Convert Currency with format", () => {
+    const [parser, errorCounter] = createParser(
+        `[
+            SELECT Amount, FORMAT(amount) Amt, convertCurrency(amount) convertedAmount,
+                FORMAT(convertCurrency(amount)) convertedCurrency
+            FROM Opportunity where id = '006R00000024gDtIAI'
+        ]`
+    );
+    const context = parser.soqlLiteral();
+
+    expect(context).toBeInstanceOf(SoqlLiteralContext);
+    expect(errorCounter.getNumErrors()).toEqual(0);
+});
+
+test("Format function with aggregate", () => {
+    const [parser, errorCounter] = createParser(
+        '[ SELECT FORMAT(MIN(closedate)) Amt FROM opportunity ]'
+    )
+    const context = parser.soqlLiteral();
+
+    expect(context).toBeInstanceOf(SoqlLiteralContext);
+    expect(errorCounter.getNumErrors()).toEqual(0);
 });

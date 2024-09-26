@@ -1,5 +1,11 @@
 # apex-parser - Changelog
 
+## 4.3.0 - 2024-09-26
+
+- Add `convertCurrency` and `FORMAT` SOQL/SOSL functions
+- Support nested functions in `FORMAT`
+- Support aliases on SOSL functions
+
 ## 4.2.0 - 2024-09-02
 
 - Add support for multiple nested SOQL sub queries

@@ -84,4 +84,43 @@ public class SOSLParserTest {
         assertNotNull(context);
         assertEquals(0, parserAndCounter.getValue().getNumErrors());
     }
+
+    @Test
+    void testToLabelWithAlias() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+                "[FIND :searchTerm IN ALL FIELDS RETURNING Account(Id, toLabel(Name) AliasName) LIMIT 10]");
+        ApexParser.SoslLiteralContext context = parserAndCounter.getKey().soslLiteral();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
+
+    @Test
+    void testConvertCurrency() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+                "[ FIND 'test' RETURNING Opportunity(Name, convertCurrency(Amount), convertCurrency(Amount) AliasCurrency) ]"
+        );
+        ApexParser.SoslLiteralContext context = parserAndCounter.getKey().soslLiteral();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
+
+    @Test
+    void testConvertCurrencyWithFormat() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+                "[ FIND 'Acme' RETURNING Account(AnnualRevenue, FORMAT(convertCurrency(AnnualRevenue)) convertedCurrency) ]"
+        );
+        ApexParser.SoslLiteralContext context = parserAndCounter.getKey().soslLiteral();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
+
+    @Test
+    void testFormatWithAggregate() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+                "[ FIND 'Acme' RETURNING Account(AnnualRevenue, FORMAT(MIN(CloseDate))) ]"
+        );
+        ApexParser.SoslLiteralContext context = parserAndCounter.getKey().soslLiteral();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
 }

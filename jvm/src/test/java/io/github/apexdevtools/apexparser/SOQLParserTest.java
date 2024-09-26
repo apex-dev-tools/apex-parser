@@ -130,4 +130,38 @@ public class SOQLParserTest {
         assertNotNull(context);
         assertEquals(0, parserAndCounter.getValue().getNumErrors());
     }
+
+    @Test
+    void testConvertCurrency() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+                "[ SELECT convertCurrency(Amount) FROM Opportunity ]"
+        );
+        ApexParser.SoqlLiteralContext context = parserAndCounter.getKey().soqlLiteral();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
+
+    @Test
+    void testConvertCurrencyWithFormat() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+                "[\n" +
+                "SELECT Amount, FORMAT(amount) Amt, convertCurrency(amount) convertedAmount,\n" +
+                "    FORMAT(convertCurrency(amount)) convertedCurrency\n" +
+                "FROM Opportunity where id = '006R00000024gDtIAI'\n" +
+                "]"
+        );
+        ApexParser.SoqlLiteralContext context = parserAndCounter.getKey().soqlLiteral();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
+
+    @Test
+    void testFormatWithAggregate() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+                "[ SELECT FORMAT(MIN(closedate)) Amt FROM opportunity ]"
+        );
+        ApexParser.SoqlLiteralContext context = parserAndCounter.getKey().soqlLiteral();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
 }

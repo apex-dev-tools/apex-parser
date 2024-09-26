@@ -88,3 +88,51 @@ test('testToLabel', () => {
     expect(context).toBeInstanceOf(SoslLiteralContext)
     expect(errorCounter.getNumErrors()).toEqual(0)
 })
+
+test('testToLabelWithAlias', () => {
+    const [parser, errorCounter] = createParser(
+        "[FIND :searchTerm IN ALL FIELDS RETURNING Account(Id, toLabel(Name) AliasName) LIMIT 10]")
+    const context = parser.soslLiteral()
+
+    expect(context).toBeInstanceOf(SoslLiteralContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
+})
+
+test('testConvertCurrency', () => {
+    const [parser, errorCounter] = createParser(
+        `[
+            FIND 'test' RETURNING Opportunity(
+                Name,
+                convertCurrency(Amount),
+                convertCurrency(Amount) AliasCurrency
+            )
+        ]`)
+    const context = parser.soslLiteral()
+
+    expect(context).toBeInstanceOf(SoslLiteralContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
+})
+
+test('testConvertCurrencyWithFormat', () => {
+    const [parser, errorCounter] = createParser(
+        `[
+            FIND 'Acme' RETURNING Account(
+                AnnualRevenue,
+                FORMAT(convertCurrency(AnnualRevenue)) convertedCurrency
+            )
+        ]`)
+    const context = parser.soslLiteral()
+
+    expect(context).toBeInstanceOf(SoslLiteralContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
+})
+
+test('testFormatWithAggregate', () => {
+    const [parser, errorCounter] = createParser(
+        "[ FIND 'Acme' RETURNING Account(AnnualRevenue, FORMAT(MIN(CloseDate))) ]"
+    )
+    const context = parser.soslLiteral()
+
+    expect(context).toBeInstanceOf(SoslLiteralContext)
+    expect(errorCounter.getNumErrors()).toEqual(0)
+})

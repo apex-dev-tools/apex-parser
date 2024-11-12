@@ -36,6 +36,17 @@ public class SyntaxErrorCounter extends BaseErrorListener {
         return this.numErrors;
     }
 
+    public static Map.Entry<ApexLexer, SyntaxErrorCounter> createLexer(String input, Boolean caseInsensitive) {
+        CharStream stream = CharStreams.fromString(input);
+        ApexLexer lexer = new ApexLexer(caseInsensitive ? new CaseInsensitiveInputStream(stream) : stream);
+
+        lexer.removeErrorListeners();
+        SyntaxErrorCounter errorCounter = new SyntaxErrorCounter();
+        lexer.addErrorListener(errorCounter);
+
+        return new AbstractMap.SimpleEntry<>(lexer, errorCounter);
+    }
+
     public static Map.Entry<ApexParser, SyntaxErrorCounter> createParser(String input) {
         ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString(input)));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -45,6 +56,6 @@ public class SyntaxErrorCounter extends BaseErrorListener {
         SyntaxErrorCounter errorCounter = new SyntaxErrorCounter();
         parser.addErrorListener(errorCounter);
 
-        return new AbstractMap.SimpleEntry<ApexParser, SyntaxErrorCounter>(parser, errorCounter);
+        return new AbstractMap.SimpleEntry<>(parser, errorCounter);
     }
 }

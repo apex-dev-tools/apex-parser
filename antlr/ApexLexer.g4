@@ -310,7 +310,7 @@ NumberLiteral
 
 fragment
 HexCharacter
-    :   Digit | 'a' | 'b' | 'c' | 'd' | 'e' | 'f'
+    :   [0-9a-fA-F]
     ;
 
 fragment

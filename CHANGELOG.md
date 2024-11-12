@@ -1,5 +1,9 @@
 # apex-parser - Changelog
 
+## 4.3.1 - 2024-11-12
+
+- Fix Lexer support for uppercase Hex
+
 ## 4.3.0 - 2024-09-26
 
 - Add `convertCurrency` and `FORMAT` SOQL/SOSL functions

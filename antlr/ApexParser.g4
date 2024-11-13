@@ -314,7 +314,7 @@ whenControl
 whenValue
     : ELSE
     | whenLiteral (COMMA whenLiteral)*
-    | id id
+    | typeRef id
     ;
 
 whenLiteral

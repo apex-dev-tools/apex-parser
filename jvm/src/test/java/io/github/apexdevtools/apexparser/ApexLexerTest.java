@@ -13,42 +13,53 @@
  */
 package io.github.apexdevtools.apexparser;
 
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.*;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.io.StringReader;
+import java.util.Map;
 
+import static io.github.apexdevtools.apexparser.SyntaxErrorCounter.createLexer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ApexLexerTest {
 
     @Test
     void testLexerGeneratesTokens() {
-        ApexLexer lexer = new ApexLexer(CharStreams.fromString("public class Hello {}"));
-        CommonTokenStream tokens  = new CommonTokenStream(lexer);
+        Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer("public class Hello {}", false);
+        CommonTokenStream tokens  = new CommonTokenStream(lexerAndCounter.getKey());
         assertEquals(6, tokens.getNumberOfOnChannelTokens());
+        assertEquals(0, lexerAndCounter.getValue().getNumErrors());
     }
 
     @Test
-    void testCaseInsensitivityLowerCase() throws IOException {
-        ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("public")));
-        CommonTokenStream tokens  = new CommonTokenStream(lexer);
+    void testCaseInsensitivityLowerCase() {
+        Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer("public", true);
+        CommonTokenStream tokens  = new CommonTokenStream(lexerAndCounter.getKey());
         assertEquals(2, tokens.getNumberOfOnChannelTokens());
+        assertEquals(0, lexerAndCounter.getValue().getNumErrors());
     }
 
     @Test
-    void testCaseInsensitivityUpperCase() throws IOException {
-        ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("PUBLIC")));
-        CommonTokenStream tokens  = new CommonTokenStream(lexer);
+    void testCaseInsensitivityUpperCase() {
+        Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer("PUBLIC", true);
+        CommonTokenStream tokens  = new CommonTokenStream(lexerAndCounter.getKey());
         assertEquals(2, tokens.getNumberOfOnChannelTokens());
+        assertEquals(0, lexerAndCounter.getValue().getNumErrors());
     }
 
     @Test
-    void testCaseInsensitivityMixedCase() throws IOException {
-        ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString("PuBliC")));
-        CommonTokenStream tokens  = new CommonTokenStream(lexer);
+    void testCaseInsensitivityMixedCase() {
+        Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer("PuBliC", true);
+        CommonTokenStream tokens  = new CommonTokenStream(lexerAndCounter.getKey());
         assertEquals(2, tokens.getNumberOfOnChannelTokens());
+        assertEquals(0, lexerAndCounter.getValue().getNumErrors());
+    }
+
+    @Test
+    void testLexerUnicodeEscapes() {
+        Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer("'Fran\\u00E7ois'", false);
+        CommonTokenStream tokens = new CommonTokenStream(lexerAndCounter.getKey());
+        assertEquals(2, tokens.getNumberOfOnChannelTokens());
+        assertEquals(0, lexerAndCounter.getValue().getNumErrors());
     }
 }

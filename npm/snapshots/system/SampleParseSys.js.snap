@@ -39,6 +39,76 @@ Array [
     "pkg": "force-app",
     "status": 0,
   },
+  Object {
+    "errors": Array [],
+    "name": "Apex-Opensource-Library",
+    "path": "Apex-Opensource-Library/force-app/commons/triggerHandler",
+    "pkg": "force-app/commons/triggerHandler",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "Apex-Opensource-Library",
+    "path": "Apex-Opensource-Library/force-app/commons/triggerHandlerMdt",
+    "pkg": "force-app/commons/triggerHandlerMdt",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "Apex-Opensource-Library",
+    "path": "Apex-Opensource-Library/force-app/commons/shared",
+    "pkg": "force-app/commons/shared",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "Apex-Opensource-Library",
+    "path": "Apex-Opensource-Library/force-app/commons/callout",
+    "pkg": "force-app/commons/callout",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "Apex-Opensource-Library",
+    "path": "Apex-Opensource-Library/force-app/commons/collections",
+    "pkg": "force-app/commons/collections",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "Apex-Opensource-Library",
+    "path": "Apex-Opensource-Library/force-app/commons/queries",
+    "pkg": "./force-app/commons/queries",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "Apex-Opensource-Library",
+    "path": "Apex-Opensource-Library/force-app/commons/database",
+    "pkg": "./force-app/commons/database",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "Apex-Opensource-Library",
+    "path": "Apex-Opensource-Library/force-app/commons/httpMocks",
+    "pkg": "./force-app/commons/httpMocks",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "Apex-Opensource-Library",
+    "path": "Apex-Opensource-Library/force-app/commons/testDataBuilder",
+    "pkg": "./force-app/commons/testDataBuilder",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "Apex-Opensource-Library",
+    "path": "Apex-Opensource-Library/force-app/commons/testDataSuite",
+    "pkg": "./force-app/commons/testDataSuite",
+    "status": 0,
+  },
 ]
 `;
 
@@ -83,6 +153,13 @@ Array [
     "name": "ApexTriggerHandler",
     "path": "ApexTriggerHandler/apex-trigger-handler",
     "pkg": "apex-trigger-handler",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "ApexTriggerHandler",
+    "path": "ApexTriggerHandler/apex-trigger-loader",
+    "pkg": "apex-trigger-loader",
     "status": 0,
   },
 ]
@@ -372,15 +449,15 @@ Array [
   Object {
     "errors": Array [],
     "name": "NebulaLogger",
-    "path": "NebulaLogger/nebula-logger/plugins/logger-admin-dashboard/plugin",
-    "pkg": "./nebula-logger/plugins/logger-admin-dashboard/plugin",
+    "path": "NebulaLogger/nebula-logger/plugins/slack/plugin",
+    "pkg": "./nebula-logger/plugins/slack/plugin",
     "status": 0,
   },
   Object {
     "errors": Array [],
     "name": "NebulaLogger",
-    "path": "NebulaLogger/nebula-logger/plugins/slack/plugin",
-    "pkg": "./nebula-logger/plugins/slack/plugin",
+    "path": "NebulaLogger/nebula-logger/dev",
+    "pkg": "./nebula-logger/dev",
     "status": 0,
   },
   Object {
@@ -395,13 +472,6 @@ Array [
     "name": "NebulaLogger",
     "path": "NebulaLogger/nebula-logger/recipes",
     "pkg": "./nebula-logger/recipes",
-    "status": 0,
-  },
-  Object {
-    "errors": Array [],
-    "name": "NebulaLogger",
-    "path": "NebulaLogger/nebula-logger/unsorted",
-    "pkg": "./nebula-logger/unsorted",
     "status": 0,
   },
 ]
@@ -482,17 +552,6 @@ Array [
     "name": "Salesforce-Test-Factory",
     "path": "Salesforce-Test-Factory/force-app",
     "pkg": "force-app",
-    "status": 0,
-  },
-]
-`;
-
-exports[`Parse samples Sample: SalesforceDurableStreamingDemo 1`] = `
-Array [
-  Object {
-    "errors": Array [],
-    "name": "SalesforceDurableStreamingDemo",
-    "path": ".",
     "status": 0,
   },
 ]
@@ -605,9 +664,23 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-domainbuilder",
-    "path": "apex-domainbuilder/force-app",
-    "pkg": "force-app",
+    "path": "apex-domainbuilder/sfdx-source/fflib-apex-common-subset",
+    "pkg": "sfdx-source/fflib-apex-common-subset",
     "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "apex-domainbuilder",
+    "path": "apex-domainbuilder/sfdx-source/apex-domainbuilder",
+    "pkg": "sfdx-source/apex-domainbuilder",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "apex-domainbuilder",
+    "path": "apex-domainbuilder/sfdx-source/apex-domainbuilder-samplecode",
+    "pkg": "sfdx-source/apex-domainbuilder-samplecode",
+    "status": 2,
   },
 ]
 `;
@@ -617,8 +690,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "apex-lambda",
-    "path": "apex-lambda/sfdx-source/apex-fp",
-    "pkg": "sfdx-source/apex-fp",
+    "path": "apex-lambda/force-app",
+    "pkg": "force-app",
     "status": 0,
   },
 ]
@@ -926,6 +999,13 @@ Array [
     "pkg": "unpackaged/config/test",
     "status": 0,
   },
+  Object {
+    "errors": Array [],
+    "name": "declarative-lookup-rollup-summaries",
+    "path": "declarative-lookup-rollup-summaries/unpackaged/config/test_triggers",
+    "pkg": "unpackaged/config/test_triggers",
+    "status": 0,
+  },
 ]
 `;
 
@@ -957,7 +1037,7 @@ Array [
     "errors": Array [],
     "name": "dreamhouse-sfdx",
     "path": "dreamhouse-sfdx/force-app",
-    "pkg": "force-app",
+    "pkg": "./force-app",
     "status": 0,
   },
 ]
@@ -1379,7 +1459,15 @@ Array [
   Object {
     "errors": Array [],
     "name": "sirono-common",
-    "path": ".",
+    "path": "sirono-common/force-app/main/default",
+    "pkg": "force-app/main/default",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "sirono-common",
+    "path": "sirono-common/force-app/test/default",
+    "pkg": "force-app/test/default",
     "status": 0,
   },
 ]

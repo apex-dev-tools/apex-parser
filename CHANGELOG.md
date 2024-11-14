@@ -3,6 +3,7 @@
 ## 4.3.1 - 2024-11-12
 
 - Fix Lexer support for uppercase Hex
+- Fix parser `whenValue` to support type refs
 
 ## 4.3.0 - 2024-09-26
 

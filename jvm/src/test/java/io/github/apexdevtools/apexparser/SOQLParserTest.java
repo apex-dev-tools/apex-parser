@@ -164,4 +164,14 @@ public class SOQLParserTest {
         assertNotNull(context);
         assertEquals(0, parserAndCounter.getValue().getNumErrors());
     }
+
+    @Test
+    void timeLiteral() {
+        Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+            "[SELECT Break__c,Check_Out__c FROM VMS_Time_Card_Item__c WHERE Time_Card__c =:timeCard.Id AND Check_Out__c = 01:00:00.000Z]"
+        );
+        ApexParser.SoqlLiteralContext context = parserAndCounter.getKey().soqlLiteral();
+        assertNotNull(context);
+        assertEquals(0, parserAndCounter.getValue().getNumErrors());
+    }
 }

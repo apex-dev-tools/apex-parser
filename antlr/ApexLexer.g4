@@ -235,9 +235,10 @@ NEXT_N_FISCAL_YEARS_N     : 'next_n_fiscal_years';
 LAST_N_FISCAL_YEARS_N     : 'last_n_fiscal_years';
 N_FISCAL_YEARS_AGO_N      : 'n_fiscal_years_ago';
 
-// SOQL Date literal
+// SOQL Date and Time literals
 DateLiteral: Digit Digit Digit Digit '-' Digit Digit '-' Digit Digit;
-DateTimeLiteral: DateLiteral 't' Digit Digit ':' Digit Digit ':' Digit Digit ('z' | (('+' | '-') Digit+ ( ':' Digit+)? ));
+TimeLiteral: Digit Digit ':' Digit Digit ':' Digit Digit ('.' Digit+ )? ('z' | (('+' | '-') Digit+ ( ':' Digit+)? ));
+DateTimeLiteral: DateLiteral 't' TimeLiteral;
 
 // SOQL Currency literal
 // (NOTE: this is also a valid Identifier)

@@ -1,6 +1,6 @@
 {
   "name": "@apexdevtools/apex-parser",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "author": "Apex Dev Tools Team <apexdevtools@gmail.com> (https://github.com/apex-dev-tools)",
   "bugs": "https://github.com/apex-dev-tools/apex-parser/issues",
   "description": "Javascript parser for Salesforce Apex Language",

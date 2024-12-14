@@ -1,5 +1,9 @@
 # apex-parser - Changelog
 
+## 4.4.0 - 2024-12-14
+
+- Support `TimeLiteral` for `Time` fields, e.g. `WHERE TimeField__c = 01:00:00.000Z` for SOQL queries
+
 ## 4.3.1 - 2024-11-12
 
 - Fix Lexer support for uppercase Hex

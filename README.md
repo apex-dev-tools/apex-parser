@@ -12,11 +12,16 @@ As Apex & SOQL/SOQL are case-insenstive languages you need to use the provided C
 
 To parse a class file (NPM version):
 
-    let lexer = new ApexLexer(new CaseInsensitiveInputStream("public class Hello {}"))
-    let tokens  = new CommonTokenStream(lexer);
+```typescript
+import { CharStreams } from "antlr4ts";
 
-    let parser = new ApexParser(tokens)
-    let context = parser.compilationUnit()
+const stream = CharStreams.fromString("public class Hello {}");
+let lexer = new ApexLexer(new CaseInsensitiveInputStream(stream));
+let tokens  = new CommonTokenStream(lexer);
+
+let parser = new ApexParser(tokens);
+let context = parser.compilationUnit();
+```
 
 The 'context' is a CompilationUnitContext object which is the root of the parsed representation of the class. You can access the parse tree via functions on it.
 
@@ -30,14 +35,18 @@ The npm module uses antlr4ts 0.5.0-alpha.4, this was updated from 0.5.0-alpha.3 
 sure that if you are using a matching versions of this dependency if you use it directly. To avoid issues you can
 import 'CommonTokenStream' & 'ParseTreeWalker' from 'apex-parser' instead of from antlr4ts.
 
-    import { CommonTokenStream} from "apex-parser";
-    import { ParseTreeWalker } from "apex-parser";
+```typescript
+import { CommonTokenStream} from "apex-parser";
+import { ParseTreeWalker } from "apex-parser";
+```
 
 ## SOSL FIND quoting
 
 SOSL FIND uses ' as a quoting character when embedded in Apex, in the API braces are used:
 
-    Find {something} RETURNING Account
+```sosl
+Find {something} RETURNING Account
+```
 
 To parse the API format there is an alternative parser rule, soslLiteralAlt, that you can use instead of soslLiteral. See SOSLParserTest for some examples of how these differ.
 
@@ -45,31 +54,41 @@ To parse the API format there is an alternative parser rule, soslLiteralAlt, tha
 
 Maven
 
-    <dependency>
-        <groupId>io.github.apex-dev-tools</groupId>
-        <artifactId>apex-parser</artifactId>
-        <version>4.4.0</version>
-    </dependency>
+```xml
+<dependency>
+    <groupId>io.github.apex-dev-tools</groupId>
+    <artifactId>apex-parser</artifactId>
+    <version>4.4.0</version>
+</dependency>
+```
 
 NPM
 
-    "@apexdevtools/apex-parser": "^4.4.0"
+```json
+{
+  "@apexdevtools/apex-parser": "^4.4.0"
+}
+```
 
 ## Building
 
 To build both distributions:
 
-    npm run build
+```shell
+npm run build
+```
 
 ## Testing
 
 Unit tests are executed during the respective package builds. The system tests require both packages to be built, as the js test also spawns the jar version. They use a collection of sample projects located in the [apex-samples](https://github.com/apex-dev-tools/apex-samples) repository. Follow the README instructions in apex-samples to checkout the submodules. To run the tests:
 
-    # Set SAMPLES env var to samples repo location
-    export SAMPLES=<abs path to apex-samples>
+```shell
+# Set SAMPLES env var to samples repo location
+export SAMPLES=<abs path to apex-samples>
 
-    # Exec test script
-    npm run test-samples
+# Exec test script
+npm run test-samples
+```
 
 System test failures relating to the snapshots may highlight regressions. Though if an error is expected or the samples have changed, instead use `npm run test-snapshot` to update the snapshots, then commit the changes.
 

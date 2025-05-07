@@ -11,7 +11,7 @@
   "scripts": {
     "antlr": "npm run antlr:copy && npm run antlr:build && npm run antlr:patch",
     "antlr:copy": "cp ../antlr/* antlr",
-    "antlr:build": "cd antlr && antlr4 -Dlanguage=TypeScript -visitor -o ../src ApexLexer.g4 ApexParser.g4",
+    "antlr:build": "mvn exec:exec",
     "antlr:patch": "node patch",
     "build": "npm run clean && npm run antlr && tsc",
     "check": "node -e 'require(\"./lib/index.js\").check()'",

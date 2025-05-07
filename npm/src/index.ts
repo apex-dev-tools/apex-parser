@@ -26,23 +26,23 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import { basename, dirname, resolve, relative } from "path"
-import * as dir from "node-dir"
+import * as fsPromises from "node:fs/promises";
+import { readdirSync, readFileSync, lstatSync, existsSync } from "fs";
+import { basename, dirname, resolve, relative } from "path";
 import { ApexLexer } from "./ApexLexer";
 import { ApexParser } from "./ApexParser";
-import { CaseInsensitiveInputStream } from "./CaseInsensitiveInputStream"
-import { CharStreams, CommonTokenStream } from "antlr4ts";
+import { CaseInsensitiveInputStream } from "./CaseInsensitiveInputStream";
+import { CharStreams, CommonTokenStream } from "antlr4";
 import { ThrowingErrorListener } from "./ThrowingErrorListener";
-import { readdirSync, readFileSync, lstatSync, existsSync } from "fs";
 
-export * from "./ApexLexer"
-export * from "./ApexParser"
-export * from "./CaseInsensitiveInputStream"
-export * from "./ThrowingErrorListener"
-export * from "./ApexParserListener"
-export * from "./ApexParserVisitor"
-export { CommonTokenStream } from "antlr4ts"
-export { ParseTreeWalker } from "antlr4ts/tree/ParseTreeWalker"
+export * from "./ApexLexer";
+export * from "./ApexParser";
+export * from "./CaseInsensitiveInputStream";
+export * from "./ThrowingErrorListener";
+export * from "./ApexParserListener";
+export * from "./ApexParserVisitor";
+export { CommonTokenStream } from "antlr4";
+export { ParseTreeWalker } from "antlr4";
 
 interface ParseCheckError {
     path: string;
@@ -67,7 +67,7 @@ export async function check(pathStr?: string): Promise<CheckResult> {
 
     const result = {
         status: 0,
-        errors: []
+        errors: [],
     };
 
     if (!existsSync(path)) {
@@ -87,36 +87,41 @@ export async function check(pathStr?: string): Promise<CheckResult> {
     return result;
 }
 
-export async function checkProject(pathStr?: string): Promise<ProjectCheckResult[]> {
+export async function checkProject(
+    pathStr?: string
+): Promise<ProjectCheckResult[]> {
     const path = resolve(pathStr || process.argv[1] || process.cwd());
     const name = basename(path);
     const project = findProjectFile(path, 1);
     const packages = getProjectPackages(project);
 
     if (packages.length == 0) {
-        console.log(`[${name}]: No valid SFDX project, checking all cls & trigger files`);
-        const result = await check(path)
-        return [{
-            name,
-            path: ".",
-            ...result
-        }];
+        console.log(
+            `[${name}]: No valid SFDX project, checking all cls & trigger files`
+        );
+        const result = await check(path);
+        return [
+            {
+                name,
+                path: ".",
+                ...result,
+            },
+        ];
     }
 
     const projectDir = dirname(project);
     const projectResult = await Promise.all(
-        packages
-            .map(async (pkg) => {
-                console.log(`[${name}]: Checking package "${pkg}"`);
-                const pkgPath = resolve(projectDir, pkg);
-                const result = await check(pkgPath);
-                return {
-                    name,
-                    pkg,
-                    path: relative(path, pkgPath),
-                    ...result
-                };
-            })
+        packages.map(async pkg => {
+            console.log(`[${name}]: Checking package "${pkg}"`);
+            const pkgPath = resolve(projectDir, pkg);
+            const result = await check(pkgPath);
+            return {
+                name,
+                pkg,
+                path: relative(path, pkgPath),
+                ...result,
+            };
+        })
     );
 
     process.exitCode = Math.max(...projectResult.map(r => r.status));
@@ -124,51 +129,77 @@ export async function checkProject(pathStr?: string): Promise<ProjectCheckResult
 }
 
 async function parseFiles(path: string): Promise<ParseCheckError[]> {
-    const files = await dir.promiseFiles(path)
-    const classErrors = parseByType(path, files, ".cls", (parser: ApexParser) => {parser.compilationUnit();});
-    const triggerErrors = parseByType(path, files, ".trigger", (parser: ApexParser) => {parser.triggerUnit();});
-    return classErrors.concat(triggerErrors)
+    const files = await fsPromises.readdir(path);
+    const classErrors = parseByType(
+        path,
+        files,
+        ".cls",
+        (parser: ApexParser) => {
+            parser.compilationUnit();
+        }
+    );
+    const triggerErrors = parseByType(
+        path,
+        files,
+        ".trigger",
+        (parser: ApexParser) => {
+            parser.triggerUnit();
+        }
+    );
+    return classErrors.concat(triggerErrors);
 }
 
-function parseByType(rootPath: string, files: string[], endsWith: string, operation: (parser: ApexParser) => void): ParseCheckError[] {
- 
+function parseByType(
+    rootPath: string,
+    files: string[],
+    endsWith: string,
+    operation: (parser: ApexParser) => void
+): ParseCheckError[] {
     let parsedCount = 0;
     const errors: ParseCheckError[] = [];
-    files.filter(name => name.endsWith(endsWith)).forEach(file => {
-        if (lstatSync(file).isFile()) {
-            const content = readFileSync(file);
-            const lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString(content.toString())));
-            const tokens = new CommonTokenStream(lexer);
+    files
+        .filter(name => name.endsWith(endsWith))
+        .forEach(file => {
+            if (lstatSync(file).isFile()) {
+                const content = readFileSync(file);
+                const lexer = new ApexLexer(
+                    new CaseInsensitiveInputStream(
+                        CharStreams.fromString(content.toString())
+                    )
+                );
+                const tokens = new CommonTokenStream(lexer);
 
-            const parser = new ApexParser(tokens);
-            parser.removeErrorListeners();
-            parser.addErrorListener(new ThrowingErrorListener());
-            try {
-                operation(parser)
-            } catch (err) {
-                console.log(`Error parsing: ${file}`);
-                console.log(err);
-                errors.push({
-                    path: relative(rootPath, file),
-                    error: JSON.stringify(err)
-                });
+                const parser = new ApexParser(tokens);
+                parser.removeErrorListeners();
+                parser.addErrorListener(new ThrowingErrorListener());
+                try {
+                    operation(parser);
+                } catch (err) {
+                    console.log(`Error parsing: ${file}`);
+                    console.log(err);
+                    errors.push({
+                        path: relative(rootPath, file),
+                        error: JSON.stringify(err),
+                    });
+                }
+                parsedCount += 1;
             }
-            parsedCount += 1;
-        }
-    });
+        });
 
     console.log(`Parsed ${parsedCount} '${endsWith}' files in: ${rootPath}`);
-    return errors
+    return errors;
 }
 
 function findProjectFile(wd: string, depth: number): string | undefined {
     const proj = "sfdx-project.json";
-    const files = readdirSync(wd).filter(i => !(/(^|\/)\.[^\/\.]/g).test(i));
+    const files = readdirSync(wd).filter(i => !/(^|\/)\.[^\/\.]/g.test(i));
     if (files.includes(proj)) {
         return resolve(wd, proj);
     }
     if (depth) {
-        const dirs = files.map(f => resolve(wd, f)).filter(f => lstatSync(f).isDirectory())
+        const dirs = files
+            .map(f => resolve(wd, f))
+            .filter(f => lstatSync(f).isDirectory());
         const newDepth = depth - 1;
         for (const d of dirs) {
             const p = findProjectFile(d, newDepth);
@@ -186,9 +217,9 @@ function getProjectPackages(projectFilePath?: string): string[] {
     }
     const config: {
         packageDirectories?: {
-            path?: string
-        }[]
+            path?: string;
+        }[];
     } = JSON.parse(readFileSync(projectFilePath, { encoding: "utf8" }));
     const packages = config.packageDirectories || [];
-    return packages.flatMap((p) => p.path ? p.path.replace(/\\/g, "/") : []);
+    return packages.flatMap(p => (p.path ? p.path.replace(/\\/g, "/") : []));
 }

@@ -26,59 +26,76 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import { CharStream } from "antlr4ts";
-import { Interval } from "antlr4ts/misc/Interval";
+import { CharStream, CharStreams } from "antlr4";
 
 export class CaseInsensitiveInputStream implements CharStream {
-  private src: CharStream;
+    private src: CharStream;
 
-  // userData is an untyped identifierfor the stream, for string input use CharStreams.fromString()
-  constructor(src: CharStream) {
-    this.src = src;
-  }
-
-  getText(interval: Interval): string {
-    return this.src.getText(interval);
-  }
-
-  consume(): void {
-    this.src.consume();
-  }
-
-  LA(i: number): number {
-    return this.toLower(this.src.LA(i));
-  }
-
-  mark(): number {
-    return this.src.mark();
-  }
-
-  release(marker: number): void {
-    this.src.release(marker);
-  }
-
-  get index(): number {
-    return this.src.index;
-  }
-
-  seek(index: number): void {
-    return this.src.seek(index);
-  }
-
-  get size(): number {
-    return this.src.size;
-  }
-
-  get sourceName(): string {
-    return this.src.sourceName;
-  }
-
-  // We only need basic upper to lower conversions
-  private toLower(c: number): number {
-    if (c >= 65 && c <= 90) {
-      return c + 32;
-    } else {
-      return c;
+    get index(): number {
+        return this.src.index;
     }
-  }
+
+    get size(): number {
+        return this.src.size;
+    }
+
+    constructor(data: string); // from CharStream
+    constructor(data: string, decodeToUnicodeCodePoints: boolean); // from CharStream
+    constructor(stream: CharStream);
+    constructor(
+        data: string | CharStream,
+        decodeToUnicodeCodePoints?: boolean
+    ) {
+        if (typeof data === "string") {
+            this.src = CharStreams.fromString(data, decodeToUnicodeCodePoints);
+        } else {
+            this.src = data;
+        }
+    }
+
+    reset(): void {
+        this.src.reset();
+    }
+
+    consume(): void {
+        this.src.consume();
+    }
+
+    LA(i: number): number {
+        return this.toLower(this.src.LA(i));
+    }
+
+    LT(offset: number): number {
+        // same behaviour as CharStream
+        return this.LA(offset);
+    }
+
+    mark(): number {
+        return this.src.mark();
+    }
+
+    release(marker: number): void {
+        this.src.release(marker);
+    }
+
+    seek(index: number): void {
+        return this.src.seek(index);
+    }
+
+    getText(start: number, stop: number): string {
+        return this.src.getText(start, stop);
+    }
+
+    toString(): string {
+        return this.src.toString();
+    }
+
+    // We only need basic upper to lower conversions
+    private toLower(c: number): number {
+        if (c >= 65 && c <= 90) {
+            return c + 32;
+        } else {
+            return c;
+        }
+    }
 }

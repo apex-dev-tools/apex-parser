@@ -39,7 +39,7 @@ export class SyntaxException {
     }
 }
 
-export class ThrowingErrorListener implements ErrorListener<Token> {
+export class ThrowingErrorListener extends ErrorListener<Token> {
     syntaxError(
         recognizer: Recognizer<Token>,
         offendingSymbol: Token,

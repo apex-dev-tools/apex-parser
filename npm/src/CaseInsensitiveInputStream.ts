@@ -26,68 +26,32 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import { CharStream, CharStreams } from "antlr4";
+import { CharStream } from "antlr4";
 
-export class CaseInsensitiveInputStream implements CharStream {
-    private src: CharStream;
-
-    get index(): number {
-        return this.src.index;
-    }
-
-    get size(): number {
-        return this.src.size;
-    }
-
-    constructor(data: string); // from CharStream
-    constructor(data: string, decodeToUnicodeCodePoints: boolean); // from CharStream
-    constructor(stream: CharStream);
+export class CaseInsensitiveInputStream extends CharStream {
+    constructor(data: string, decodeToUnicodeCodePoints?: boolean);
+    constructor(stream: CharStream, decodeToUnicodeCodePoints?: boolean);
     constructor(
         data: string | CharStream,
-        decodeToUnicodeCodePoints?: boolean
+        decodeToUnicodeCodePoints: boolean = true
     ) {
+        // Default to unicode code points
+        // CharStreams.fromString is always `new CharStream(data, true)`
+        // but `new CharStream(data)` defaults to false / UTF-16 code units
         if (typeof data === "string") {
-            this.src = CharStreams.fromString(data, decodeToUnicodeCodePoints);
+            super(data, decodeToUnicodeCodePoints);
         } else {
-            this.src = data;
+            super(data.toString(), decodeToUnicodeCodePoints);
         }
     }
 
-    reset(): void {
-        this.src.reset();
-    }
-
-    consume(): void {
-        this.src.consume();
-    }
-
     LA(i: number): number {
-        return this.toLower(this.src.LA(i));
+        return this.toLower(super.LA(i));
     }
 
     LT(offset: number): number {
         // same behaviour as CharStream
         return this.LA(offset);
-    }
-
-    mark(): number {
-        return this.src.mark();
-    }
-
-    release(marker: number): void {
-        this.src.release(marker);
-    }
-
-    seek(index: number): void {
-        return this.src.seek(index);
-    }
-
-    getText(start: number, stop: number): string {
-        return this.src.getText(start, stop);
-    }
-
-    toString(): string {
-        return this.src.toString();
     }
 
     // We only need basic upper to lower conversions

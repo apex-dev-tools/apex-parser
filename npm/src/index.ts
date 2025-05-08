@@ -29,18 +29,19 @@
 import * as fsPromises from "node:fs/promises";
 import { readdirSync, readFileSync, lstatSync, existsSync } from "fs";
 import { basename, dirname, resolve, relative } from "path";
-import { ApexLexer } from "./ApexLexer";
-import { ApexParser } from "./ApexParser";
+import ApexLexer from "./ApexLexer";
+import ApexParser from "./ApexParser";
 import { CaseInsensitiveInputStream } from "./CaseInsensitiveInputStream";
 import { CharStreams, CommonTokenStream } from "antlr4";
 import { ThrowingErrorListener } from "./ThrowingErrorListener";
 
-export * from "./ApexLexer";
-export * from "./ApexParser";
 export * from "./CaseInsensitiveInputStream";
 export * from "./ThrowingErrorListener";
-export * from "./ApexParserListener";
-export * from "./ApexParserVisitor";
+export * from "./ApexParser";
+export { default as ApexLexer } from "./ApexLexer";
+export { default as ApexParser } from "./ApexParser";
+export { default as ApexParserListener } from "./ApexParserListener";
+export { default as ApexParserVisitor } from "./ApexParserVisitor";
 export { CommonTokenStream } from "antlr4";
 export { ParseTreeWalker } from "antlr4";
 

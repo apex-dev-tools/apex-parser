@@ -9,11 +9,8 @@
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
   "scripts": {
-    "antlr": "npm run antlr:copy && npm run antlr:build && npm run antlr:patch",
-    "antlr:copy": "cp ../antlr/* antlr",
-    "antlr:build": "mvn exec:exec",
-    "antlr:patch": "node patch",
-    "build": "npm run clean && npm run antlr && tsc",
+    "build": "npm run clean && npm run build:antlr && tsc",
+    "build:antlr": "mvn exec:exec",
     "check": "node -e 'require(\"./lib/index.js\").check()'",
     "clean": "rm -rf lib",
     "test": "jest --config jestconfig.json lib",

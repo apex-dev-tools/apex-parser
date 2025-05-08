@@ -24,6 +24,7 @@
         <version>3.5.0</version>
         <executions>
           <execution>
+            <id>generate-antlr</id>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -31,18 +32,22 @@
         </executions>
         <configuration>
           <executable>java</executable>
+          <workingDirectory>${project.basedir}/antlr</workingDirectory>
           <arguments>
             <argument>-classpath</argument>
             <classpath/>
             <argument>org.antlr.v4.Tool</argument>
             <argument>-Dlanguage=TypeScript</argument>
             <argument>-visitor</argument>
-            <argument>-lib antlr</argument>
-            <argument>-o src</argument>
+            <argument>-lib</argument>
+            <argument>${project.basedir}/../antlr</argument>
+            <argument>-o</argument>
+            <argument>${project.basedir}/src</argument>
+            <argument>ApexLexer.g4</argument>
+            <argument>ApexParser.g4</argument>
           </arguments>
         </configuration>
       </plugin>
-
     </plugins>
   </build>
 

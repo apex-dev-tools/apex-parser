@@ -9,14 +9,14 @@
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
   "scripts": {
-    "build": "npm run clean && npm run build:antlr && tsc",
-    "build:antlr": "mvn exec:exec",
+    "build": "npm run clean && mvn exec:exec && tsc",
+    "build:test": "npm run build && npm test",
     "check": "node -e 'require(\"./lib/index.js\").check()'",
     "clean": "rm -rf lib",
+    "prepack": "cp ../*.md .",
     "test": "jest --config jestconfig.json lib",
     "test:samples": "jest --config sys.jestconfig.json lib",
-    "test:snapshot": "npm run test:samples -- --updateSnapshot",
-    "prepack": "cp ../*.md ."
+    "test:snapshot": "npm run test:samples -- --updateSnapshot"
   },
   "files": [
     "lib/**/*"

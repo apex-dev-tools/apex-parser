@@ -19,7 +19,8 @@ jobs:
 
       - name: Publish package
         run: |
-          npm run build-npm
+          npm run init:npm
+          npm run build:npm
           cd npm
           npm publish --access public
         env:

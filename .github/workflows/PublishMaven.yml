@@ -30,7 +30,7 @@ jobs:
 
       - name: Publish package
         run: |
-          npm run init-jvm
+          npm run init:jvm
           cd jvm
           mvn --batch-mode deploy
         env:

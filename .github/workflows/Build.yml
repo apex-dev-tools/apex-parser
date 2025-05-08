@@ -26,6 +26,9 @@ jobs:
           java-version: 8
           cache: "maven"
 
+      - name: Init
+        run: npm run init
+
       - name: Build & Test
         run: npm run build
 
@@ -41,5 +44,4 @@ jobs:
         run: echo "SAMPLES=$GITHUB_WORKSPACE/apex-samples" >> "$GITHUB_ENV"
 
       - name: System Test
-        run: npm run test-samples
-        working-directory: npm
+        run: npm run systest

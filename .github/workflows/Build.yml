@@ -17,13 +17,13 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
-      - name: Set up JDK 8
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
-          java-version: 8
+          java-version: 11
           cache: "maven"
 
       - name: Init

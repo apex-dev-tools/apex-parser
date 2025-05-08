@@ -37,13 +37,11 @@ import { ThrowingErrorListener } from "./ThrowingErrorListener";
 
 export * from "./CaseInsensitiveInputStream";
 export * from "./ThrowingErrorListener";
-export * from "./ApexParser";
+export * from "./ApexParser"; // Context types
 export { default as ApexLexer } from "./ApexLexer";
 export { default as ApexParser } from "./ApexParser";
 export { default as ApexParserListener } from "./ApexParserListener";
 export { default as ApexParserVisitor } from "./ApexParserVisitor";
-export { CommonTokenStream } from "antlr4";
-export { ParseTreeWalker } from "antlr4";
 
 interface ParseCheckError {
     path: string;

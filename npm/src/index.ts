@@ -26,13 +26,13 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import * as fsPromises from "node:fs/promises";
-import { readdirSync, readFileSync, lstatSync, existsSync } from "fs";
-import { basename, dirname, resolve, relative } from "path";
+import { readdir } from "node:fs/promises";
+import { readdirSync, readFileSync, lstatSync, existsSync } from "node:fs";
+import { basename, dirname, extname, resolve, relative, join } from "node:path";
 import ApexLexer from "./ApexLexer";
 import ApexParser from "./ApexParser";
 import { CaseInsensitiveInputStream } from "./CaseInsensitiveInputStream";
-import { CharStreams, CommonTokenStream } from "antlr4";
+import { CommonTokenStream } from "antlr4";
 import { ThrowingErrorListener } from "./ThrowingErrorListener";
 
 export * from "./CaseInsensitiveInputStream";
@@ -128,11 +128,12 @@ export async function checkProject(
 }
 
 async function parseFiles(path: string): Promise<ParseCheckError[]> {
-    const files = await fsPromises.readdir(path);
+    const ext = [".cls", ".trigger"];
+    const files = await getPathsInDir(path, ext);
     const classErrors = parseByType(
         path,
         files,
-        ".cls",
+        ext[0],
         (parser: ApexParser) => {
             parser.compilationUnit();
         }
@@ -140,12 +141,26 @@ async function parseFiles(path: string): Promise<ParseCheckError[]> {
     const triggerErrors = parseByType(
         path,
         files,
-        ".trigger",
+        ext[1],
         (parser: ApexParser) => {
             parser.triggerUnit();
         }
     );
     return classErrors.concat(triggerErrors);
+}
+
+async function getPathsInDir(path: string, ext: string[]): Promise<string[]> {
+    const dirent = await readdir(path, {
+        withFileTypes: true,
+        recursive: true,
+    });
+
+    return dirent.reduce<string[]>((files, ent) => {
+        if (ent.isFile() && ext.includes(extname(ent.name))) {
+            files.push(join(ent.parentPath, ent.name));
+        }
+        return files;
+    }, []);
 }
 
 function parseByType(
@@ -162,9 +177,7 @@ function parseByType(
             if (lstatSync(file).isFile()) {
                 const content = readFileSync(file);
                 const lexer = new ApexLexer(
-                    new CaseInsensitiveInputStream(
-                        CharStreams.fromString(content.toString())
-                    )
+                    new CaseInsensitiveInputStream(content.toString())
                 );
                 const tokens = new CommonTokenStream(lexer);
 

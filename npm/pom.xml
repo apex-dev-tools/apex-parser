@@ -13,6 +13,7 @@
       <groupId>org.antlr</groupId> 
       <artifactId>antlr4</artifactId> 
       <version>4.13.2</version> 
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
@@ -33,6 +34,7 @@
         <configuration>
           <executable>java</executable>
           <workingDirectory>${project.basedir}/antlr</workingDirectory>
+          <classpathScope>compile</classpathScope>
           <arguments>
             <argument>-classpath</argument>
             <classpath/>

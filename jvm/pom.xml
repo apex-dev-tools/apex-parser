@@ -63,14 +63,15 @@
   <dependencies>
     <dependency>
       <groupId>org.antlr</groupId>
-      <artifactId>antlr4</artifactId>
+      <artifactId>antlr4-runtime</artifactId>
       <version>4.13.2</version>
     </dependency>
 
     <dependency>
       <groupId>org.antlr</groupId>
-      <artifactId>antlr4-runtime</artifactId>
+      <artifactId>antlr4</artifactId>
       <version>4.13.2</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -115,6 +116,7 @@
         <configuration>
           <executable>java</executable>
           <workingDirectory>${project.basedir}/antlr</workingDirectory>
+          <classpathScope>compile</classpathScope>
           <arguments>
             <argument>-classpath</argument>
             <classpath/>
@@ -175,6 +177,22 @@
             </manifest>
           </archive>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/dependency</outputDirectory>
+              <includeScope>runtime</includeScope>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>

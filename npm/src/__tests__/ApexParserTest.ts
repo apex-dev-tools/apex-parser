@@ -21,31 +21,33 @@ import {
     CoalExpressionContext,
     PrimaryExpressionContext,
     Arth2ExpressionContext,
-    LogOrExpressionContext
+    LogOrExpressionContext,
 } from "../ApexParser";
-import { ThrowingErrorListener, SyntaxException } from "../ThrowingErrorListener";
+import {
+    ThrowingErrorListener,
+    SyntaxException,
+} from "../ThrowingErrorListener";
 import { createParser } from "./SyntaxErrorCounter";
 
-test('Boolean Literal', () => {
+test("Boolean Literal", () => {
+    const [parser, errorCounter] = createParser("true");
+    const context = parser.literal();
 
-    const [parser, errorCounter] = createParser("true")
-    const context = parser.literal()
+    expect(errorCounter.getNumErrors()).toEqual(0);
+    expect(context).toBeInstanceOf(LiteralContext);
+    expect(context.BooleanLiteral()).toBeTruthy();
+    expect(context.BooleanLiteral().getText()).toBe("true");
+});
 
-    expect(errorCounter.getNumErrors()).toEqual(0)
-    expect(context).toBeInstanceOf(LiteralContext)
-    expect(context.BooleanLiteral()).toBeTruthy()
-    expect(context.BooleanLiteral().text).toBe("true")
-})
+test("Expression", () => {
+    const [parser, errorCounter] = createParser("a * 5");
+    const context = parser.expression();
 
-test('Expression', () => {
-    const [parser, errorCounter] = createParser("a * 5")
-    const context = parser.expression()
-
-    expect(errorCounter.getNumErrors()).toEqual(0)
-    expect(context).toBeInstanceOf(Arth1ExpressionContext)
-    const arthExpression = context as Arth1ExpressionContext
-    expect(arthExpression.expression().length).toBe(2)
-})
+    expect(errorCounter.getNumErrors()).toEqual(0);
+    expect(context).toBeInstanceOf(Arth1ExpressionContext);
+    const arthExpression = context as Arth1ExpressionContext;
+    expect(arthExpression.expression_list().length).toBe(2);
+});
 
 test("Coalesce Expression", () => {
     const [parser, errorCounter] = createParser("a ?? 5");
@@ -54,7 +56,7 @@ test("Coalesce Expression", () => {
     expect(errorCounter.getNumErrors()).toEqual(0);
     expect(context).toBeInstanceOf(CoalExpressionContext);
     const coalExpression = context as CoalExpressionContext;
-    expect(coalExpression.expression().length).toBe(2);
+    expect(coalExpression.expression_list().length).toBe(2);
 });
 
 test("Coalesce Precedence - Arithmetic", () => {
@@ -68,11 +70,11 @@ test("Coalesce Precedence - Arithmetic", () => {
 
     expect(errorCounter.getNumErrors()).toEqual(0);
     expect(context).toBeInstanceOf(CoalExpressionContext);
-    const outer = (context as CoalExpressionContext).expression();
+    const outer = (context as CoalExpressionContext).expression_list();
     expect(outer.length).toBe(2);
     expect(outer[0]).toBeInstanceOf(CoalExpressionContext);
 
-    const inner = (outer[0] as CoalExpressionContext).expression(); // top ?? 100 - bottom
+    const inner = (outer[0] as CoalExpressionContext).expression_list(); // top ?? 100 - bottom
     expect(inner.length).toBe(2);
     expect(inner[0]).toBeInstanceOf(PrimaryExpressionContext); // top
     expect(inner[1]).toBeInstanceOf(Arth2ExpressionContext); // 100 - bottom
@@ -88,11 +90,11 @@ test("Coalesce Precedence - Boolean", () => {
 
     expect(errorCounter.getNumErrors()).toEqual(0);
     expect(context).toBeInstanceOf(CoalExpressionContext);
-    const outer = (context as CoalExpressionContext).expression();
+    const outer = (context as CoalExpressionContext).expression_list();
     expect(outer.length).toBe(2);
     expect(outer[0]).toBeInstanceOf(CoalExpressionContext);
 
-    const inner = (outer[0] as CoalExpressionContext).expression(); // a ?? false || b
+    const inner = (outer[0] as CoalExpressionContext).expression_list(); // a ?? false || b
     expect(inner.length).toBe(2);
     expect(inner[0]).toBeInstanceOf(PrimaryExpressionContext); // a
     expect(inner[1]).toBeInstanceOf(LogOrExpressionContext); // false || b
@@ -100,99 +102,103 @@ test("Coalesce Precedence - Boolean", () => {
     expect(outer[1]).toBeInstanceOf(PrimaryExpressionContext); // false
 });
 
-test('Compilation Unit', () => {
-    const [parser, errorCounter] = createParser("public class Hello {}")
+test("Compilation Unit", () => {
+    const [parser, errorCounter] = createParser("public class Hello {}");
 
-    const context = parser.compilationUnit()
+    const context = parser.compilationUnit();
 
-    expect(context).toBeInstanceOf(CompilationUnitContext)
-    expect(errorCounter.getNumErrors()).toEqual(0)
-})
+    expect(context).toBeInstanceOf(CompilationUnitContext);
+    expect(errorCounter.getNumErrors()).toEqual(0);
+});
 
-test('Compilation Unit (case insensitive)', () => {
-    const [parser, errorCounter] = createParser("Public CLASS Hello {}")
+test("Compilation Unit (case insensitive)", () => {
+    const [parser, errorCounter] = createParser("Public CLASS Hello {}");
 
-    const context = parser.compilationUnit()
+    const context = parser.compilationUnit();
 
-    expect(context).toBeInstanceOf(CompilationUnitContext)
-    expect(errorCounter.getNumErrors()).toEqual(0)
-})
+    expect(context).toBeInstanceOf(CompilationUnitContext);
+    expect(errorCounter.getNumErrors()).toEqual(0);
+});
 
-test('Compilation Unit (bug test)', () => {
+test("Compilation Unit (bug test)", () => {
     const [parser, errorCounter] = createParser(`public class Hello {
         public testMethod void func() {
             System.runAs(u) {
             }
         }
-    }`)
-    const context = parser.compilationUnit()
+    }`);
+    const context = parser.compilationUnit();
 
-    expect(context).toBeInstanceOf(CompilationUnitContext)
-    expect(errorCounter.getNumErrors()).toEqual(0)
-})
+    expect(context).toBeInstanceOf(CompilationUnitContext);
+    expect(errorCounter.getNumErrors()).toEqual(0);
+});
 
-test('Compilation Unit (inline SOQL)', () => {
+test("Compilation Unit (inline SOQL)", () => {
     const [parser, errorCounter] = createParser(`public class Hello {
         public void func() {
             List<Account> accounts = [Select Id from Accounts];
         }
-    }`)
-    const context = parser.compilationUnit()
+    }`);
+    const context = parser.compilationUnit();
 
-    expect(context).toBeInstanceOf(CompilationUnitContext)
-    expect(errorCounter.getNumErrors()).toEqual(0)
-})
+    expect(context).toBeInstanceOf(CompilationUnitContext);
+    expect(errorCounter.getNumErrors()).toEqual(0);
+});
 
-test('Compilation Unit (throwing errors)', () => {
-    const [parser] = createParser("public class Hello {")
+test("Compilation Unit (throwing errors)", () => {
+    const [parser] = createParser("public class Hello {");
 
-    parser.removeErrorListeners()
+    parser.removeErrorListeners();
     parser.addErrorListener(new ThrowingErrorListener());
 
     try {
-        parser.compilationUnit()
-        expect(true).toBe(false)
+        parser.compilationUnit();
+        expect(true).toBe(false);
     } catch (ex) {
-        expect(ex).toBeInstanceOf(SyntaxException)
+        expect(ex).toBeInstanceOf(SyntaxException);
     }
-})
+});
 
-test('Trigger Unit', () => {
-    const [parser, errorCounter] = createParser("trigger test on Account (before update, after update) {}")
-    const context = parser.triggerUnit()
+test("Trigger Unit", () => {
+    const [parser, errorCounter] = createParser(
+        "trigger test on Account (before update, after update) {}"
+    );
+    const context = parser.triggerUnit();
 
-    expect(context).toBeInstanceOf(TriggerUnitContext)
-    expect(errorCounter.getNumErrors()).toEqual(0)
-})
+    expect(context).toBeInstanceOf(TriggerUnitContext);
+    expect(errorCounter.getNumErrors()).toEqual(0);
+});
 
-test('testSemiAllowedAsWhileBody', () => {
-    const [parser, errorCounter] = createParser("while (x++ < 10 && !(y-- < 0));")
+test("testSemiAllowedAsWhileBody", () => {
+    const [parser, errorCounter] = createParser(
+        "while (x++ < 10 && !(y-- < 0));"
+    );
 
-    const context = parser.statement()
+    const context = parser.statement();
 
-    expect(context).toBeInstanceOf(StatementContext)
-    expect(errorCounter.getNumErrors()).toEqual(0)
-})
+    expect(context).toBeInstanceOf(StatementContext);
+    expect(errorCounter.getNumErrors()).toEqual(0);
+});
 
-test('testSemiAllowedAsForBody', () => {
-    const [parser, errorCounter] = createParser("for(x=0; x<10; x++);")
+test("testSemiAllowedAsForBody", () => {
+    const [parser, errorCounter] = createParser("for(x=0; x<10; x++);");
 
-    const context = parser.statement()
+    const context = parser.statement();
 
-    expect(context).toBeInstanceOf(StatementContext)
-    expect(errorCounter.getNumErrors()).toEqual(0)
-})
+    expect(context).toBeInstanceOf(StatementContext);
+    expect(errorCounter.getNumErrors()).toEqual(0);
+});
 
-test('testSemiDisallowedAsGeneralStatement', () => {
-    const [parser, errorCounter] = createParser("if (x == 3); else { ; }")
+test("testSemiDisallowedAsGeneralStatement", () => {
+    const [parser, errorCounter] = createParser("if (x == 3); else { ; }");
 
-    const context = parser.statement()
+    const context = parser.statement();
 
-    expect(context).toBeInstanceOf(StatementContext)
-    expect(errorCounter.getNumErrors()).toEqual(1)
-})
+    expect(context).toBeInstanceOf(StatementContext);
+    expect(errorCounter.getNumErrors()).toEqual(1);
+});
 
-test('testWhenLiteralParens', () => {
+test("testWhenLiteralParens", () => {
     const [parser, errorCounter] = createParser(`
     switch on (x) {
         when 1 { return 1; }
@@ -200,11 +206,11 @@ test('testWhenLiteralParens', () => {
         when (3), (4) { return 3; }
      }`);
 
-    const context = parser.statement()
+    const context = parser.statement();
 
-    expect(context).toBeInstanceOf(StatementContext)
-    expect(errorCounter.getNumErrors()).toEqual(0)
-})
+    expect(context).toBeInstanceOf(StatementContext);
+    expect(errorCounter.getNumErrors()).toEqual(0);
+});
 
 test("testWhenLiteralParens", () => {
     const [parser, errorCounter] = createParser(`
@@ -220,43 +226,50 @@ test("testWhenLiteralParens", () => {
     expect(errorCounter.getNumErrors()).toEqual(0);
 });
 
-test('testSoqlModeKeywords', () => {
+test("testSoqlModeKeywords", () => {
     const MODES = ["USER_MODE", "SYSTEM_MODE"];
     for (const mode of MODES) {
-        const [parser, errorCounter] = createParser(`SELECT Id FROM Account WITH ${mode}`);
-        const context = parser.query()
+        const [parser, errorCounter] = createParser(
+            `SELECT Id FROM Account WITH ${mode}`
+        );
+        const context = parser.query();
 
-        expect(context).toBeInstanceOf(QueryContext)
-        expect(errorCounter.getNumErrors()).toEqual(0)
+        expect(context).toBeInstanceOf(QueryContext);
+        expect(errorCounter.getNumErrors()).toEqual(0);
     }
-})
+});
 
-
-test('testDmlModeKeywords', () => {
+test("testDmlModeKeywords", () => {
     const MODES = ["USER", "SYSTEM"];
     for (const mode of MODES) {
-        const [parser, errorCounter] = createParser(`insert as ${mode} contact;`);
-        const context = parser.statement()
+        const [parser, errorCounter] = createParser(
+            `insert as ${mode} contact;`
+        );
+        const context = parser.statement();
 
-        expect(context).toBeInstanceOf(StatementContext)
-        expect(errorCounter.getNumErrors()).toEqual(0)
+        expect(context).toBeInstanceOf(StatementContext);
+        expect(errorCounter.getNumErrors()).toEqual(0);
     }
-})
+});
 
-test('testDoWhileBlock', () => {
-    const [parser, errorCounter] = createParser("public class Hello {{ do { System.debug(''); } while (true); }}")
+test("testDoWhileBlock", () => {
+    const [parser, errorCounter] = createParser(
+        "public class Hello {{ do { System.debug(''); } while (true); }}"
+    );
 
-    const context = parser.compilationUnit()
+    const context = parser.compilationUnit();
 
-    expect(context).toBeInstanceOf(CompilationUnitContext)
-    expect(errorCounter.getNumErrors()).toEqual(0)
-})
+    expect(context).toBeInstanceOf(CompilationUnitContext);
+    expect(errorCounter.getNumErrors()).toEqual(0);
+});
 
-test('testDoWhileWithoutBlockFails', () => {
-    const [parser, errorCounter] = createParser("public class Hello {{ do System.debug(''); while (true); }}")
+test("testDoWhileWithoutBlockFails", () => {
+    const [parser, errorCounter] = createParser(
+        "public class Hello {{ do System.debug(''); while (true); }}"
+    );
 
-    const context = parser.compilationUnit()
+    const context = parser.compilationUnit();
 
-    expect(context).toBeInstanceOf(CompilationUnitContext)
-    expect(errorCounter.getNumErrors()).toEqual(3)
-})
+    expect(context).toBeInstanceOf(CompilationUnitContext);
+    expect(errorCounter.getNumErrors()).toEqual(3);
+});

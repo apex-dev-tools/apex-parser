@@ -12,22 +12,22 @@
     derived from this software without specific prior written permission.
  */
 import {
-    ANTLRErrorListener,
+    ErrorListener,
     CharStreams,
     CommonTokenStream,
     RecognitionException,
     Recognizer,
     Token,
-} from "antlr4ts";
-import { ApexLexer } from "../ApexLexer";
-import { ApexParser } from "../ApexParser";
+} from "antlr4";
+import ApexLexer from "../ApexLexer";
+import ApexParser from "../ApexParser";
 import { CaseInsensitiveInputStream } from "../CaseInsensitiveInputStream";
 
-export class SyntaxErrorCounter<T = Token> implements ANTLRErrorListener<T> {
+export class SyntaxErrorCounter<T = Token> extends ErrorListener<T> {
     numErrors = 0;
 
     syntaxError(
-        recognizer: Recognizer<T, any>,
+        recognizer: Recognizer<T>,
         offendingSymbol: T,
         line: number,
         charPositionInLine: number,
@@ -59,9 +59,7 @@ export function createLexer(
 }
 
 export function createParser(input: string): [ApexParser, SyntaxErrorCounter] {
-    const lexer = new ApexLexer(
-        new CaseInsensitiveInputStream(CharStreams.fromString(input))
-    );
+    const lexer = new ApexLexer(new CaseInsensitiveInputStream(input));
     const tokens = new CommonTokenStream(lexer);
     const parser = new ApexParser(tokens);
 

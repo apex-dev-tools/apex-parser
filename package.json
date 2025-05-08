@@ -8,7 +8,7 @@
     "build:npm": "npm run --prefix npm build:test",
     "init": "npm run init:npm && npm run init:jvm",
     "init:jvm": "",
-    "init:npm": "npm run --prefix npm ci",
+    "init:npm": "npm ci --prefix npm",
     "systest": "npm run --prefix npm test:samples",
     "systest:update": "npm run --prefix npm test:snapshot"
   },

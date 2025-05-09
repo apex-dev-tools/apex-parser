@@ -38,7 +38,7 @@ jobs:
           submodules: recursive
           repository: apex-dev-tools/apex-samples
           path: apex-samples
-          ref: v1.2.0
+          ref: v1.3.0
 
       - name: Set samples env
         run: echo "SAMPLES=$GITHUB_WORKSPACE/apex-samples" >> "$GITHUB_ENV"

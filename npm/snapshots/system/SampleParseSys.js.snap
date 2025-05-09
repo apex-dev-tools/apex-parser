@@ -77,8 +77,8 @@ exports[`Parse samples Sample: Apex-Opensource-Library 1`] = `
   {
     "errors": [],
     "name": "Apex-Opensource-Library",
-    "path": "Apex-Opensource-Library/force-app/commons/queries",
-    "pkg": "./force-app/commons/queries",
+    "path": "Apex-Opensource-Library/force-app/commons/query",
+    "pkg": "./force-app/commons/query",
     "status": 0,
   },
   {
@@ -1026,18 +1026,6 @@ exports[`Parse samples Sample: df12-deployment-tools 1`] = `
     "errors": [],
     "name": "df12-deployment-tools",
     "path": ".",
-    "status": 0,
-  },
-]
-`;
-
-exports[`Parse samples Sample: dreamhouse-sfdx 1`] = `
-[
-  {
-    "errors": [],
-    "name": "dreamhouse-sfdx",
-    "path": "dreamhouse-sfdx/force-app",
-    "pkg": "./force-app",
     "status": 0,
   },
 ]

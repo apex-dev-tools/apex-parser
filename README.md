@@ -79,8 +79,20 @@ npm run build
 
 #### Unit Tests
 
-- From `/npm`: `npm run build:test`
-- From `/jvm`: `mvn test`
+Options for testing:
+
+```shell
+# From root, build & test each
+npm run build:npm
+npm run build:jvm
+
+# From ./npm
+npm run build
+npm test
+
+# From ./jvm
+mvn test
+```
 
 #### System Tests
 

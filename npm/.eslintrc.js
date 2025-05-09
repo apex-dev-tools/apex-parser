@@ -1,16 +1,13 @@
 module.exports = {
-  parser: "@typescript-eslint/parser", // Specifies the ESLint parser
-  parserOptions: {
-    ecmaVersion: 2015, // Allows for the parsing of modern ECMAScript features
-    sourceType: "module" // Allows for the use of imports
-  },
-
+  root: true,
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint", "prettier"],
   extends: [
-    "plugin:@typescript-eslint/recommended" // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
   ],
-
   rules: {
-    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-    // e.g. "@typescript-eslint/explicit-function-return-type": "off",
-  }
+    "prettier/prettier": "warn",
+  },
 };

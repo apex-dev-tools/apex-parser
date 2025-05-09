@@ -6,7 +6,8 @@
     "build": "npm run build:npm && npm run build:jvm",
     "build:jvm": "mvn package -f jvm",
     "build:npm": "npm run --prefix npm build:test",
-    "init": "npm run init:npm && npm run init:jvm",
+    "prepare": "husky",
+    "init": "npm ci && npm run init:npm && npm run init:jvm",
     "init:jvm": "",
     "init:npm": "npm ci --prefix npm",
     "systest": "npm run --prefix npm test:samples",
@@ -14,5 +15,8 @@
   },
   "engines": {
     "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
   }
 }

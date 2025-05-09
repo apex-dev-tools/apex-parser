@@ -13,7 +13,7 @@ As Apex & SOQL/SOQL are case-insenstive languages you need to use the provided `
 To parse a class file (NPM version):
 
 ```typescript
-import { CommonTokenStream } from "antlr4"; // match runtime version required by apex-parser
+import { CommonTokenStream } from "antlr4";
 import { ApexLexer, ApexParser, CaseInsensitiveInputStream } from "@apexdevtools/apex-parser";
 
 const lexer = new ApexLexer(new CaseInsensitiveInputStream("public class Hello {}"));
@@ -35,7 +35,7 @@ Find {something} RETURNING Account
 
 To parse the API format there is an alternative parser rule, `soslLiteralAlt`, that you can use instead of `soslLiteral`. See `SOSLParserTest` for some examples of how these differ.
 
-## Packages
+## Installation
 
 ### Maven
 
@@ -43,19 +43,27 @@ To parse the API format there is an alternative parser rule, `soslLiteralAlt`, t
 <dependency>
     <groupId>io.github.apex-dev-tools</groupId>
     <artifactId>apex-parser</artifactId>
-    <version>4.4.0</version>
+    <version><!-- version --></version>
 </dependency>
 ```
 
 ### NPM
 
-```json
-{
-  "@apexdevtools/apex-parser": "^4.4.0"
-}
+```sh
+# install antlr4 to reference runtime types
+# must match version used by parser
+npm i antlr4 @apexdevtools/apex-parser
 ```
 
-## Building
+## Development
+
+### Prerequisites
+
+- JDK 11+ (for ANTLR tool)
+- Maven
+- NodeJS LTS
+
+### Building
 
 The outer package contains scripts to build both distributions:
 
@@ -67,14 +75,14 @@ npm run init
 npm run build
 ```
 
-## Testing
+### Testing
 
-### Unit Tests
+#### Unit Tests
 
 - From `/npm`: `npm run build:test`
 - From `/jvm`: `mvn test`
 
-### System Tests
+#### System Tests
 
 The system tests use a collection of sample projects located in the [`apex-samples`](https://github.com/apex-dev-tools/apex-samples) repository. Follow the README instructions in `apex-samples` to checkout the submodules at the version tag used by the [build workflow](.github/workflows/Build.yml). Both packages must be built beforehand, as the js system test spawns the jar as well.
 

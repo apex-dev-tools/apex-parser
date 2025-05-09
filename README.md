@@ -13,11 +13,14 @@ As Apex & SOQL/SOQL are case-insenstive languages you need to use the provided `
 To parse a class file (NPM version):
 
 ```typescript
-let lexer = new ApexLexer(new CaseInsensitiveInputStream("public class Hello {}"));
-let tokens = new CommonTokenStream(lexer);
+import { CommonTokenStream } from "antlr4"; // match runtime version required by apex-parser
+import { ApexLexer, ApexParser, CaseInsensitiveInputStream } from "@apexdevtools/apex-parser";
 
-let parser = new ApexParser(tokens);
-let context = parser.compilationUnit();
+const lexer = new ApexLexer(new CaseInsensitiveInputStream("public class Hello {}"));
+const tokens = new CommonTokenStream(lexer);
+
+const parser = new ApexParser(tokens);
+const context = parser.compilationUnit();
 ```
 
 The `context` is a `CompilationUnitContext` object which is the root of the parsed representation of the class. You can access the parse tree via functions on it.
@@ -73,7 +76,7 @@ npm run build
 
 ### System Tests
 
-The system tests use a collection of sample projects located in the [`apex-samples`](https://github.com/apex-dev-tools/apex-samples) repository. Follow the README instructions in `apex-samples` to checkout the submodules. Both packages must also be built beforehand, as the js test also spawns the jar version.
+The system tests use a collection of sample projects located in the [`apex-samples`](https://github.com/apex-dev-tools/apex-samples) repository. Follow the README instructions in `apex-samples` to checkout the submodules at the version tag used by the [build workflow](.github/workflows/Build.yml). Both packages must be built beforehand, as the js system test spawns the jar as well.
 
 To run the tests:
 
@@ -87,8 +90,6 @@ npm run systest
 ```
 
 System test failures relating to the snapshots may highlight regressions. Though if an error is expected or the samples have changed, instead use `npm run systest:update` to update the snapshots, then commit the changes.
-
-The tag version of apex-samples used by builds is set in the [build file](.github/workflows/Build.yml).
 
 ## Source & Licenses
 

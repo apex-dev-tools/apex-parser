@@ -41,7 +41,6 @@ import org.antlr.v4.runtime.misc.Interval;
 @SuppressWarnings({ "unused" })
 public class CaseInsensitiveInputStream implements CharStream {
 
-  // test
   private CharStream src;
 
   public CaseInsensitiveInputStream(CharStream src) {

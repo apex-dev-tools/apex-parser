@@ -20,29 +20,29 @@ import { ParseTreeWalker } from "antlr4";
 import { ThrowingErrorListener } from "../ThrowingErrorListener";
 
 class TestListener extends ParseTreeListener implements ApexParserListener {
-    public methodCount = 0;
+  public methodCount = 0;
 
-    enterMethodDeclaration(/* ctx: MethodDeclarationContext */): void {
-        this.methodCount += 1;
-    }
+  enterMethodDeclaration(/* ctx: MethodDeclarationContext */): void {
+    this.methodCount += 1;
+  }
 }
 
 test("Listener Generates Events", () => {
-    const lexer = new ApexLexer(
-        new CaseInsensitiveInputStream(
-            "public class Hello { public void func(){} }"
-        )
-    );
-    const tokens = new CommonTokenStream(lexer);
+  const lexer = new ApexLexer(
+    new CaseInsensitiveInputStream(
+      "public class Hello { public void func(){} }"
+    )
+  );
+  const tokens = new CommonTokenStream(lexer);
 
-    const parser = new ApexParser(tokens);
+  const parser = new ApexParser(tokens);
 
-    parser.removeErrorListeners();
-    parser.addErrorListener(new ThrowingErrorListener());
+  parser.removeErrorListeners();
+  parser.addErrorListener(new ThrowingErrorListener());
 
-    const cu = parser.compilationUnit();
-    const listener = new TestListener();
-    ParseTreeWalker.DEFAULT.walk(listener, cu);
+  const cu = parser.compilationUnit();
+  const listener = new TestListener();
+  ParseTreeWalker.DEFAULT.walk(listener, cu);
 
-    expect(listener.methodCount).toBe(1);
+  expect(listener.methodCount).toBe(1);
 });

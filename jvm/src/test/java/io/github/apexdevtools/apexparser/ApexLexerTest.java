@@ -13,53 +13,67 @@
  */
 package io.github.apexdevtools.apexparser;
 
-import org.antlr.v4.runtime.*;
-import org.junit.jupiter.api.Test;
-
-import java.util.Map;
-
 import static io.github.apexdevtools.apexparser.SyntaxErrorCounter.createLexer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Map;
+import org.antlr.v4.runtime.*;
+import org.junit.jupiter.api.Test;
+
 public class ApexLexerTest {
 
-    @Test
-    void testLexerGeneratesTokens() {
-        Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer("public class Hello {}", false);
-        CommonTokenStream tokens  = new CommonTokenStream(lexerAndCounter.getKey());
-        assertEquals(6, tokens.getNumberOfOnChannelTokens());
-        assertEquals(0, lexerAndCounter.getValue().getNumErrors());
-    }
+  @Test
+  void testLexerGeneratesTokens() {
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer(
+      "public class Hello {}",
+      false
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lexerAndCounter.getKey());
+    assertEquals(6, tokens.getNumberOfOnChannelTokens());
+    assertEquals(0, lexerAndCounter.getValue().getNumErrors());
+  }
 
-    @Test
-    void testCaseInsensitivityLowerCase() {
-        Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer("public", true);
-        CommonTokenStream tokens  = new CommonTokenStream(lexerAndCounter.getKey());
-        assertEquals(2, tokens.getNumberOfOnChannelTokens());
-        assertEquals(0, lexerAndCounter.getValue().getNumErrors());
-    }
+  @Test
+  void testCaseInsensitivityLowerCase() {
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer(
+      "public",
+      true
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lexerAndCounter.getKey());
+    assertEquals(2, tokens.getNumberOfOnChannelTokens());
+    assertEquals(0, lexerAndCounter.getValue().getNumErrors());
+  }
 
-    @Test
-    void testCaseInsensitivityUpperCase() {
-        Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer("PUBLIC", true);
-        CommonTokenStream tokens  = new CommonTokenStream(lexerAndCounter.getKey());
-        assertEquals(2, tokens.getNumberOfOnChannelTokens());
-        assertEquals(0, lexerAndCounter.getValue().getNumErrors());
-    }
+  @Test
+  void testCaseInsensitivityUpperCase() {
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer(
+      "PUBLIC",
+      true
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lexerAndCounter.getKey());
+    assertEquals(2, tokens.getNumberOfOnChannelTokens());
+    assertEquals(0, lexerAndCounter.getValue().getNumErrors());
+  }
 
-    @Test
-    void testCaseInsensitivityMixedCase() {
-        Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer("PuBliC", true);
-        CommonTokenStream tokens  = new CommonTokenStream(lexerAndCounter.getKey());
-        assertEquals(2, tokens.getNumberOfOnChannelTokens());
-        assertEquals(0, lexerAndCounter.getValue().getNumErrors());
-    }
+  @Test
+  void testCaseInsensitivityMixedCase() {
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer(
+      "PuBliC",
+      true
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lexerAndCounter.getKey());
+    assertEquals(2, tokens.getNumberOfOnChannelTokens());
+    assertEquals(0, lexerAndCounter.getValue().getNumErrors());
+  }
 
-    @Test
-    void testLexerUnicodeEscapes() {
-        Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer("'Fran\\u00E7ois'", false);
-        CommonTokenStream tokens = new CommonTokenStream(lexerAndCounter.getKey());
-        assertEquals(2, tokens.getNumberOfOnChannelTokens());
-        assertEquals(0, lexerAndCounter.getValue().getNumErrors());
-    }
+  @Test
+  void testLexerUnicodeEscapes() {
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer(
+      "'Fran\\u00E7ois'",
+      false
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lexerAndCounter.getKey());
+    assertEquals(2, tokens.getNumberOfOnChannelTokens());
+    assertEquals(0, lexerAndCounter.getValue().getNumErrors());
+  }
 }

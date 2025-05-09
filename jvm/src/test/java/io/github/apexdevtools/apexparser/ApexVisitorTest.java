@@ -13,44 +13,48 @@
  */
 package io.github.apexdevtools.apexparser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.IOException;
+import java.io.StringReader;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.io.StringReader;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class ApexVisitorTest {
 
-    static class TestVisitor extends ApexParserBaseVisitor<Integer> {
-        public Integer methodCount = 0;
+  static class TestVisitor extends ApexParserBaseVisitor<Integer> {
 
-        @Override
-        public Integer visitMethodDeclaration(ApexParser.MethodDeclarationContext ctx) {
-            this.methodCount += 1;
-            return 1 + super.visitChildren(ctx);
-        }
+    public Integer methodCount = 0;
 
-        @Override
-        public Integer defaultResult() {
-            return 0;
-        }
+    @Override
+    public Integer visitMethodDeclaration(
+      ApexParser.MethodDeclarationContext ctx
+    ) {
+      this.methodCount += 1;
+      return 1 + super.visitChildren(ctx);
     }
 
-    @Test
-    void testVisitorIsVisited() throws IOException {
-        ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString(
-                "public class Hello { public void func(){} }")));
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        ApexParser parser = new ApexParser(tokens);
-        ApexParser.CompilationUnitContext context = parser.compilationUnit();
-
-        TestVisitor visitor = new TestVisitor();
-        visitor.visit(context);
-
-        assertEquals(1, visitor.methodCount.intValue());
+    @Override
+    public Integer defaultResult() {
+      return 0;
     }
+  }
 
+  @Test
+  void testVisitorIsVisited() throws IOException {
+    ApexLexer lexer = new ApexLexer(
+      new CaseInsensitiveInputStream(
+        CharStreams.fromString("public class Hello { public void func(){} }")
+      )
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lexer);
+    ApexParser parser = new ApexParser(tokens);
+    ApexParser.CompilationUnitContext context = parser.compilationUnit();
+
+    TestVisitor visitor = new TestVisitor();
+    visitor.visit(context);
+
+    assertEquals(1, visitor.methodCount.intValue());
+  }
 }

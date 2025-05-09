@@ -29,37 +29,37 @@
 import { CharStream } from "antlr4";
 
 export class CaseInsensitiveInputStream extends CharStream {
-    constructor(data: string, decodeToUnicodeCodePoints?: boolean);
-    constructor(stream: CharStream, decodeToUnicodeCodePoints?: boolean);
-    constructor(
-        data: string | CharStream,
-        decodeToUnicodeCodePoints: boolean = true
-    ) {
-        // Default to unicode code points
-        // CharStreams.fromString is always `new CharStream(data, true)`
-        // but `new CharStream(data)` defaults to false / UTF-16 code units
-        if (typeof data === "string") {
-            super(data, decodeToUnicodeCodePoints);
-        } else {
-            super(data.toString(), decodeToUnicodeCodePoints);
-        }
+  constructor(data: string, decodeToUnicodeCodePoints?: boolean);
+  constructor(stream: CharStream, decodeToUnicodeCodePoints?: boolean);
+  constructor(
+    data: string | CharStream,
+    decodeToUnicodeCodePoints: boolean = true
+  ) {
+    // Default to unicode code points
+    // CharStreams.fromString is always `new CharStream(data, true)`
+    // but `new CharStream(data)` defaults to false / UTF-16 code units
+    if (typeof data === "string") {
+      super(data, decodeToUnicodeCodePoints);
+    } else {
+      super(data.toString(), decodeToUnicodeCodePoints);
     }
+  }
 
-    LA(i: number): number {
-        return this.toLower(super.LA(i));
-    }
+  LA(i: number): number {
+    return this.toLower(super.LA(i));
+  }
 
-    LT(offset: number): number {
-        // same behaviour as CharStream
-        return this.LA(offset);
-    }
+  LT(offset: number): number {
+    // same behaviour as CharStream
+    return this.LA(offset);
+  }
 
-    // We only need basic upper to lower conversions
-    private toLower(c: number): number {
-        if (c >= 65 && c <= 90) {
-            return c + 32;
-        } else {
-            return c;
-        }
+  // We only need basic upper to lower conversions
+  private toLower(c: number): number {
+    if (c >= 65 && c <= 90) {
+      return c + 32;
+    } else {
+      return c;
     }
+  }
 }

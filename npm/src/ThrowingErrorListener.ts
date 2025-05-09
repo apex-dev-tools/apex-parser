@@ -28,26 +28,26 @@
 import { ErrorListener, RecognitionException, Recognizer, Token } from "antlr4";
 
 export class SyntaxException {
-    line: number;
-    column: number;
-    message: string;
+  line: number;
+  column: number;
+  message: string;
 
-    constructor(line: number, column: number, message: string) {
-        this.line = line;
-        this.column = column;
-        this.message = message;
-    }
+  constructor(line: number, column: number, message: string) {
+    this.line = line;
+    this.column = column;
+    this.message = message;
+  }
 }
 
 export class ThrowingErrorListener extends ErrorListener<Token> {
-    syntaxError(
-        recognizer: Recognizer<Token>,
-        offendingSymbol: Token,
-        line: number,
-        column: number,
-        msg: string,
-        e: RecognitionException | undefined
-    ): void {
-        throw new SyntaxException(line, column, msg);
-    }
+  syntaxError(
+    recognizer: Recognizer<Token>,
+    offendingSymbol: Token,
+    line: number,
+    column: number,
+    msg: string,
+    e: RecognitionException | undefined
+  ): void {
+    throw new SyntaxException(line, column, msg);
+  }
 }

@@ -68,24 +68,30 @@ npm i antlr4 @apexdevtools/apex-parser
 The outer package contains scripts to build both distributions:
 
 ```shell
-# Run once - installs deps
+# Run once - prepare for dev (installs deps, runs antlr gen)
 npm run init
 
-# Build & test distributions
+# Run antlr gen, compile and test
 npm run build
+```
+
+Or you can setup and later build each distribution separately:
+
+```shell
+npm run init:npm
+npm run build:npm
+
+npm run init:jvm
+npm run build:jvm
 ```
 
 ### Testing
 
 #### Unit Tests
 
-Options for testing:
+More options for testing:
 
 ```shell
-# From root, build & test each
-npm run build:npm
-npm run build:jvm
-
 # From ./npm
 npm run build
 npm test

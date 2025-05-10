@@ -12,10 +12,12 @@
   "license": "BSD-3-Clause",
   "main": "lib/index.js",
   "scripts": {
-    "build": "npm run clean && mvn exec:exec && tsc",
+    "antlr": "mvn exec:exec",
+    "build": "npm run clean && npm run antlr && tsc",
     "build:test": "npm run build && npm test",
     "check": "node -e 'require(\"./lib/index.js\").check()'",
     "clean": "rm -rf lib",
+    "init": "npm ci && npm run antlr",
     "lint": "eslint --cache --cache-location .eslintcache ./src --fix",
     "prepack": "cp ../*.md .",
     "test": "jest --config jestconfig.json lib",

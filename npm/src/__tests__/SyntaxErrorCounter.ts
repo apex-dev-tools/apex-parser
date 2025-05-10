@@ -46,9 +46,10 @@ export function createLexer(
   input: string,
   caseInsensitive: boolean = true
 ): [ApexLexer, SyntaxErrorCounter<number>] {
-  const stream = CharStreams.fromString(input);
   const lexer = new ApexLexer(
-    caseInsensitive ? new CaseInsensitiveInputStream(stream) : stream
+    caseInsensitive
+      ? new CaseInsensitiveInputStream(input)
+      : CharStreams.fromString(input)
   );
 
   lexer.removeErrorListeners();

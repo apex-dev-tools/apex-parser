@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -33,6 +34,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <antlr.target>${project.build.directory}/generated-sources/antlr</antlr.target>
   </properties>
 
   <repositories>
@@ -62,7 +64,14 @@
     <dependency>
       <groupId>org.antlr</groupId>
       <artifactId>antlr4-runtime</artifactId>
-      <version>4.9.1</version>
+      <version>4.13.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr4</artifactId>
+      <version>4.13.2</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -71,7 +80,6 @@
       <version>5.1.0</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
   <distributionManagement>
@@ -91,6 +99,60 @@
     <testSourceDirectory>src/test/java</testSourceDirectory>
 
     <plugins>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <id>generate-antlr</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>java</executable>
+          <workingDirectory>${project.basedir}/antlr</workingDirectory>
+          <classpathScope>compile</classpathScope>
+          <arguments>
+            <argument>-classpath</argument>
+            <classpath/>
+            <argument>org.antlr.v4.Tool</argument>
+            <argument>-visitor</argument>
+            <argument>-lib</argument>
+            <argument>${project.basedir}/../antlr</argument>
+            <argument>-o</argument>
+            <argument>${antlr.target}/io/github/apexdevtools/apexparser</argument>
+            <argument>-package</argument>
+            <argument>io.github.apexdevtools.apexparser</argument>
+            <argument>ApexLexer.g4</argument>
+            <argument>ApexParser.g4</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.6.0</version>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${antlr.target}</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -191,23 +253,6 @@
       </plugin>
 
       <plugin>
-        <groupId>org.antlr</groupId>
-        <artifactId>antlr4-maven-plugin</artifactId>
-        <version>4.9.1</version>
-        <executions>
-          <execution>
-            <id>antlr</id>
-            <goals>
-              <goal>antlr4</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <visitor>true</visitor>
-        </configuration>
-      </plugin>
-
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.3.0</version>
@@ -218,6 +263,10 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <quiet>true</quiet>
+          <doclint>none</doclint>
+        </configuration>
       </plugin>
 
     </plugins>

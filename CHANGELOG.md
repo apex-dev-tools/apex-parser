@@ -1,5 +1,29 @@
 # apex-parser - Changelog
 
+## 5.0.0
+
+- (BREAKING) Migrated from `antlr4ts` to official `antlr4` runtime package.
+  - Some lesser used methods are missing in the type definitions, refer to the [antlr4 Javascript code](https://github.com/antlr/antlr4/tree/dev/runtime/JavaScript/src/antlr4) if you need to cast types.
+  - `extends` is now required to use antlr `Listener`/`Visitor` types.
+    - Exception being to avoid the property initialisation syntax in the antlr generated types:
+
+      ```apex
+      class MyListener extends ParseTreeListener implements ApexParserListener {
+        // with 'extends ApexParserListener' you must write this
+        enterMethodDeclaration = () => {}
+
+        // this requires 'extends ParseTreeListener implements ApexParserListener'
+        enterMethodDeclaration() {}
+      }
+      ```
+
+- (BREAKING) Updated output to `ES2020` and increased min node version to 16.
+- (BREAKING) Updated to ANTLR `4.13.2` across both distributions. Same tool now generates both.
+- (BREAKING) Re-exported antlr types removed, add `antlr4` package dep instead matching apex-parser version.
+- Typescript `CaseInsensitiveInputStream` type now extends `CharStream` and can be constructed from `string`.
+  - Constructor passing in `Charstream` retained to match Java version.
+- Removed `node-dir` dependency - replaced with node fs api.
+
 ## 4.4.0 - 2024-12-14
 
 - Support `TimeLiteral` for `Time` fields, e.g. `WHERE TimeField__c = 01:00:00.000Z` for SOQL queries

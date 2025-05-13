@@ -11,7 +11,11 @@
  3. The name of the author may not be used to endorse or promote products
     derived from this software without specific prior written permission.
  */
-import { QueryContext, StatementContext, SoqlLiteralContext } from "../ApexParser";
+import {
+  QueryContext,
+  StatementContext,
+  SoqlLiteralContext,
+} from "../ApexParser";
 import { createParser } from "./SyntaxErrorCounter";
 
 test("SOQL Query", () => {
@@ -121,7 +125,7 @@ test("SubQuery", () => {
 
 test("Grouping function", () => {
   const [parser, errorCounter] = createParser(
-   `SELECT
+    `SELECT
      OBJ1__c O1,
      OBJ2__c O2,
      OBJ3__c O3,
@@ -140,45 +144,45 @@ test("Grouping function", () => {
 });
 
 test("Convert Currency function", () => {
-    const [parser, errorCounter] = createParser(
-        '[ SELECT convertCurrency(Amount) FROM Opportunity ]'
-    );
-    const context = parser.soqlLiteral();
+  const [parser, errorCounter] = createParser(
+    "[ SELECT convertCurrency(Amount) FROM Opportunity ]"
+  );
+  const context = parser.soqlLiteral();
 
-    expect(context).toBeInstanceOf(SoqlLiteralContext);
-    expect(errorCounter.getNumErrors()).toEqual(0);
+  expect(context).toBeInstanceOf(SoqlLiteralContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
 });
 
 test("Convert Currency with format", () => {
-    const [parser, errorCounter] = createParser(
-        `[
+  const [parser, errorCounter] = createParser(
+    `[
             SELECT Amount, FORMAT(amount) Amt, convertCurrency(amount) convertedAmount,
                 FORMAT(convertCurrency(amount)) convertedCurrency
             FROM Opportunity where id = '006R00000024gDtIAI'
         ]`
-    );
-    const context = parser.soqlLiteral();
+  );
+  const context = parser.soqlLiteral();
 
-    expect(context).toBeInstanceOf(SoqlLiteralContext);
-    expect(errorCounter.getNumErrors()).toEqual(0);
+  expect(context).toBeInstanceOf(SoqlLiteralContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
 });
 
 test("Format function with aggregate", () => {
-    const [parser, errorCounter] = createParser(
-        '[ SELECT FORMAT(MIN(closedate)) Amt FROM opportunity ]'
-    )
-    const context = parser.soqlLiteral();
+  const [parser, errorCounter] = createParser(
+    "[ SELECT FORMAT(MIN(closedate)) Amt FROM opportunity ]"
+  );
+  const context = parser.soqlLiteral();
 
-    expect(context).toBeInstanceOf(SoqlLiteralContext);
-    expect(errorCounter.getNumErrors()).toEqual(0);
+  expect(context).toBeInstanceOf(SoqlLiteralContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
 });
 
 test("Time Literal", () => {
-    const [parser, errorCounter] = createParser(
-        '[SELECT Break__c,Check_Out__c FROM VMS_Time_Card_Item__c WHERE Time_Card__c =:timeCard.Id AND Check_Out__c = 01:00:00.000Z]'
-    )
-    const context = parser.soqlLiteral();
+  const [parser, errorCounter] = createParser(
+    "[SELECT Break__c,Check_Out__c FROM VMS_Time_Card_Item__c WHERE Time_Card__c =:timeCard.Id AND Check_Out__c = 01:00:00.000Z]"
+  );
+  const context = parser.soqlLiteral();
 
-    expect(context).toBeInstanceOf(SoqlLiteralContext);
-    expect(errorCounter.getNumErrors()).toEqual(0);
+  expect(context).toBeInstanceOf(SoqlLiteralContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
 });

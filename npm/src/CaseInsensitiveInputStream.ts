@@ -26,51 +26,32 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import { CharStream } from "antlr4ts";
-import { Interval } from "antlr4ts/misc/Interval";
+import { CharStream } from "antlr4";
 
-export class CaseInsensitiveInputStream implements CharStream {
-  private src: CharStream;
-
-  // userData is an untyped identifierfor the stream, for string input use CharStreams.fromString()
-  constructor(src: CharStream) {
-    this.src = src;
-  }
-
-  getText(interval: Interval): string {
-    return this.src.getText(interval);
-  }
-
-  consume(): void {
-    this.src.consume();
+export class CaseInsensitiveInputStream extends CharStream {
+  constructor(data: string, decodeToUnicodeCodePoints?: boolean);
+  constructor(stream: CharStream, decodeToUnicodeCodePoints?: boolean);
+  constructor(
+    data: string | CharStream,
+    decodeToUnicodeCodePoints: boolean = true
+  ) {
+    // Default to unicode code points
+    // CharStreams.fromString is always `new CharStream(data, true)`
+    // but `new CharStream(data)` defaults to false / UTF-16 code units
+    if (typeof data === "string") {
+      super(data, decodeToUnicodeCodePoints);
+    } else {
+      super(data.toString(), decodeToUnicodeCodePoints);
+    }
   }
 
   LA(i: number): number {
-    return this.toLower(this.src.LA(i));
+    return this.toLower(super.LA(i));
   }
 
-  mark(): number {
-    return this.src.mark();
-  }
-
-  release(marker: number): void {
-    this.src.release(marker);
-  }
-
-  get index(): number {
-    return this.src.index;
-  }
-
-  seek(index: number): void {
-    return this.src.seek(index);
-  }
-
-  get size(): number {
-    return this.src.size;
-  }
-
-  get sourceName(): string {
-    return this.src.sourceName;
+  LT(offset: number): number {
+    // same behaviour as CharStream
+    return this.LA(offset);
   }
 
   // We only need basic upper to lower conversions

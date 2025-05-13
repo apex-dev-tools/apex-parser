@@ -27,94 +27,97 @@
 */
 package io.github.apexdevtools.apexparser;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.IntStream;
 import org.antlr.v4.runtime.misc.Interval;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-
 /**
  * ANTLR4 stream handler that allows use of case insensitive handling.
  */
-@SuppressWarnings({"unused"})
+@SuppressWarnings({ "unused" })
 public class CaseInsensitiveInputStream implements CharStream {
 
-    private CharStream src;
+  private CharStream src;
 
-    public CaseInsensitiveInputStream(CharStream src) {
-        this.src = src;
-    }
+  public CaseInsensitiveInputStream(CharStream src) {
+    this.src = src;
+  }
 
-    @Deprecated
-    public CaseInsensitiveInputStream(InputStream r) throws IOException {
-        this.src = CharStreams.fromStream(r);
-    }
+  @Deprecated
+  public CaseInsensitiveInputStream(InputStream r) throws IOException {
+    this.src = CharStreams.fromStream(r);
+  }
 
-    @Deprecated
-    public CaseInsensitiveInputStream(Reader r) throws IOException {
-        this.src = CharStreams.fromReader(r);
-    }
+  @Deprecated
+  public CaseInsensitiveInputStream(Reader r) throws IOException {
+    this.src = CharStreams.fromReader(r);
+  }
 
-    @Deprecated
-    public CaseInsensitiveInputStream(Reader r, Integer initialSize, Integer readChunkSize) throws IOException {
-        this.src = CharStreams.fromReader(r);
-    }
+  @Deprecated
+  public CaseInsensitiveInputStream(
+    Reader r,
+    Integer initialSize,
+    Integer readChunkSize
+  ) throws IOException {
+    this.src = CharStreams.fromReader(r);
+  }
 
-    @Override
-    public String getText(Interval interval) {
-        return src.getText(interval);
-    }
+  @Override
+  public String getText(Interval interval) {
+    return src.getText(interval);
+  }
 
-    @Override
-    public void consume() {
-        src.consume();
-    }
+  @Override
+  public void consume() {
+    src.consume();
+  }
 
-    @Override
-    public String getSourceName() {
-        return src.getSourceName();
-    }
+  @Override
+  public String getSourceName() {
+    return src.getSourceName();
+  }
 
-    @Override
-    public int index() {
-        return src.index();
-    }
+  @Override
+  public int index() {
+    return src.index();
+  }
 
-    @Override
-    public int LA(int i) {
-        return Character.toLowerCase(src.LA(i));
-    }
+  @Override
+  public int LA(int i) {
+    return Character.toLowerCase(src.LA(i));
+  }
 
-    @Override
-    public int mark() {
-        return src.mark();
-    }
+  @Override
+  public int mark() {
+    return src.mark();
+  }
 
-    @Override
-    public void release(int marker) {
-        src.release(marker);
-    }
+  @Override
+  public void release(int marker) {
+    src.release(marker);
+  }
 
-    @Override
-    public void seek(int index) {
-        src.seek(index);
-    }
+  @Override
+  public void seek(int index) {
+    src.seek(index);
+  }
 
-    @Override
-    public int size() {
-        return src.size();
-    }
+  @Override
+  public int size() {
+    return src.size();
+  }
 
-    public void dump() {
-        int i = 0;
-        int value;
-        do {
-            value = LA(i);
-            i += 1;
-            System.out.print((char)value);
-        } while (value != IntStream.EOF);
-    }
+  public void dump() {
+    int i = 0;
+    int value;
+    do {
+      value = LA(i);
+      i += 1;
+      System.out.print((char) value);
+    } while (value != IntStream.EOF);
+  }
 }

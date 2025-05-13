@@ -2,3 +2,4 @@ README.md
 CHANGELOG.md
 node_modules/
 lib/
+.eslintcache

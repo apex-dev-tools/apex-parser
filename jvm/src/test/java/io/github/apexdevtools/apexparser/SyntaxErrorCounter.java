@@ -13,49 +13,59 @@
  */
 package io.github.apexdevtools.apexparser;
 
-import org.antlr.v4.runtime.*;
-
 import java.util.AbstractMap;
 import java.util.Map;
+import org.antlr.v4.runtime.*;
 
 public class SyntaxErrorCounter extends BaseErrorListener {
-    private int numErrors = 0;
 
-    @Override
-    public void syntaxError(
-            Recognizer<?, ?> recognizer,
-            Object offendingSymbol,
-            int line,
-            int charPositionInLine,
-            String msg,
-            RecognitionException e) {
-        this.numErrors += 1;
-    }
+  private int numErrors = 0;
 
-    public int getNumErrors() {
-        return this.numErrors;
-    }
+  @Override
+  public void syntaxError(
+    Recognizer<?, ?> recognizer,
+    Object offendingSymbol,
+    int line,
+    int charPositionInLine,
+    String msg,
+    RecognitionException e
+  ) {
+    this.numErrors += 1;
+  }
 
-    public static Map.Entry<ApexLexer, SyntaxErrorCounter> createLexer(String input, Boolean caseInsensitive) {
-        CharStream stream = CharStreams.fromString(input);
-        ApexLexer lexer = new ApexLexer(caseInsensitive ? new CaseInsensitiveInputStream(stream) : stream);
+  public int getNumErrors() {
+    return this.numErrors;
+  }
 
-        lexer.removeErrorListeners();
-        SyntaxErrorCounter errorCounter = new SyntaxErrorCounter();
-        lexer.addErrorListener(errorCounter);
+  public static Map.Entry<ApexLexer, SyntaxErrorCounter> createLexer(
+    String input,
+    Boolean caseInsensitive
+  ) {
+    CharStream stream = CharStreams.fromString(input);
+    ApexLexer lexer = new ApexLexer(
+      caseInsensitive ? new CaseInsensitiveInputStream(stream) : stream
+    );
 
-        return new AbstractMap.SimpleEntry<>(lexer, errorCounter);
-    }
+    lexer.removeErrorListeners();
+    SyntaxErrorCounter errorCounter = new SyntaxErrorCounter();
+    lexer.addErrorListener(errorCounter);
 
-    public static Map.Entry<ApexParser, SyntaxErrorCounter> createParser(String input) {
-        ApexLexer lexer = new ApexLexer(new CaseInsensitiveInputStream(CharStreams.fromString(input)));
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        ApexParser parser = new ApexParser(tokens);
+    return new AbstractMap.SimpleEntry<>(lexer, errorCounter);
+  }
 
-        parser.removeErrorListeners();
-        SyntaxErrorCounter errorCounter = new SyntaxErrorCounter();
-        parser.addErrorListener(errorCounter);
+  public static Map.Entry<ApexParser, SyntaxErrorCounter> createParser(
+    String input
+  ) {
+    ApexLexer lexer = new ApexLexer(
+      new CaseInsensitiveInputStream(CharStreams.fromString(input))
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lexer);
+    ApexParser parser = new ApexParser(tokens);
 
-        return new AbstractMap.SimpleEntry<>(parser, errorCounter);
-    }
+    parser.removeErrorListeners();
+    SyntaxErrorCounter errorCounter = new SyntaxErrorCounter();
+    parser.addErrorListener(errorCounter);
+
+    return new AbstractMap.SimpleEntry<>(parser, errorCounter);
+  }
 }

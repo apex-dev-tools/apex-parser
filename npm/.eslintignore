@@ -1,0 +1,8 @@
+lib/
+snapshots/
+
+.eslintrc.js
+src/ApexLexer.ts
+src/ApexParser.ts
+src/ApexParserListener.ts
+src/ApexParserVisitor.ts

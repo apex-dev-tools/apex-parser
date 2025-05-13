@@ -12,62 +12,60 @@
     derived from this software without specific prior written permission.
  */
 import {
-    ANTLRErrorListener,
-    CharStreams,
-    CommonTokenStream,
-    RecognitionException,
-    Recognizer,
-    Token,
-} from "antlr4ts";
-import { ApexLexer } from "../ApexLexer";
-import { ApexParser } from "../ApexParser";
+  ErrorListener,
+  CharStreams,
+  CommonTokenStream,
+  RecognitionException,
+  Recognizer,
+  Token,
+} from "antlr4";
+import ApexLexer from "../ApexLexer";
+import ApexParser from "../ApexParser";
 import { CaseInsensitiveInputStream } from "../CaseInsensitiveInputStream";
 
-export class SyntaxErrorCounter<T = Token> implements ANTLRErrorListener<T> {
-    numErrors = 0;
+export class SyntaxErrorCounter<T = Token> extends ErrorListener<T> {
+  numErrors = 0;
 
-    syntaxError(
-        recognizer: Recognizer<T, any>,
-        offendingSymbol: T,
-        line: number,
-        charPositionInLine: number,
-        msg: string,
-        e: RecognitionException | undefined
-    ): any {
-        this.numErrors += 1;
-    }
+  syntaxError(
+    recognizer: Recognizer<T>,
+    offendingSymbol: T,
+    line: number,
+    column: number,
+    msg: string,
+    e: RecognitionException | undefined
+  ): void {
+    this.numErrors += 1;
+  }
 
-    getNumErrors(): number {
-        return this.numErrors;
-    }
+  getNumErrors(): number {
+    return this.numErrors;
+  }
 }
 
 export function createLexer(
-    input: string,
-    caseInsensitive: boolean = true
+  input: string,
+  caseInsensitive: boolean = true
 ): [ApexLexer, SyntaxErrorCounter<number>] {
-    const stream = CharStreams.fromString(input);
-    const lexer = new ApexLexer(
-        caseInsensitive ? new CaseInsensitiveInputStream(stream) : stream
-    );
+  const stream = CharStreams.fromString(input);
+  const lexer = new ApexLexer(
+    caseInsensitive ? new CaseInsensitiveInputStream(stream) : stream
+  );
 
-    lexer.removeErrorListeners();
-    const errorCounter = new SyntaxErrorCounter<number>();
-    lexer.addErrorListener(errorCounter);
+  lexer.removeErrorListeners();
+  const errorCounter = new SyntaxErrorCounter<number>();
+  lexer.addErrorListener(errorCounter);
 
-    return [lexer, errorCounter];
+  return [lexer, errorCounter];
 }
 
 export function createParser(input: string): [ApexParser, SyntaxErrorCounter] {
-    const lexer = new ApexLexer(
-        new CaseInsensitiveInputStream(CharStreams.fromString(input))
-    );
-    const tokens = new CommonTokenStream(lexer);
-    const parser = new ApexParser(tokens);
+  const lexer = new ApexLexer(new CaseInsensitiveInputStream(input));
+  const tokens = new CommonTokenStream(lexer);
+  const parser = new ApexParser(tokens);
 
-    parser.removeErrorListeners();
-    const errorCounter = new SyntaxErrorCounter();
-    parser.addErrorListener(errorCounter);
+  parser.removeErrorListeners();
+  const errorCounter = new SyntaxErrorCounter();
+  parser.addErrorListener(errorCounter);
 
-    return [parser, errorCounter];
+  return [parser, errorCounter];
 }

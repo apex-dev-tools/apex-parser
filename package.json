@@ -1,20 +1,25 @@
 {
-  "name": "apex-parser-init",
+  "name": "apex-parser-build",
   "private": true,
-  "version": "0.0.1",
-  "homepage": "https://github.com/apex-dev-tools/apex-parser",
-  "repository": "apex-dev-tools/apex-parser",
+  "version": "1.0.0",
   "scripts": {
-    "build": "npm run build-npm && npm run build-jvm",
-    "build-npm": "npm run init-npm && cd npm && npm run build && npm run test && cd ..",
-    "build-jvm": "npm run init-jvm && cd jvm && mvn package && cd ..",
-    "init-npm": "cp antlr/* npm/antlr && cd npm && npm ci",
-    "init-jvm": "cp antlr/* jvm/src/main/antlr4/io/github/apexdevtools/apexparser"
+    "build": "npm run build:npm && npm run build:jvm",
+    "build:jvm": "mvn package -f jvm",
+    "build:npm": "npm run --prefix npm build:test",
+    "prepare": "husky",
+    "init": "npm ci && npm run init:npm && npm run init:jvm",
+    "init:jvm": "",
+    "init:npm": "npm ci --prefix npm",
+    "systest": "npm run --prefix npm test:samples",
+    "systest:update": "npm run --prefix npm test:snapshot"
   },
-  "files": [],
-  "dependencies": {},
-  "devDependencies": {},
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.5.3",
+    "prettier-plugin-java": "^2.6.7"
   }
 }

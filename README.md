@@ -1,44 +1,29 @@
 # apex-parser
 
-Parser for Salesforce Apex (including Triggers & inline SOQL/SOQL). This is based on an [ANTLR4](https://www.antlr.org/) grammar, see antlr/ApexParser.g4.
+Parser for Salesforce Apex (including Triggers & inline SOQL/SOQL). This is based on an [ANTLR4](https://www.antlr.org/) grammar, see [`antlr/BaseApexParser.g4`](./antlr/BaseApexParser.g4).
 
 There are two builds of the parser available, a NPM module for use with Node and a Maven package for use on JVMs.
 
 These builds just contain the Parser & Lexer and provides no further support for analysing the generated parse trees beyond what is provided by ANTLR4.
 
-As Apex & SOQL/SOQL are case-insenstive languages you need to use the provided CaseInsensitiveInputStream for the parser to function correctly. When parsing Apex, inline SOQL/SOSL is automtaically parsed, but you can also parse SOQL/SOQL directly. You can find some minimal examples in the test classes.
+As Apex & SOQL/SOQL are case-insenstive languages you need to use the provided `CaseInsensitiveInputStream` for the parser to function correctly. When parsing Apex, inline SOQL/SOSL is automatically parsed, but you can also parse SOQL/SOQL directly. You can find some minimal examples in the test classes.
 
 ## Example
 
 To parse a class file (NPM version):
 
 ```typescript
-import { CharStreams } from "antlr4ts";
+import { CommonTokenStream } from "antlr4";
+import { ApexLexer, ApexParser, CaseInsensitiveInputStream } from "@apexdevtools/apex-parser";
 
-const stream = CharStreams.fromString("public class Hello {}");
-let lexer = new ApexLexer(new CaseInsensitiveInputStream(stream));
-let tokens  = new CommonTokenStream(lexer);
+const lexer = new ApexLexer(new CaseInsensitiveInputStream("public class Hello {}"));
+const tokens = new CommonTokenStream(lexer);
 
-let parser = new ApexParser(tokens);
-let context = parser.compilationUnit();
+const parser = new ApexParser(tokens);
+const context = parser.compilationUnit();
 ```
 
-The 'context' is a CompilationUnitContext object which is the root of the parsed representation of the class. You can access the parse tree via functions on it.
-
-## Unicode handling
-
-Prior to 2.12.0 the use of ANTLRInputStream for reading data in CaseInsensitiveStream would result character positions being given for UTF-16. The switch to CharStream input in 2.12.0 for JVM and 2.14.0 for node results in character positions reflecting Unicode code points.
-
-## antlr4ts versions
-
-The npm module uses antlr4ts 0.5.0-alpha.4, this was updated from 0.5.0-alpha.3 in the 2.9.1 version. You should make
-sure that if you are using a matching versions of this dependency if you use it directly. To avoid issues you can
-import 'CommonTokenStream' & 'ParseTreeWalker' from 'apex-parser' instead of from antlr4ts.
-
-```typescript
-import { CommonTokenStream} from "apex-parser";
-import { ParseTreeWalker } from "apex-parser";
-```
+The `context` is a `CompilationUnitContext` object which is the root of the parsed representation of the class. You can access the parse tree via functions on it.
 
 ## SOSL FIND quoting
 
@@ -48,51 +33,83 @@ SOSL FIND uses ' as a quoting character when embedded in Apex, in the API braces
 Find {something} RETURNING Account
 ```
 
-To parse the API format there is an alternative parser rule, soslLiteralAlt, that you can use instead of soslLiteral. See SOSLParserTest for some examples of how these differ.
+To parse the API format there is an alternative parser rule, `soslLiteralAlt`, that you can use instead of `soslLiteral`. See `SOSLParserTest` for some examples of how these differ.
 
-## Packages
+## Installation
 
-Maven
+### Maven
 
 ```xml
 <dependency>
     <groupId>io.github.apex-dev-tools</groupId>
     <artifactId>apex-parser</artifactId>
-    <version>4.4.0</version>
+    <version><!-- version --></version>
 </dependency>
 ```
 
-NPM
+### NPM
 
-```json
-{
-  "@apexdevtools/apex-parser": "^4.4.0"
-}
+```sh
+# install antlr4 to reference runtime types
+# must match version used by parser
+npm i antlr4 @apexdevtools/apex-parser
 ```
 
-## Building
+## Development
 
-To build both distributions:
+### Prerequisites
+
+- JDK 11+ (for ANTLR tool)
+- Maven
+- NodeJS LTS
+
+### Building
+
+The outer package contains scripts to build both distributions:
 
 ```shell
+# Run once - installs deps
+npm run init
+
+# Build & test distributions
 npm run build
 ```
 
-## Testing
+### Testing
 
-Unit tests are executed during the respective package builds. The system tests require both packages to be built, as the js test also spawns the jar version. They use a collection of sample projects located in the [apex-samples](https://github.com/apex-dev-tools/apex-samples) repository. Follow the README instructions in apex-samples to checkout the submodules. To run the tests:
+#### Unit Tests
+
+Options for testing:
+
+```shell
+# From root, build & test each
+npm run build:npm
+npm run build:jvm
+
+# From ./npm
+npm run build
+npm test
+
+# From ./jvm
+mvn test
+```
+
+#### System Tests
+
+The system tests use a collection of sample projects located in the [`apex-samples`](https://github.com/apex-dev-tools/apex-samples) repository. Follow the README instructions in `apex-samples` to checkout the submodules at the version tag used by the [build workflow](.github/workflows/Build.yml). Both packages must be built beforehand, as the js system test spawns the jar as well.
+
+To run the tests:
 
 ```shell
 # Set SAMPLES env var to samples repo location
 export SAMPLES=<abs path to apex-samples>
 
-# Exec test script
-npm run test-samples
+# From root dir
+npm run build
+npm run systest
 ```
 
-System test failures relating to the snapshots may highlight regressions. Though if an error is expected or the samples have changed, instead use `npm run test-snapshot` to update the snapshots, then commit the changes.
-
-The tag version of apex-samples used by builds is set in the [build file](.github/workflows/Build.yml).
+System test failures relating to the snapshots may highlight regressions. Though if an error is expected or the samples have changed, instead use `npm run systest:update` to update the snapshots, then commit the changes.
 
 ## Source & Licenses
 

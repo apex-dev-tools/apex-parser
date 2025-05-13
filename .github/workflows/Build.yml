@@ -17,14 +17,17 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
-      - name: Set up JDK 8
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
-          java-version: 8
+          java-version: 11
           cache: "maven"
+
+      - name: Init
+        run: npm run init
 
       - name: Build & Test
         run: npm run build
@@ -35,11 +38,10 @@ jobs:
           submodules: recursive
           repository: apex-dev-tools/apex-samples
           path: apex-samples
-          ref: v1.2.0
+          ref: v1.3.0
 
       - name: Set samples env
         run: echo "SAMPLES=$GITHUB_WORKSPACE/apex-samples" >> "$GITHUB_ENV"
 
       - name: System Test
-        run: npm run test-samples
-        working-directory: npm
+        run: npm run systest

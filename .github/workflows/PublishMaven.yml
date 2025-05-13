@@ -14,12 +14,12 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Set up Maven Central Repository
         uses: actions/setup-java@v4
         with:
-          java-version: "8"
+          java-version: 11
           distribution: "temurin"
           cache: "maven"
           server-id: ossrh
@@ -30,7 +30,7 @@ jobs:
 
       - name: Publish package
         run: |
-          npm run init-jvm
+          npm run init:jvm
           cd jvm
           mvn --batch-mode deploy
         env:

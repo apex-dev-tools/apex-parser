@@ -25,26 +25,29 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import { ANTLRErrorListener, RecognitionException, Recognizer, Token} from "antlr4ts";
+import { ErrorListener, RecognitionException, Recognizer, Token } from "antlr4";
 
 export class SyntaxException {
-    line: number
-    column: number
-    message: string
+  line: number;
+  column: number;
+  message: string;
 
-    constructor(line: number, column: number, message: string) {
-        this.line = line
-        this.column = column
-        this.message = message
-    }
+  constructor(line: number, column: number, message: string) {
+    this.line = line;
+    this.column = column;
+    this.message = message;
+  }
 }
 
-export class ThrowingErrorListener implements ANTLRErrorListener<Token> {
-
-    syntaxError(recognizer: Recognizer<Token, any>, 
-        offendingSymbol: Token, line: number, charPositionInLine: number, msg: string, 
-        e: RecognitionException | undefined): any {
-            throw new SyntaxException(line, charPositionInLine, msg)
-        }
-
+export class ThrowingErrorListener extends ErrorListener<Token> {
+  syntaxError(
+    recognizer: Recognizer<Token>,
+    offendingSymbol: Token,
+    line: number,
+    column: number,
+    msg: string,
+    e: RecognitionException | undefined
+  ): void {
+    throw new SyntaxException(line, column, msg);
+  }
 }

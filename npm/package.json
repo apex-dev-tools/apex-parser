@@ -26,6 +26,7 @@
   },
   "files": [
     "lib/*.*",
+    "lib/antlr",
     "CHANGELOG.md"
   ],
   "dependencies": {

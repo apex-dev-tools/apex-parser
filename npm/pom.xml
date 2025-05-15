@@ -44,7 +44,7 @@
             <argument>-lib</argument>
             <argument>${project.basedir}/../antlr</argument>
             <argument>-o</argument>
-            <argument>${project.basedir}/src</argument>
+            <argument>${project.basedir}/src/antlr</argument>
             <argument>ApexLexer.g4</argument>
             <argument>ApexParser.g4</argument>
           </arguments>

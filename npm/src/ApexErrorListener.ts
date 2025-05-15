@@ -27,19 +27,28 @@
 */
 import { ErrorListener, RecognitionException, Recognizer, Token } from "antlr4";
 
-export class SyntaxException {
+export class ApexSyntaxError extends Error {
   line: number;
   column: number;
   message: string;
 
   constructor(line: number, column: number, message: string) {
+    super(message);
+
     this.line = line;
     this.column = column;
-    this.message = message;
+    this.name = this.constructor.name;
   }
 }
 
-export class ThrowingErrorListener extends ErrorListener<Token> {
+/**
+ * Base `ErrorListener` for Apex parsers.
+ *
+ * Implement `apexSyntaxError()` to set behaviour.
+ */
+export abstract class ApexErrorListener extends ErrorListener<Token> {
+  abstract apexSyntaxError(line: number, column: number, msg: string): void;
+
   syntaxError(
     recognizer: Recognizer<Token>,
     offendingSymbol: Token,
@@ -48,6 +57,19 @@ export class ThrowingErrorListener extends ErrorListener<Token> {
     msg: string,
     e: RecognitionException | undefined
   ): void {
-    throw new SyntaxException(line, column, msg);
+    this.apexSyntaxError(line, column, msg);
+  }
+}
+
+/**
+ * `ApexErrorListener` that throws an `ApexSyntaxError` on first reported error.
+ *
+ * Use ThrowingErrorListener.INSTANCE to share across parsers.
+ */
+export class ThrowingErrorListener extends ApexErrorListener {
+  static readonly INSTANCE = new ThrowingErrorListener();
+
+  apexSyntaxError(line: number, column: number, msg: string): void {
+    throw new ApexSyntaxError(line, column, msg);
   }
 }

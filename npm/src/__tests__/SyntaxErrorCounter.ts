@@ -19,8 +19,8 @@ import {
   Recognizer,
   Token,
 } from "antlr4";
-import ApexLexer from "../ApexLexer";
-import ApexParser from "../ApexParser";
+import ApexLexer from "../antlr/ApexLexer";
+import ApexParser from "../antlr/ApexParser";
 import { CaseInsensitiveInputStream } from "../CaseInsensitiveInputStream";
 
 export class SyntaxErrorCounter<T = Token> extends ErrorListener<T> {

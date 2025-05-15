@@ -11,18 +11,11 @@
  3. The name of the author may not be used to endorse or promote products
     derived from this software without specific prior written permission.
  */
-import ApexLexer from "../ApexLexer";
-import ApexParser, { MethodDeclarationContext } from "../ApexParser";
-import { CaseInsensitiveInputStream } from "../CaseInsensitiveInputStream";
-import { CommonTokenStream } from "antlr4";
-import { ParseTreeVisitor } from "antlr4";
-import { ThrowingErrorListener } from "../ThrowingErrorListener";
-import ApexParserVisitor from "../ApexParserVisitor";
 
-class TestVisitor
-  extends ParseTreeVisitor<number>
-  implements ApexParserVisitor<number>
-{
+import { MethodDeclarationContext } from "../antlr/ApexParser";
+import { ApexParserFactory, ApexParseTreeVisitor } from "../ApexParserFactory";
+
+class TestVisitor extends ApexParseTreeVisitor<number> {
   public methodCount = 0;
 
   visitMethodDeclaration(ctx: MethodDeclarationContext): number {
@@ -36,17 +29,10 @@ class TestVisitor
 }
 
 test("Vistor is visited", () => {
-  const lexer = new ApexLexer(
-    new CaseInsensitiveInputStream(
-      "public class Hello { public void func(){} }"
-    )
+  const parser = ApexParserFactory.createParser(
+    "public class Hello { public void func(){} }",
+    true
   );
-  const tokens = new CommonTokenStream(lexer);
-
-  const parser = new ApexParser(tokens);
-
-  parser.removeErrorListeners();
-  parser.addErrorListener(new ThrowingErrorListener());
 
   const cu = parser.compilationUnit();
   const visitor = new TestVisitor();

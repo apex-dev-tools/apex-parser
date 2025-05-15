@@ -52,15 +52,15 @@ public class Check {
       RecognitionException e
     ) {
       System.out.println(
-        "{\"path\":\"" +
-        file +
-        "\",\"error\":\"{\\\"line\\\":" +
-        line +
-        ",\\\"column\\\":" +
+        "{\"column\":" +
         charPositionInLine +
-        ",\\\"message\\\":\\\"" +
+        ",\"line\":" +
+        line +
+        ",\"message\":\"" +
         msg +
-        "\\\"}\"}"
+        "\",\"path\":\"" +
+        file +
+        "\"}"
       );
     }
   }

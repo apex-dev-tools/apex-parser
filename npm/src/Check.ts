@@ -68,14 +68,14 @@ export async function check(pathStr?: string): Promise<CheckResult> {
   };
 
   if (!existsSync(path)) {
-    console.log(`Path does not exist, aborting: ${path}`);
+    console.error(`Path does not exist, aborting: ${path}`);
     result.status = 2;
   } else {
     try {
       result.errors = await parseFiles(path);
     } catch (err) {
-      console.log(`Error processing: ${path}`);
-      console.log(err);
+      console.error(`Error processing: ${path}`);
+      console.error(err);
       result.status = 1;
     }
   }
@@ -101,7 +101,7 @@ export async function checkProject(
   const packages = getProjectPackages(project);
 
   if (packages.length == 0) {
-    console.log(
+    console.error(
       `[${name}]: No valid SFDX project, checking all cls & trigger files`
     );
     const result = await check(path);
@@ -133,13 +133,13 @@ export async function checkProject(
   return projectResult;
 }
 
-class CheckErrorListener extends ApexErrorListener {
-  private file: string;
+class CheckApexErrorListener extends ApexErrorListener {
+  private path: string;
   private errors: CheckError[] = [];
 
   constructor(relativePath: string) {
     super();
-    this.file = relativePath;
+    this.path = relativePath;
   }
 
   apexSyntaxError(line: number, column: number, message: string): void {
@@ -147,11 +147,10 @@ class CheckErrorListener extends ApexErrorListener {
       column,
       line,
       message,
-      path: this.file,
+      path: this.path,
     };
 
-    // to stderr for filtering if needed
-    console.error(JSON.stringify(error));
+    console.log(JSON.stringify(error));
     this.errors.push(error);
   }
 
@@ -207,7 +206,7 @@ function parseByType(
           readFileSync(file).toString()
         );
         const relativePath = relative(rootPath, file);
-        const listener = new CheckErrorListener(relativePath);
+        const listener = new CheckApexErrorListener(relativePath);
         parser.addErrorListener(listener);
 
         operation(parser);

@@ -54,12 +54,8 @@ describe("Parse samples", () => {
           }
         );
 
-        const errors: string[] = [];
-        const stdout: string[] = [];
-
-        extractLines(jvmCheck.stdout).forEach(l =>
-          (l.startsWith("{") ? errors : stdout).push(l)
-        );
+        const stdout: string[] = extractLines(jvmCheck.stdout);
+        const checkErrors: string[] = stdout.filter(l => l.startsWith("{"));
         console.log(jvmStr(stdout));
 
         // either >1 or null, show error logging
@@ -74,7 +70,7 @@ describe("Parse samples", () => {
         // catch unexpected failures or timeouts
         expect(jvmCheck.status).toEqual(r.status);
         // match syntax errors to snapshot value
-        expect(errors.map(j => JSON.parse(j))).toMatchObject(r.errors);
+        expect(checkErrors.map(j => JSON.parse(j))).toMatchObject(r.errors);
       });
     },
     15000

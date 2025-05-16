@@ -130,7 +130,7 @@ public class Check {
         ",\"line\":" +
         line +
         ",\"message\":\"" +
-        msg +
+        msg.replace("\\", "\\\\") +
         "\",\"path\":\"" +
         this.path +
         "\"}"

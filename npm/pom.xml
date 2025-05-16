@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.github.apex-dev-tools</groupId>
-  <artifactId>apex-parser</artifactId>
-  <version>4.4.0</version>
+  <artifactId>apex-parser-npm-build</artifactId>
+  <version>1.0.0</version>
 
   <dependencies>
     <dependency> 

@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2019 Kevin Jones
+ Copyright (c) 2025 Kevin Jones, Certinia Inc.
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -27,20 +27,6 @@
 */
 import { ErrorListener, RecognitionException, Recognizer, Token } from "antlr4";
 
-export class ApexSyntaxError extends Error {
-  line: number;
-  column: number;
-  message: string;
-
-  constructor(line: number, column: number, message: string) {
-    super(message);
-
-    this.line = line;
-    this.column = column;
-    this.name = this.constructor.name;
-  }
-}
-
 /**
  * Base `ErrorListener` for Apex parsers.
  *
@@ -58,6 +44,20 @@ export abstract class ApexErrorListener extends ErrorListener<Token> {
     e: RecognitionException | undefined
   ): void {
     this.apexSyntaxError(line, column, msg);
+  }
+}
+
+export class ApexSyntaxError extends Error {
+  line: number;
+  column: number;
+  message: string;
+
+  constructor(line: number, column: number, message: string) {
+    super(message);
+
+    this.line = line;
+    this.column = column;
+    this.name = this.constructor.name;
   }
 }
 

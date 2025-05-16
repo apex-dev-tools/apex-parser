@@ -55,7 +55,9 @@ export type ApexTokenStream = CommonTokenStream;
  * A factory for `ApexParser` and its components. Abstracts interaction
  * with core ANTLR types like `CommonTokenStream`.
  */
-export abstract class ApexParserFactory {
+export class ApexParserFactory {
+  private constructor() {}
+
   static createParser(
     source: string | ApexTokenStream,
     throwOnFirstError: boolean = false
@@ -86,8 +88,8 @@ export abstract class ApexParserFactory {
 }
 
 /**
- * A listener for an Apex parse tree produced by `ApexParser`.
- * Extend this class to define listener operations.
+ * A base listener for an Apex parse tree produced by `ApexParser`. Extend this
+ * class to define a subset of listener operations.
  *
  * @see ApexParserListener for tree context listen operations.
  * @example
@@ -95,7 +97,7 @@ export abstract class ApexParserFactory {
  * enterCompilationUnit = (ctx: CompilationUnitContext) => {}
  * enterCompilationUnit(ctx: CompilationUnitContext) {}
  */
-export class ApexParseTreeListener
+export class ApexParserBaseListener
   extends ParseTreeListener
   implements ApexParserListener
 {
@@ -106,8 +108,8 @@ export class ApexParseTreeListener
 }
 
 /**
- * A visitor for an Apex parse tree produced by `ApexParser`.
- * Extend this class to define visitor operations.
+ * A base visitor for an Apex parse tree produced by `ApexParser`. Extend this
+ * class to define a subset of visitor operations.
  *
  * @see ApexParserVisitor for tree context visit operations.
  * @param Result The return type of the visit operation. Use `void` for
@@ -117,7 +119,7 @@ export class ApexParseTreeListener
  * visitCompilationUnit = (ctx: CompilationUnitContext) => { return result; }
  * visitCompilationUnit(ctx: CompilationUnitContext) { return result; }
  */
-export class ApexParseTreeVisitor<Result>
+export class ApexParserBaseVisitor<Result>
   extends ParseTreeVisitor<Result>
   implements ApexParserVisitor<Result>
 {

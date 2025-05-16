@@ -13,9 +13,9 @@
  */
 
 import { MethodDeclarationContext } from "../antlr/ApexParser";
-import { ApexParserFactory, ApexParseTreeVisitor } from "../ApexParserFactory";
+import { ApexParserFactory, ApexParserBaseVisitor } from "../ApexParserFactory";
 
-class TestVisitor extends ApexParseTreeVisitor<number> {
+class TestVisitor extends ApexParserBaseVisitor<number> {
   public methodCount = 0;
 
   visitMethodDeclaration(ctx: MethodDeclarationContext): number {

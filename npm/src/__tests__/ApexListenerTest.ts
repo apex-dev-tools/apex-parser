@@ -14,11 +14,11 @@
 
 import {
   ApexParserFactory,
-  ApexParseTreeListener,
+  ApexParserBaseListener,
   ApexParseTreeWalker,
 } from "../ApexParserFactory";
 
-class TestListener extends ApexParseTreeListener {
+class TestListener extends ApexParserBaseListener {
   public methodCount = 0;
 
   enterMethodDeclaration(/* ctx: MethodDeclarationContext */): void {

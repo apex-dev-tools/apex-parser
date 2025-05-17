@@ -12,7 +12,7 @@
     derived from this software without specific prior written permission.
  */
 
-import { TriggerUnitContext } from "../ApexParser";
+import { TriggerUnitContext } from "../antlr/ApexParser";
 import { createParser } from "./SyntaxErrorCounter";
 
 test("Empty Trigger", () => {

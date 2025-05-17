@@ -2,26 +2,41 @@
 
 ## 5.0.0
 
-- (BREAKING) Migrated from `antlr4ts` to official `antlr4` runtime package.
+## General
+
+- **(BREAKING)** Updated to ANTLR runtime `4.13.2`, using the ANTLR tool to generate both target languages.
+
+- Added `ApexParserFactory` class to create parsers, token streams, and lexers.
+  - Primarily for TS to avoid directly creating `antlr4` class instances.
+  - In Java, it still requires passing a `CharStream` or `CommonTokenStream` to create parsers.
+
+- Added abstract class `ApexErrorListener`:
+  - Implement method `apexSyntaxError(line, column, message)` to avoid antlr specific types.
+
+### Java
+
+- Added `Check.run` to programmatically run syntax check operation on a path.
+
+### TypeScript/NPM
+
+- **(BREAKING)** Migrated from `antlr4ts` to official `antlr4` runtime package.
   - Some lesser used methods are missing in the type definitions, refer to the [antlr4 Javascript code](https://github.com/antlr/antlr4/tree/dev/runtime/JavaScript/src/antlr4) if you need to cast types.
-  - `extends` is now required to use antlr `Listener`/`Visitor` types.
-    - Exception being to avoid the property initialisation syntax in the antlr generated types:
+  - Generated `Listener`/`Visitor` interfaces are now abstract classes.
+    - Introduced `Base` classes to extend instead, following pattern of Java classes of the same name. Change:
+      - `implements ApexParserListener` to `extends ApexParserBaseListener`
+      - `implements ApexParserVisitor<T>` to `extends ApexParserBaseVisitor<T>`
 
-      ```apex
-      class MyListener extends ParseTreeListener implements ApexParserListener {
-        // with 'extends ApexParserListener' you must write this
-        enterMethodDeclaration = () => {}
+- **(BREAKING)** Re-exported antlr classes `CommonTokenStream` and `ParseTreeWalker` removed.
+  - Added type aliases like `ApexTokenStream`, `ApexParseTree`, and more to use with listener/visitor/walker.
+  - For the walker, use `ApexParseTreeWalker.DEFAULT`. Same instance but typed for `ApexParserListener` and `ApexParseTree`.
+  - It should no longer be required to depend on `antlr4` package directly.
+    - Can still add the package as a dependency, but remember to match the version `apex-parser` uses.
 
-        // this requires 'extends ParseTreeListener implements ApexParserListener'
-        enterMethodDeclaration() {}
-      }
-      ```
+- **(BREAKING)** Updated output to `ES2020` and increased min node version to 16.
 
-- (BREAKING) Updated output to `ES2020` and increased min node version to 16.
-- (BREAKING) Updated to ANTLR `4.13.2` across both distributions. Same tool now generates both.
-- (BREAKING) Re-exported antlr types removed, add `antlr4` package dep instead matching apex-parser version.
-- Typescript `CaseInsensitiveInputStream` type now extends `CharStream` and can be constructed from `string`.
-  - Constructor passing in `Charstream` retained to match Java version.
+- `CaseInsensitiveInputStream` type now extends `CharStream` and can be constructed from `string`.
+  - Constructor passing in `CharStream` retained to match Java version.
+
 - Removed `node-dir` dependency - replaced with node fs api.
 
 ## 4.4.0 - 2024-12-14

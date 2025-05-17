@@ -3,7 +3,7 @@
  */
 import { spawnSync } from "child_process";
 import { readdirSync, lstatSync } from "fs";
-import { basename, resolve } from "path";
+import { basename, resolve, join } from "path";
 import { checkProject } from "../..";
 
 describe("Parse samples", () => {
@@ -48,37 +48,42 @@ describe("Parse samples", () => {
             resolve(path, r.path),
           ],
           {
-            // can only be run from npm dir
+            // can only be run from npm dir (use npm run scripts)
             cwd: resolve(process.cwd(), ".."),
             timeout: 10000,
           }
         );
 
-        const errors: string[] = [];
-        const logs: string[] = [];
-        // either >1 or null, truthy check not enough
+        const stdout: string[] = extractLines(jvmCheck.stdout);
+        const checkErrors: string[] = stdout.filter(l => l.startsWith("{"));
+        console.log(jvmStr(stdout));
+
+        // either >1 or null, show error logging
         if (jvmCheck.status || jvmCheck.status == null) {
-          logs.push(...jvmCheck.stderr.toString("utf8").split("\n"));
-        } else {
-          jvmCheck.stdout
-            .toString("utf8")
-            .split("\n")
-            .forEach(l => (l.startsWith("{") ? errors : logs).push(l));
+          console.error(jvmStr(extractLines(jvmCheck.stderr)));
         }
 
         console.log(
-          logs
-            .filter(l => l)
-            .map(s => `(JVM) ${s}`)
-            .join("\n")
+          `\n[${join(r.name, r.path)}] complete, JS ${r.status} / JVM ${jvmCheck.status}\n`
         );
 
         // catch unexpected failures or timeouts
         expect(jvmCheck.status).toEqual(r.status);
         // match syntax errors to snapshot value
-        expect(errors.map(j => JSON.parse(j))).toMatchObject(r.errors);
+        expect(checkErrors.map(j => JSON.parse(j))).toMatchObject(r.errors);
       });
     },
     15000
   );
 });
+
+function extractLines(buffer: Buffer): string[] {
+  return buffer
+    .toString("utf8")
+    .split("\n")
+    .filter(l => l);
+}
+
+function jvmStr(lines: string[]): string {
+  return lines.map(s => `(JVM) ${s}`).join("\n");
+}

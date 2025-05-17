@@ -1,3 +1,4 @@
 .metals/
 .vscode/
+.idea/
 node_modules/

@@ -8,8 +8,8 @@
     "build:npm": "npm run --prefix npm build:test",
     "prepare": "husky",
     "init": "npm ci && npm run init:npm && npm run init:jvm",
-    "init:jvm": "",
-    "init:npm": "npm ci --prefix npm",
+    "init:jvm": "mvn exec:exec -f jvm",
+    "init:npm": "npm run --prefix npm init",
     "systest": "npm run --prefix npm test:samples",
     "systest:update": "npm run --prefix npm test:snapshot"
   },

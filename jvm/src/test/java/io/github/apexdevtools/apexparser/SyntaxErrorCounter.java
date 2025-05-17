@@ -56,13 +56,9 @@ public class SyntaxErrorCounter extends BaseErrorListener {
   public static Map.Entry<ApexParser, SyntaxErrorCounter> createParser(
     String input
   ) {
-    ApexLexer lexer = new ApexLexer(
-      new CaseInsensitiveInputStream(CharStreams.fromString(input))
+    ApexParser parser = ApexParserFactory.createParser(
+      CharStreams.fromString(input)
     );
-    CommonTokenStream tokens = new CommonTokenStream(lexer);
-    ApexParser parser = new ApexParser(tokens);
-
-    parser.removeErrorListeners();
     SyntaxErrorCounter errorCounter = new SyntaxErrorCounter();
     parser.addErrorListener(errorCounter);
 

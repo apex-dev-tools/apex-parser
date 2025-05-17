@@ -2,4 +2,5 @@ README.md
 CHANGELOG.md
 node_modules/
 lib/
+src/antlr
 .eslintcache

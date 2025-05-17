@@ -6,7 +6,7 @@
 
   <groupId>io.github.apex-dev-tools</groupId>
   <artifactId>apex-parser</artifactId>
-  <version>4.4.0</version>
+  <version>5.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>apex-parser</name>

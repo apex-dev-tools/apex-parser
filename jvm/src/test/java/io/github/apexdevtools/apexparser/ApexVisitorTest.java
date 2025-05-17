@@ -15,10 +15,7 @@ package io.github.apexdevtools.apexparser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.IOException;
-import java.io.StringReader;
 import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.jupiter.api.Test;
 
 public class ApexVisitorTest {
@@ -32,7 +29,7 @@ public class ApexVisitorTest {
       ApexParser.MethodDeclarationContext ctx
     ) {
       this.methodCount += 1;
-      return 1 + super.visitChildren(ctx);
+      return 1 + this.visitChildren(ctx);
     }
 
     @Override
@@ -42,16 +39,12 @@ public class ApexVisitorTest {
   }
 
   @Test
-  void testVisitorIsVisited() throws IOException {
-    ApexLexer lexer = new ApexLexer(
-      new CaseInsensitiveInputStream(
-        CharStreams.fromString("public class Hello { public void func(){} }")
-      )
+  void testVisitorIsVisited() {
+    ApexParser parser = ApexParserFactory.createParser(
+      CharStreams.fromString("public class Hello { public void func(){} }")
     );
-    CommonTokenStream tokens = new CommonTokenStream(lexer);
-    ApexParser parser = new ApexParser(tokens);
-    ApexParser.CompilationUnitContext context = parser.compilationUnit();
 
+    ApexParser.CompilationUnitContext context = parser.compilationUnit();
     TestVisitor visitor = new TestVisitor();
     visitor.visit(context);
 

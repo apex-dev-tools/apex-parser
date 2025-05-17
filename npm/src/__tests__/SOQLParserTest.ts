@@ -15,7 +15,7 @@ import {
   QueryContext,
   StatementContext,
   SoqlLiteralContext,
-} from "../ApexParser";
+} from "../antlr/ApexParser";
 import { createParser } from "./SyntaxErrorCounter";
 
 test("SOQL Query", () => {

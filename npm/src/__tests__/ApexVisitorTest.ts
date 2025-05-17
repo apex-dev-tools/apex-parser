@@ -20,7 +20,7 @@ class TestVisitor extends ApexParserBaseVisitor<number> {
 
   visitMethodDeclaration(ctx: MethodDeclarationContext): number {
     this.methodCount += 1;
-    return 1 + super.visitChildren(ctx);
+    return 1 + this.visitChildren(ctx);
   }
 
   defaultResult() {
@@ -28,7 +28,7 @@ class TestVisitor extends ApexParserBaseVisitor<number> {
   }
 }
 
-test("Vistor is visited", () => {
+test("Visitor is visited", () => {
   const parser = ApexParserFactory.createParser(
     "public class Hello { public void func(){} }",
     true

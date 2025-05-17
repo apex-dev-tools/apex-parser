@@ -15,10 +15,7 @@ package io.github.apexdevtools.apexparser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.IOException;
-import java.io.StringReader;
 import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.api.Test;
 
@@ -37,14 +34,10 @@ public class ApexListenerTest {
   }
 
   @Test
-  void testListenerGeneratesEvents() throws IOException {
-    ApexLexer lexer = new ApexLexer(
-      new CaseInsensitiveInputStream(
-        CharStreams.fromString("public class Hello { public void func(){} }")
-      )
+  void testListenerGeneratesEvents() {
+    ApexParser parser = ApexParserFactory.createParser(
+      CharStreams.fromString("public class Hello { public void func(){} }")
     );
-    CommonTokenStream tokens = new CommonTokenStream(lexer);
-    ApexParser parser = new ApexParser(tokens);
     ApexParser.CompilationUnitContext context = parser.compilationUnit();
 
     TestListener listener = new TestListener();

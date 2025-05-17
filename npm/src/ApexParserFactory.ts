@@ -36,6 +36,7 @@ import {
   ParseTreeWalker,
   RuleNode,
   TerminalNode,
+  Token,
 } from "antlr4";
 import ApexParserListener from "./antlr/ApexParserListener";
 import ApexParserVisitor from "./antlr/ApexParserVisitor";
@@ -50,6 +51,7 @@ export type ApexParseTree = ParseTree;
 export type ApexRuleNode = RuleNode;
 export type ApexTerminalNode = TerminalNode;
 export type ApexTokenStream = CommonTokenStream;
+export type ApexToken = Token;
 
 /**
  * A factory for `ApexParser` and its components. Abstracts interaction
@@ -88,26 +90,6 @@ export class ApexParserFactory {
 }
 
 /**
- * A base listener for an Apex parse tree produced by `ApexParser`. Extend this
- * class to define a subset of listener operations.
- *
- * @see ApexParserListener for tree context listen operations.
- * @example
- * // Implementations can be property or method styles.
- * enterCompilationUnit = (ctx: CompilationUnitContext) => {}
- * enterCompilationUnit(ctx: CompilationUnitContext) {}
- */
-export class ApexParserBaseListener
-  extends ParseTreeListener
-  implements ApexParserListener
-{
-  visitTerminal(node: ApexTerminalNode): void {}
-  visitErrorNode(node: ApexErrorNode): void {}
-  enterEveryRule(ctx: ApexParserRuleContext): void {}
-  exitEveryRule(ctx: ApexParserRuleContext): void {}
-}
-
-/**
  * A base visitor for an Apex parse tree produced by `ApexParser`. Extend this
  * class to define a subset of visitor operations.
  *
@@ -138,6 +120,26 @@ export class ApexParserBaseVisitor<Result>
   visitErrorNode(node: ApexErrorNode): Result {
     return super.visitErrorNode(node);
   }
+}
+
+/**
+ * A base listener for an Apex parse tree produced by `ApexParser`. Extend this
+ * class to define a subset of listener operations.
+ *
+ * @see ApexParserListener for tree context listen operations.
+ * @example
+ * // Implementations can be property or method styles.
+ * enterCompilationUnit = (ctx: CompilationUnitContext) => {}
+ * enterCompilationUnit(ctx: CompilationUnitContext) {}
+ */
+export class ApexParserBaseListener
+  extends ParseTreeListener
+  implements ApexParserListener
+{
+  visitTerminal(node: ApexTerminalNode): void {}
+  visitErrorNode(node: ApexErrorNode): void {}
+  enterEveryRule(ctx: ApexParserRuleContext): void {}
+  exitEveryRule(ctx: ApexParserRuleContext): void {}
 }
 
 /**

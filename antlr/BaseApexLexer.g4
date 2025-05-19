@@ -1,6 +1,7 @@
 /*
  [The "BSD licence"]
  Copyright (c) 2013 Terence Parr, Sam Harwell
+ Copyright (c) 2025 Kevin Jones, Certinia Inc.
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without

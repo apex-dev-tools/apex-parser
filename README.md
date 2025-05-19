@@ -1,6 +1,6 @@
 # apex-parser
 
-Parser for Salesforce Apex (including Triggers & inline SOQL/SOQL). This is based on an [ANTLR4](https://www.antlr.org/) grammar, see [`antlr/BaseApexParser.g4`](./antlr/BaseApexParser.g4). Currently releases packages for Java and JavaScript/TypeScript targets.
+Parser for Salesforce Apex (including Triggers & inline SOQL/SOQL). This is based on an [ANTLR4](https://www.antlr.org/) grammar, see [`antlr/BaseApexParser.g4`](./antlr/BaseApexParser.g4). Currently packaged for Java and JavaScript/TypeScript targets.
 
 With the ANTLR4 generated types, a `CaseInsensitiveInputStream` is included (and required) for the lexer. Type aliases and abstractions like `ApexParserFactory` and `ApexErrorListener` are also available for quick start. There are minimal examples in the test classes.
 
@@ -27,8 +27,8 @@ npm i @apexdevtools/apex-parser
 
 `ApexParser` entry points to access tree:
 
-- `compilationUnit()`, a class.
-- `triggerUnit()`, a trigger.
+- `compilationUnit()`, a class file.
+- `triggerUnit()`, a trigger file.
 - `query()`, a raw SOQL query.
 
 ### Explore Parse Tree (TypeScript)

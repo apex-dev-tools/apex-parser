@@ -14,14 +14,14 @@
 import {
   ErrorListener,
   CharStreams,
-  CommonTokenStream,
   RecognitionException,
   Recognizer,
   Token,
 } from "antlr4";
-import ApexLexer from "../ApexLexer";
-import ApexParser from "../ApexParser";
+import ApexLexer from "../antlr/ApexLexer";
+import ApexParser from "../antlr/ApexParser";
 import { CaseInsensitiveInputStream } from "../CaseInsensitiveInputStream";
+import { ApexParserFactory } from "../ApexParserFactory";
 
 export class SyntaxErrorCounter<T = Token> extends ErrorListener<T> {
   numErrors = 0;
@@ -46,9 +46,10 @@ export function createLexer(
   input: string,
   caseInsensitive: boolean = true
 ): [ApexLexer, SyntaxErrorCounter<number>] {
-  const stream = CharStreams.fromString(input);
   const lexer = new ApexLexer(
-    caseInsensitive ? new CaseInsensitiveInputStream(stream) : stream
+    caseInsensitive
+      ? new CaseInsensitiveInputStream(input)
+      : CharStreams.fromString(input)
   );
 
   lexer.removeErrorListeners();
@@ -59,11 +60,7 @@ export function createLexer(
 }
 
 export function createParser(input: string): [ApexParser, SyntaxErrorCounter] {
-  const lexer = new ApexLexer(new CaseInsensitiveInputStream(input));
-  const tokens = new CommonTokenStream(lexer);
-  const parser = new ApexParser(tokens);
-
-  parser.removeErrorListeners();
+  const parser = ApexParserFactory.createParser(input);
   const errorCounter = new SyntaxErrorCounter();
   parser.addErrorListener(errorCounter);
 

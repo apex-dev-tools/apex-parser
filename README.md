@@ -1,39 +1,8 @@
 # apex-parser
 
-Parser for Salesforce Apex (including Triggers & inline SOQL/SOQL). This is based on an [ANTLR4](https://www.antlr.org/) grammar, see [`antlr/BaseApexParser.g4`](./antlr/BaseApexParser.g4).
+Parser for Salesforce Apex (including Triggers & inline SOQL/SOQL). This is based on an [ANTLR4](https://www.antlr.org/) grammar, see [`antlr/BaseApexParser.g4`](./antlr/BaseApexParser.g4). Currently packaged for Java and JavaScript/TypeScript targets.
 
-There are two builds of the parser available, a NPM module for use with Node and a Maven package for use on JVMs.
-
-These builds just contain the Parser & Lexer and provides no further support for analysing the generated parse trees beyond what is provided by ANTLR4.
-
-As Apex & SOQL/SOQL are case-insenstive languages you need to use the provided `CaseInsensitiveInputStream` for the parser to function correctly. When parsing Apex, inline SOQL/SOSL is automatically parsed, but you can also parse SOQL/SOQL directly. You can find some minimal examples in the test classes.
-
-## Example
-
-To parse a class file (NPM version):
-
-```typescript
-import { CommonTokenStream } from "antlr4";
-import { ApexLexer, ApexParser, CaseInsensitiveInputStream } from "@apexdevtools/apex-parser";
-
-const lexer = new ApexLexer(new CaseInsensitiveInputStream("public class Hello {}"));
-const tokens = new CommonTokenStream(lexer);
-
-const parser = new ApexParser(tokens);
-const context = parser.compilationUnit();
-```
-
-The `context` is a `CompilationUnitContext` object which is the root of the parsed representation of the class. You can access the parse tree via functions on it.
-
-## SOSL FIND quoting
-
-SOSL FIND uses ' as a quoting character when embedded in Apex, in the API braces are used:
-
-```sosl
-Find {something} RETURNING Account
-```
-
-To parse the API format there is an alternative parser rule, `soslLiteralAlt`, that you can use instead of `soslLiteral`. See `SOSLParserTest` for some examples of how these differ.
+With the ANTLR4 generated types, a `CaseInsensitiveInputStream` is included (and required) for the lexer. Type aliases and abstractions like `ApexParserFactory` and `ApexErrorListener` are also available for quick start. There are minimal examples in the test classes.
 
 ## Installation
 
@@ -50,10 +19,52 @@ To parse the API format there is an alternative parser rule, `soslLiteralAlt`, t
 ### NPM
 
 ```sh
-# install antlr4 to reference runtime types
-# must match version used by parser
-npm i antlr4 @apexdevtools/apex-parser
+# Optionally install `antlr4` to use runtime types
+npm i @apexdevtools/apex-parser
 ```
+
+## Usage
+
+`ApexParser` entry points to access tree:
+
+- `compilationUnit()`, a class file.
+- `triggerUnit()`, a trigger file.
+- `query()`, a raw SOQL query.
+
+### Explore Parse Tree (TypeScript)
+
+```typescript
+import { ApexParserFactory, ApexParserBaseVisitor } from "@apexdevtools/apex-parser";
+
+const parser = ApexParserFactory.createParser("public class Hello {}");
+
+/*
+ * Use a visitor. Return value and manual control.
+ */
+class Visitor extends ApexParserBaseVisitor<any> {}
+
+const visitor = new Visitor();
+visitor.visit(parser.compilationUnit());
+
+
+/*
+ * Or walk with listener. Enter/exit operations - for whole tree.
+ */
+class Listener extends ApexParserBaseListener {}
+
+const listener = new Listener();
+ApexParseTreeWalker.DEFAULT.walk(listener, parser.compilationUnit());
+```
+
+### SOSL FIND quoting
+
+SOSL FIND uses ' as a quoting character when embedded in Apex, in the API braces are used:
+
+```sosl
+Find {something} RETURNING Account
+```
+
+To parse the API format there is an alternative parser rule, `soslLiteralAlt`, that you can use instead of `soslLiteral`. See `SOSLParserTest` for some examples of how these differ.
 
 ## Development
 
@@ -68,24 +79,30 @@ npm i antlr4 @apexdevtools/apex-parser
 The outer package contains scripts to build both distributions:
 
 ```shell
-# Run once - installs deps
+# Run once - prepare for dev (installs deps, runs antlr gen)
 npm run init
 
-# Build & test distributions
+# Run antlr gen, compile and test
 npm run build
+```
+
+Or you can setup and later build each distribution separately:
+
+```shell
+npm run init:npm
+npm run build:npm
+
+npm run init:jvm
+npm run build:jvm
 ```
 
 ### Testing
 
 #### Unit Tests
 
-Options for testing:
+More options for testing:
 
 ```shell
-# From root, build & test each
-npm run build:npm
-npm run build:jvm
-
 # From ./npm
 npm run build
 npm test

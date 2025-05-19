@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2020 Kevin Jones
+ Copyright (c) 2025 Kevin Jones, Certinia Inc.
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -25,13 +25,51 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+import { ErrorListener, RecognitionException, Recognizer, Token } from "antlr4";
 
-export * from "./ApexErrorListener";
-export * from "./ApexParserFactory";
-export * from "./CaseInsensitiveInputStream";
-export * from "./Check";
-export * from "./antlr/ApexParser"; // RuleContext types
-export { default as ApexLexer } from "./antlr/ApexLexer";
-export { default as ApexParser } from "./antlr/ApexParser";
-export { default as ApexParserListener } from "./antlr/ApexParserListener";
-export { default as ApexParserVisitor } from "./antlr/ApexParserVisitor";
+/**
+ * Base `ErrorListener` for Apex parsers.
+ *
+ * Implement `apexSyntaxError()` to set behaviour.
+ */
+export abstract class ApexErrorListener extends ErrorListener<Token> {
+  abstract apexSyntaxError(line: number, column: number, msg: string): void;
+
+  syntaxError(
+    recognizer: Recognizer<Token>,
+    offendingSymbol: Token,
+    line: number,
+    column: number,
+    msg: string,
+    e: RecognitionException | undefined
+  ): void {
+    this.apexSyntaxError(line, column, msg);
+  }
+}
+
+export class ApexSyntaxError extends Error {
+  line: number;
+  column: number;
+  message: string;
+
+  constructor(line: number, column: number, message: string) {
+    super(message);
+
+    this.line = line;
+    this.column = column;
+    this.name = this.constructor.name;
+  }
+}
+
+/**
+ * `ApexErrorListener` that throws an `ApexSyntaxError` on first reported error.
+ *
+ * Use ThrowingErrorListener.INSTANCE to share across parsers.
+ */
+export class ThrowingErrorListener extends ApexErrorListener {
+  static readonly INSTANCE = new ThrowingErrorListener();
+
+  apexSyntaxError(line: number, column: number, msg: string): void {
+    throw new ApexSyntaxError(line, column, msg);
+  }
+}

@@ -11,15 +11,14 @@
  3. The name of the author may not be used to endorse or promote products
     derived from this software without specific prior written permission.
  */
-import ApexLexer from "../ApexLexer";
-import ApexParserListener from "../ApexParserListener";
-import ApexParser from "../ApexParser";
-import { CaseInsensitiveInputStream } from "../CaseInsensitiveInputStream";
-import { CommonTokenStream, ParseTreeListener } from "antlr4";
-import { ParseTreeWalker } from "antlr4";
-import { ThrowingErrorListener } from "../ThrowingErrorListener";
 
-class TestListener extends ParseTreeListener implements ApexParserListener {
+import {
+  ApexParserFactory,
+  ApexParserBaseListener,
+  ApexParseTreeWalker,
+} from "../ApexParserFactory";
+
+class TestListener extends ApexParserBaseListener {
   public methodCount = 0;
 
   enterMethodDeclaration(/* ctx: MethodDeclarationContext */): void {
@@ -28,21 +27,14 @@ class TestListener extends ParseTreeListener implements ApexParserListener {
 }
 
 test("Listener Generates Events", () => {
-  const lexer = new ApexLexer(
-    new CaseInsensitiveInputStream(
-      "public class Hello { public void func(){} }"
-    )
+  const parser = ApexParserFactory.createParser(
+    "public class Hello { public void func(){} }",
+    true
   );
-  const tokens = new CommonTokenStream(lexer);
-
-  const parser = new ApexParser(tokens);
-
-  parser.removeErrorListeners();
-  parser.addErrorListener(new ThrowingErrorListener());
 
   const cu = parser.compilationUnit();
   const listener = new TestListener();
-  ParseTreeWalker.DEFAULT.walk(listener, cu);
+  ApexParseTreeWalker.DEFAULT.walk(listener, cu);
 
   expect(listener.methodCount).toBe(1);
 });

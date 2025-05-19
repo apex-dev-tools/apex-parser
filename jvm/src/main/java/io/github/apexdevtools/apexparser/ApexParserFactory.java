@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2019 Kevin Jones
+ Copyright (c) 2025 Kevin Jones, Certinia Inc.
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -25,29 +25,32 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import { ErrorListener, RecognitionException, Recognizer, Token } from "antlr4";
+package io.github.apexdevtools.apexparser;
 
-export class SyntaxException {
-  line: number;
-  column: number;
-  message: string;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
 
-  constructor(line: number, column: number, message: string) {
-    this.line = line;
-    this.column = column;
-    this.message = message;
+public final class ApexParserFactory {
+
+  private ApexParserFactory() {}
+
+  public static ApexParser createParser(CharStream stream) {
+    return createParser(createTokenStream(stream));
   }
-}
 
-export class ThrowingErrorListener extends ErrorListener<Token> {
-  syntaxError(
-    recognizer: Recognizer<Token>,
-    offendingSymbol: Token,
-    line: number,
-    column: number,
-    msg: string,
-    e: RecognitionException | undefined
-  ): void {
-    throw new SyntaxException(line, column, msg);
+  public static ApexParser createParser(CommonTokenStream tokenStream) {
+    ApexParser parser = new ApexParser(tokenStream);
+
+    // always remove default console listener
+    parser.removeErrorListeners();
+    return parser;
+  }
+
+  public static CommonTokenStream createTokenStream(CharStream stream) {
+    return new CommonTokenStream(createLexer(stream));
+  }
+
+  public static ApexLexer createLexer(CharStream stream) {
+    return new ApexLexer(new CaseInsensitiveInputStream(stream));
   }
 }

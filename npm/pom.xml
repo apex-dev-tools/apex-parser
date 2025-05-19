@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.github.apex-dev-tools</groupId>
-  <artifactId>apex-parser</artifactId>
-  <version>4.4.0</version>
+  <artifactId>apex-parser-npm-build</artifactId>
+  <version>1.0.0</version>
 
   <dependencies>
     <dependency> 
@@ -44,7 +44,7 @@
             <argument>-lib</argument>
             <argument>${project.basedir}/../antlr</argument>
             <argument>-o</argument>
-            <argument>${project.basedir}/src</argument>
+            <argument>${project.basedir}/src/antlr</argument>
             <argument>ApexLexer.g4</argument>
             <argument>ApexParser.g4</argument>
           </arguments>

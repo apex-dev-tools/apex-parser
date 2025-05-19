@@ -1,6 +1,6 @@
 /*
  [The "BSD licence"]
- Copyright (c) 2020 Kevin Jones
+ Copyright (c) 2025 Kevin Jones, Certinia Inc.
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -25,13 +25,25 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+package io.github.apexdevtools.apexparser;
 
-export * from "./ApexErrorListener";
-export * from "./ApexParserFactory";
-export * from "./CaseInsensitiveInputStream";
-export * from "./Check";
-export * from "./antlr/ApexParser"; // RuleContext types
-export { default as ApexLexer } from "./antlr/ApexLexer";
-export { default as ApexParser } from "./antlr/ApexParser";
-export { default as ApexParserListener } from "./antlr/ApexParserListener";
-export { default as ApexParserVisitor } from "./antlr/ApexParserVisitor";
+import org.antlr.v4.runtime.BaseErrorListener;
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.Recognizer;
+
+public abstract class ApexErrorListener extends BaseErrorListener {
+
+  public abstract void apexSyntaxError(int line, int column, String msg);
+
+  @Override
+  public void syntaxError(
+    Recognizer<?, ?> recognizer,
+    Object offendingSymbol,
+    int line,
+    int charPositionInLine,
+    String msg,
+    RecognitionException e
+  ) {
+    this.apexSyntaxError(line, charPositionInLine, msg);
+  }
+}

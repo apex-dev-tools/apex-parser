@@ -22,11 +22,8 @@ import {
   PrimaryExpressionContext,
   Arth2ExpressionContext,
   LogOrExpressionContext,
-} from "../ApexParser";
-import {
-  ThrowingErrorListener,
-  SyntaxException,
-} from "../ThrowingErrorListener";
+} from "../antlr/ApexParser";
+import { ApexSyntaxError, ThrowingErrorListener } from "../ApexErrorListener";
 import { createParser } from "./SyntaxErrorCounter";
 
 test("Boolean Literal", () => {
@@ -149,13 +146,13 @@ test("Compilation Unit (throwing errors)", () => {
   const [parser] = createParser("public class Hello {");
 
   parser.removeErrorListeners();
-  parser.addErrorListener(new ThrowingErrorListener());
+  parser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
   try {
     parser.compilationUnit();
     expect(true).toBe(false);
   } catch (ex) {
-    expect(ex).toBeInstanceOf(SyntaxException);
+    expect(ex).toBeInstanceOf(ApexSyntaxError);
   }
 });
 

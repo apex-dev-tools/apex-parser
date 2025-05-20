@@ -25,6 +25,9 @@
     - Introduced `Base` classes to extend instead, following pattern of Java classes of the same name. Change:
       - `implements ApexParserListener` to `extends ApexParserBaseListener`
       - `implements ApexParserVisitor<T>` to `extends ApexParserBaseVisitor<T>`
+  - Parser rule contexts now have `_list()` methods for multi rules.
+    - A rule `expr*` generates `expr_list()` and `expr(number)`.
+    - By contrast Java would have overloads of `expr()`/`expr(int)` returning list or value.
 
 - **(BREAKING)** Re-exported antlr classes `CommonTokenStream` and `ParseTreeWalker` removed.
   - Added type aliases like `ApexTokenStream`, `ApexParseTree`, and more to use with listener/visitor/walker.

@@ -636,7 +636,7 @@ soqlFunction
     | CONVERT_CURRENCY LPAREN fieldName RPAREN
     ;
 
- dateFieldName
+dateFieldName
     : CONVERT_TIMEZONE LPAREN fieldName RPAREN
     | fieldName
     ;

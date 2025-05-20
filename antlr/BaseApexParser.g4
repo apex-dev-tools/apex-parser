@@ -59,6 +59,20 @@ triggerBlockMember
     | statement
     ;
 
+// entry point for Anonymous Apex script file
+anonymousUnit
+    : anonymousBlock EOF
+    ;
+
+anonymousBlock
+    : anonymousBlockMember*
+    ;
+
+anonymousBlockMember
+    : modifier* anonymousMemberDeclaration
+    | statement
+    ;
+
 // entry point for Apex class files
 compilationUnit
     : typeDeclaration EOF
@@ -139,6 +153,15 @@ memberDeclaration
     ;
 
 triggerMemberDeclaration
+    : methodDeclaration
+    | fieldDeclaration
+    | interfaceDeclaration
+    | classDeclaration
+    | enumDeclaration
+    | propertyDeclaration
+    ;
+
+anonymousMemberDeclaration
     : methodDeclaration
     | fieldDeclaration
     | interfaceDeclaration

@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import org.antlr.v4.runtime.CharStreams;
@@ -38,15 +39,22 @@ import org.antlr.v4.runtime.CharStreams;
 public class Check {
 
   public static void main(String[] args) {
-    if (args.length != 1) {
+    if (args.length < 1) {
       System.err.println(
-        "Missing argument, expecting path to source directory"
+        "Missing arguments, expecting at least path to source directory"
       );
       System.exit(1);
     }
 
     try {
-      System.exit(run(Paths.get(args[0])).status);
+      List<String> ext;
+      if (args[1] == null) {
+        ext = Arrays.asList(".cls", ".trigger", ".apex");
+      } else {
+        ext = Arrays.asList(args[1].split(","));
+      }
+
+      System.exit(run(Paths.get(args[0]), ext).status);
     } catch (Exception ex) {
       System.err.println("Error processing: " + args[0]);
       System.err.println(ex.getMessage());
@@ -54,12 +62,29 @@ public class Check {
     }
   }
 
-  public static CheckResult run(Path dir) {
+  public static CheckResult run(Path dir, List<String> ext) {
     try {
       FileSystem fs = FileSystems.getDefault();
       List<ParseOperation> ops = new ArrayList<>();
-      ops.add(new ParseOperation(fs, ".cls", ApexParser::compilationUnit));
-      ops.add(new ParseOperation(fs, ".trigger", ApexParser::triggerUnit));
+      if (ext.contains(".cls")) ops.add(
+        new ParseOperation(fs, ".cls", ApexParser::compilationUnit)
+      );
+      if (ext.contains(".trigger")) ops.add(
+        new ParseOperation(fs, ".trigger", ApexParser::triggerUnit)
+      );
+      if (ext.contains(".apex")) ops.add(
+        new ParseOperation(fs, ".apex", ApexParser::anonymousUnit)
+      );
+
+      if (ops.isEmpty()) {
+        System.err.println("Error processing: " + dir);
+        System.err.println(
+          "Requested file extensions '" +
+          String.join(", ", ext) +
+          "' not known."
+        );
+        return new CheckResult(1);
+      }
 
       Files.walkFileTree(dir, new ParseFileVisitor(dir, ops));
 

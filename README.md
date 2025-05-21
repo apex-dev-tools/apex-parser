@@ -106,6 +106,8 @@ More options for testing:
 # From ./npm
 npm run build
 npm test
+# File and test name regex filtering
+npm test -- ApexParserTest -t Expression
 
 # From ./jvm
 mvn test

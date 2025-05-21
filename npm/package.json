@@ -20,8 +20,8 @@
     "init": "npm ci && npm run antlr",
     "lint": "eslint --cache --cache-location .eslintcache ./src --fix",
     "prepack": "cp ../*.md .",
-    "test": "jest --config jestconfig.json lib",
-    "test:samples": "jest --config sys.jestconfig.json lib",
+    "test": "jest --config jestconfig.json",
+    "test:samples": "jest --config sys.jestconfig.json",
     "test:snapshot": "npm run test:samples -- --updateSnapshot"
   },
   "files": [

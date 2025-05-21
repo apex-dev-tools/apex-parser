@@ -6,6 +6,9 @@
 
 - **(BREAKING)** Updated to ANTLR runtime `4.13.2`, using the ANTLR tool to generate both target languages.
 
+- Enabled `caseInsensitive` option for lexers (added in ANTLR 4.10).
+  - As a result, `CaseInsensitiveInputStream` is deprecated and should no longer be required.
+
 - Added `ApexParserFactory` class to create parsers, token streams, and lexers.
   - Primarily for TS to avoid directly creating `antlr4` class instances.
   - In Java, it still requires passing a `CharStream` or `CommonTokenStream` to create parsers.
@@ -39,7 +42,7 @@
 
 - **(BREAKING)** Updated output to `ES2020` and increased min node version to 16.
 
-- `CaseInsensitiveInputStream` type now extends `CharStream` and can be constructed from `string`.
+- `CaseInsensitiveInputStream` (deprecated) type now extends `CharStream` and can be constructed from `string`.
   - Constructor passing in `CharStream` retained to match Java version.
 
 - Removed `node-dir` dependency - replaced with node fs api.

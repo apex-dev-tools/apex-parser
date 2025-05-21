@@ -29,6 +29,7 @@ npm i @apexdevtools/apex-parser
 
 - `compilationUnit()`, a class file.
 - `triggerUnit()`, a trigger file.
+- `anonymousUnit()`, an apex script file.
 - `query()`, a raw SOQL query.
 
 ### Explore Parse Tree (TypeScript)

@@ -41,6 +41,7 @@ export interface CheckError {
 }
 
 export interface CheckResult {
+  extensions: string[];
   errors: CheckError[];
   status: number;
 }
@@ -56,14 +57,22 @@ export interface ProjectCheckResult extends CheckResult {
  *
  * @param pathStr Path to check. If not provided, uses process.argv or
  * process.cwd().
+ * @param fileExt CSV list of file extensions to check
+ * (default: `.cls,.trigger,.apex`).
  * @returns Result with status (0 ok, 1 error, 2 missing path) and syntax
  * errors.
  */
-export async function check(pathStr?: string): Promise<CheckResult> {
+export async function check(
+  pathStr?: string,
+  fileExt?: string
+): Promise<CheckResult> {
   const path = resolve(pathStr || process.argv[1] || process.cwd());
+  const ext = fileExt || process.argv[2];
+  const extensions = ext ? ext.split(",") : [".cls", ".trigger", ".apex"];
 
   const result: CheckResult = {
     status: 0,
+    extensions,
     errors: [],
   };
 
@@ -72,7 +81,7 @@ export async function check(pathStr?: string): Promise<CheckResult> {
     result.status = 2;
   } else {
     try {
-      result.errors = await parseFiles(path);
+      result.errors = await parseFiles(path, extensions);
     } catch (err) {
       console.error(`Error processing: ${path}`);
       console.error(err);
@@ -96,6 +105,7 @@ export async function checkProject(
   pathStr?: string
 ): Promise<ProjectCheckResult[]> {
   const path = resolve(pathStr || process.argv[1] || process.cwd());
+  const ext = ".cls,.trigger";
   const name = basename(path);
   const project = findProjectFile(path, 1);
   const packages = getProjectPackages(project);
@@ -104,7 +114,7 @@ export async function checkProject(
     console.error(
       `[${name}]: No valid SFDX project, checking all cls & trigger files`
     );
-    const result = await check(path);
+    const result = await check(path, ext);
     return [
       {
         name,
@@ -119,7 +129,7 @@ export async function checkProject(
     packages.map(async pkg => {
       console.log(`[${name}]: Checking package "${pkg}"`);
       const pkgPath = resolve(projectDir, pkg);
-      const result = await check(pkgPath);
+      const result = await check(pkgPath, ext);
       return {
         name,
         pkg,
@@ -159,21 +169,26 @@ class CheckApexErrorListener extends ApexErrorListener {
   }
 }
 
-async function parseFiles(path: string): Promise<CheckError[]> {
-  const ext = [".cls", ".trigger"];
-  const files = await getPathsInDir(path, ext);
-  const classErrors = parseByType(path, files, ext[0], (parser: ApexParser) => {
-    parser.compilationUnit();
-  });
-  const triggerErrors = parseByType(
-    path,
-    files,
-    ext[1],
-    (parser: ApexParser) => {
-      parser.triggerUnit();
+async function parseFiles(
+  path: string,
+  extensions: string[]
+): Promise<CheckError[]> {
+  const parsers: Record<string, (parser: ApexParser) => void> = {
+    ".cls": parser => parser.compilationUnit(),
+    ".trigger": parser => parser.triggerUnit(),
+    ".apex": parser => parser.anonymousUnit(),
+  };
+  const ext = Object.keys(parsers);
+  extensions.forEach(e => {
+    if (!ext.includes(e)) {
+      throw new Error(
+        `Unknown extension '${e}' - one or more of [${ext.join(",")}] required.`
+      );
     }
-  );
-  return classErrors.concat(triggerErrors);
+  });
+
+  const files = await getPathsInDir(path, extensions);
+  return extensions.flatMap(ext => parseByType(path, files, ext, parsers[ext]));
 }
 
 async function getPathsInDir(path: string, ext: string[]): Promise<string[]> {

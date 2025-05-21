@@ -1,8 +1,8 @@
 parser grammar ApexParser;
-options {tokenVocab=ApexLexer;}
+options { tokenVocab = ApexLexer; }
 
 @parser::members {
-public void clearCache() {_interp.clearDFA();}
+public void clearCache() { _interp.clearDFA(); }
 }
 
 import BaseApexParser;

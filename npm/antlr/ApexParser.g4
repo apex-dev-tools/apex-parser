@@ -1,4 +1,4 @@
 parser grammar ApexParser;
-options {tokenVocab=ApexLexer;}
+options { tokenVocab = ApexLexer; }
 
 import BaseApexParser;

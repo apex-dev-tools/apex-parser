@@ -1,4 +1,4 @@
 {
-  "testRegex": "/__tests__/system/.*Sys.js$",
+  "testRegex": "lib/__tests__/system/.*Sys.js$",
   "snapshotResolver": "./snapshots/resolver.js"
 }

@@ -4,6 +4,10 @@ exports[`Parse samples Sample: ActionPlansV4 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "ActionPlansV4",
     "path": "ActionPlansV4/sfdx-source/LabsActionPlans",
     "pkg": "sfdx-source/LabsActionPlans",
@@ -11,9 +15,22 @@ exports[`Parse samples Sample: ActionPlansV4 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "ActionPlansV4",
     "path": "ActionPlansV4/sfdx-source/unmanaged",
     "pkg": "sfdx-source/unmanaged",
+    "status": 0,
+  },
+  {
+    "errors": [],
+    "extensions": [
+      ".apex",
+    ],
+    "name": "ActionPlansV4",
+    "path": ".",
     "status": 0,
   },
 ]
@@ -23,6 +40,10 @@ exports[`Parse samples Sample: Angular 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Angular",
     "path": ".",
     "status": 0,
@@ -34,6 +55,10 @@ exports[`Parse samples Sample: Apex-Opensource-Library 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Apex-Opensource-Library",
     "path": "Apex-Opensource-Library/force-app",
     "pkg": "force-app",
@@ -41,6 +66,10 @@ exports[`Parse samples Sample: Apex-Opensource-Library 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Apex-Opensource-Library",
     "path": "Apex-Opensource-Library/force-app/commons/triggerHandler",
     "pkg": "force-app/commons/triggerHandler",
@@ -48,6 +77,10 @@ exports[`Parse samples Sample: Apex-Opensource-Library 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Apex-Opensource-Library",
     "path": "Apex-Opensource-Library/force-app/commons/triggerHandlerMdt",
     "pkg": "force-app/commons/triggerHandlerMdt",
@@ -55,6 +88,10 @@ exports[`Parse samples Sample: Apex-Opensource-Library 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Apex-Opensource-Library",
     "path": "Apex-Opensource-Library/force-app/commons/shared",
     "pkg": "force-app/commons/shared",
@@ -62,6 +99,10 @@ exports[`Parse samples Sample: Apex-Opensource-Library 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Apex-Opensource-Library",
     "path": "Apex-Opensource-Library/force-app/commons/callout",
     "pkg": "force-app/commons/callout",
@@ -69,6 +110,10 @@ exports[`Parse samples Sample: Apex-Opensource-Library 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Apex-Opensource-Library",
     "path": "Apex-Opensource-Library/force-app/commons/collections",
     "pkg": "force-app/commons/collections",
@@ -76,6 +121,10 @@ exports[`Parse samples Sample: Apex-Opensource-Library 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Apex-Opensource-Library",
     "path": "Apex-Opensource-Library/force-app/commons/query",
     "pkg": "./force-app/commons/query",
@@ -83,6 +132,10 @@ exports[`Parse samples Sample: Apex-Opensource-Library 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Apex-Opensource-Library",
     "path": "Apex-Opensource-Library/force-app/commons/database",
     "pkg": "./force-app/commons/database",
@@ -90,6 +143,10 @@ exports[`Parse samples Sample: Apex-Opensource-Library 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Apex-Opensource-Library",
     "path": "Apex-Opensource-Library/force-app/commons/httpMocks",
     "pkg": "./force-app/commons/httpMocks",
@@ -97,6 +154,10 @@ exports[`Parse samples Sample: Apex-Opensource-Library 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Apex-Opensource-Library",
     "path": "Apex-Opensource-Library/force-app/commons/testDataBuilder",
     "pkg": "./force-app/commons/testDataBuilder",
@@ -104,6 +165,10 @@ exports[`Parse samples Sample: Apex-Opensource-Library 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Apex-Opensource-Library",
     "path": "Apex-Opensource-Library/force-app/commons/testDataSuite",
     "pkg": "./force-app/commons/testDataSuite",
@@ -116,6 +181,10 @@ exports[`Parse samples Sample: Apex-XML-Serializer 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Apex-XML-Serializer",
     "path": ".",
     "status": 0,
@@ -127,6 +196,10 @@ exports[`Parse samples Sample: Apex-for-Xero 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Apex-for-Xero",
     "path": ".",
     "status": 0,
@@ -138,9 +211,22 @@ exports[`Parse samples Sample: ApexTestKit 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "ApexTestKit",
     "path": "ApexTestKit/apex-test-kit",
     "pkg": "apex-test-kit",
+    "status": 0,
+  },
+  {
+    "errors": [],
+    "extensions": [
+      ".apex",
+    ],
+    "name": "ApexTestKit",
+    "path": ".",
     "status": 0,
   },
 ]
@@ -150,6 +236,10 @@ exports[`Parse samples Sample: ApexTriggerHandler 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "ApexTriggerHandler",
     "path": "ApexTriggerHandler/apex-trigger-handler",
     "pkg": "apex-trigger-handler",
@@ -157,6 +247,10 @@ exports[`Parse samples Sample: ApexTriggerHandler 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "ApexTriggerHandler",
     "path": "ApexTriggerHandler/apex-trigger-loader",
     "pkg": "apex-trigger-loader",
@@ -169,6 +263,10 @@ exports[`Parse samples Sample: Automated-Testing-for-Force 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Automated-Testing-for-Force",
     "path": ".",
     "status": 0,
@@ -180,6 +278,10 @@ exports[`Parse samples Sample: Centralized-Salesforce-Dev-Framework 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Centralized-Salesforce-Dev-Framework",
     "path": ".",
     "status": 0,
@@ -191,6 +293,10 @@ exports[`Parse samples Sample: ConnectApiHelper 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "ConnectApiHelper",
     "path": "ConnectApiHelper/force-app",
     "pkg": "force-app",
@@ -203,6 +309,10 @@ exports[`Parse samples Sample: Cumulus 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Cumulus",
     "path": "Cumulus/force-app",
     "pkg": "Cumulus/force-app",
@@ -215,6 +325,10 @@ exports[`Parse samples Sample: CustomMetadataLoader 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "CustomMetadataLoader",
     "path": ".",
     "status": 0,
@@ -226,6 +340,10 @@ exports[`Parse samples Sample: EDA 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "EDA",
     "path": "EDA/force-app",
     "pkg": "force-app",
@@ -238,6 +356,10 @@ exports[`Parse samples Sample: EnhancedLightningGrid 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "EnhancedLightningGrid",
     "path": ".",
     "status": 0,
@@ -249,6 +371,10 @@ exports[`Parse samples Sample: FindNearby 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "FindNearby",
     "path": "FindNearby/src",
     "pkg": "FindNearby/src",
@@ -261,6 +387,10 @@ exports[`Parse samples Sample: Force.com-Helper-Classes 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Force.com-Helper-Classes",
     "path": ".",
     "status": 0,
@@ -272,6 +402,10 @@ exports[`Parse samples Sample: Force.com-Toolkit-for-Facebook 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Force.com-Toolkit-for-Facebook",
     "path": ".",
     "status": 0,
@@ -283,6 +417,10 @@ exports[`Parse samples Sample: ForceDotComSprintWall 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "ForceDotComSprintWall",
     "path": ".",
     "status": 0,
@@ -294,6 +432,10 @@ exports[`Parse samples Sample: Forceea-data-factory 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Forceea-data-factory",
     "path": ".",
     "status": 0,
@@ -305,6 +447,10 @@ exports[`Parse samples Sample: FormulaShare-DX 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "FormulaShare-DX",
     "path": "FormulaShare-DX/fs-core",
     "pkg": "fs-core",
@@ -312,9 +458,22 @@ exports[`Parse samples Sample: FormulaShare-DX 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "FormulaShare-DX",
     "path": "FormulaShare-DX/fs-sample-app",
     "pkg": "./fs-sample-app",
+    "status": 0,
+  },
+  {
+    "errors": [],
+    "extensions": [
+      ".apex",
+    ],
+    "name": "FormulaShare-DX",
+    "path": ".",
     "status": 0,
   },
 ]
@@ -324,6 +483,10 @@ exports[`Parse samples Sample: HEDAP 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "HEDAP",
     "path": "HEDAP/force-app",
     "pkg": "force-app",
@@ -336,6 +499,10 @@ exports[`Parse samples Sample: HyperBatch 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "HyperBatch",
     "path": "HyperBatch/src",
     "pkg": "HyperBatch/src",
@@ -348,6 +515,10 @@ exports[`Parse samples Sample: Interactions-for-Student-Recruitment 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Interactions-for-Student-Recruitment",
     "path": "extra",
     "pkg": "extra",
@@ -355,6 +526,10 @@ exports[`Parse samples Sample: Interactions-for-Student-Recruitment 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Interactions-for-Student-Recruitment",
     "path": "Interactions-for-Student-Recruitment/src",
     "pkg": "Interactions-for-Student-Recruitment/src",
@@ -367,6 +542,10 @@ exports[`Parse samples Sample: Milestones-PM 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Milestones-PM",
     "path": ".",
     "status": 0,
@@ -378,6 +557,10 @@ exports[`Parse samples Sample: Multi-File-Uploader-Force 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Multi-File-Uploader-Force",
     "path": ".",
     "status": 0,
@@ -389,6 +572,10 @@ exports[`Parse samples Sample: MyTriggers 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "MyTriggers",
     "path": "MyTriggers/MyTriggers",
     "pkg": "MyTriggers",
@@ -396,6 +583,10 @@ exports[`Parse samples Sample: MyTriggers 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "MyTriggers",
     "path": "MyTriggers/MyTriggers",
     "pkg": "./MyTriggers",
@@ -408,6 +599,10 @@ exports[`Parse samples Sample: NPSP 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "NPSP",
     "path": "NPSP/force-app",
     "pkg": "NPSP/force-app",
@@ -420,6 +615,10 @@ exports[`Parse samples Sample: NebulaLogger 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "NebulaLogger",
     "path": "NebulaLogger/nebula-logger/core",
     "pkg": "./nebula-logger/core",
@@ -427,6 +626,10 @@ exports[`Parse samples Sample: NebulaLogger 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "NebulaLogger",
     "path": "NebulaLogger/nebula-logger/plugins/async-failure-additions/plugin",
     "pkg": "./nebula-logger/plugins/async-failure-additions/plugin",
@@ -434,6 +637,10 @@ exports[`Parse samples Sample: NebulaLogger 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "NebulaLogger",
     "path": "NebulaLogger/nebula-logger/plugins/big-object-archiving/plugin",
     "pkg": "./nebula-logger/plugins/big-object-archiving/plugin",
@@ -441,6 +648,10 @@ exports[`Parse samples Sample: NebulaLogger 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "NebulaLogger",
     "path": "NebulaLogger/nebula-logger/plugins/log-retention-rules/plugin",
     "pkg": "./nebula-logger/plugins/log-retention-rules/plugin",
@@ -448,6 +659,10 @@ exports[`Parse samples Sample: NebulaLogger 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "NebulaLogger",
     "path": "NebulaLogger/nebula-logger/plugins/slack/plugin",
     "pkg": "./nebula-logger/plugins/slack/plugin",
@@ -455,6 +670,10 @@ exports[`Parse samples Sample: NebulaLogger 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "NebulaLogger",
     "path": "NebulaLogger/nebula-logger/dev",
     "pkg": "./nebula-logger/dev",
@@ -462,6 +681,10 @@ exports[`Parse samples Sample: NebulaLogger 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "NebulaLogger",
     "path": "NebulaLogger/nebula-logger/extra-tests",
     "pkg": "./nebula-logger/extra-tests",
@@ -469,9 +692,22 @@ exports[`Parse samples Sample: NebulaLogger 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "NebulaLogger",
     "path": "NebulaLogger/nebula-logger/recipes",
     "pkg": "./nebula-logger/recipes",
+    "status": 0,
+  },
+  {
+    "errors": [],
+    "extensions": [
+      ".apex",
+    ],
+    "name": "NebulaLogger",
+    "path": ".",
     "status": 0,
   },
 ]
@@ -481,6 +717,10 @@ exports[`Parse samples Sample: ObjectMerge 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "ObjectMerge",
     "path": ".",
     "status": 0,
@@ -492,6 +732,10 @@ exports[`Parse samples Sample: Query.apex 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Query.apex",
     "path": ".",
     "status": 0,
@@ -503,6 +747,10 @@ exports[`Parse samples Sample: R-apex 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "R-apex",
     "path": "R-apex/force-app",
     "pkg": "force-app",
@@ -515,6 +763,10 @@ exports[`Parse samples Sample: SFDCRules 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "SFDCRules",
     "path": ".",
     "status": 0,
@@ -526,6 +778,10 @@ exports[`Parse samples Sample: SObjectFabricator 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "SObjectFabricator",
     "path": "SObjectFabricator/force-app",
     "pkg": "force-app",
@@ -538,6 +794,10 @@ exports[`Parse samples Sample: Salesforce-Lookup-Rollup-Summaries 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Salesforce-Lookup-Rollup-Summaries",
     "path": ".",
     "status": 0,
@@ -549,6 +809,10 @@ exports[`Parse samples Sample: Salesforce-Test-Factory 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Salesforce-Test-Factory",
     "path": "Salesforce-Test-Factory/force-app",
     "pkg": "force-app",
@@ -561,6 +825,10 @@ exports[`Parse samples Sample: SimpleLightningComponents 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "SimpleLightningComponents",
     "path": ".",
     "status": 0,
@@ -572,6 +840,10 @@ exports[`Parse samples Sample: SmartFactory-for-Force 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "SmartFactory-for-Force",
     "path": ".",
     "status": 0,
@@ -583,6 +855,10 @@ exports[`Parse samples Sample: TestDataFactory 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "TestDataFactory",
     "path": "TestDataFactory/force-app",
     "pkg": "force-app",
@@ -595,6 +871,10 @@ exports[`Parse samples Sample: TriggerX 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "TriggerX",
     "path": ".",
     "status": 0,
@@ -606,6 +886,10 @@ exports[`Parse samples Sample: Visualforce-Multiselect-Picklist 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Visualforce-Multiselect-Picklist",
     "path": ".",
     "status": 0,
@@ -617,6 +901,10 @@ exports[`Parse samples Sample: Volunteers-for-Salesforce 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Volunteers-for-Salesforce",
     "path": "Volunteers-for-Salesforce/src",
     "pkg": "src",
@@ -629,6 +917,10 @@ exports[`Parse samples Sample: Zippex 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "Zippex",
     "path": ".",
     "status": 0,
@@ -640,6 +932,10 @@ exports[`Parse samples Sample: amoss 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "amoss",
     "path": "amoss/force-app",
     "pkg": "force-app",
@@ -652,6 +948,10 @@ exports[`Parse samples Sample: apex-dml-manager 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-dml-manager",
     "path": ".",
     "status": 0,
@@ -663,6 +963,10 @@ exports[`Parse samples Sample: apex-domainbuilder 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-domainbuilder",
     "path": "apex-domainbuilder/sfdx-source/fflib-apex-common-subset",
     "pkg": "sfdx-source/fflib-apex-common-subset",
@@ -670,6 +974,10 @@ exports[`Parse samples Sample: apex-domainbuilder 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-domainbuilder",
     "path": "apex-domainbuilder/sfdx-source/apex-domainbuilder",
     "pkg": "sfdx-source/apex-domainbuilder",
@@ -677,6 +985,10 @@ exports[`Parse samples Sample: apex-domainbuilder 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-domainbuilder",
     "path": "apex-domainbuilder/sfdx-source/apex-domainbuilder-samplecode",
     "pkg": "sfdx-source/apex-domainbuilder-samplecode",
@@ -689,6 +1001,10 @@ exports[`Parse samples Sample: apex-lambda 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-lambda",
     "path": "apex-lambda/force-app",
     "pkg": "force-app",
@@ -701,6 +1017,10 @@ exports[`Parse samples Sample: apex-mdapi 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-mdapi",
     "path": ".",
     "status": 0,
@@ -712,6 +1032,10 @@ exports[`Parse samples Sample: apex-query-builder 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-query-builder",
     "path": ".",
     "status": 0,
@@ -723,9 +1047,22 @@ exports[`Parse samples Sample: apex-recipes 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-recipes",
     "path": "apex-recipes/force-app",
     "pkg": "force-app",
+    "status": 0,
+  },
+  {
+    "errors": [],
+    "extensions": [
+      ".apex",
+    ],
+    "name": "apex-recipes",
+    "path": ".",
     "status": 0,
   },
 ]
@@ -735,6 +1072,10 @@ exports[`Parse samples Sample: apex-rest-route 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-rest-route",
     "path": "apex-rest-route/force-app",
     "pkg": "force-app",
@@ -747,6 +1088,10 @@ exports[`Parse samples Sample: apex-rollup 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-rollup",
     "path": "apex-rollup/rollup",
     "pkg": "rollup",
@@ -754,6 +1099,10 @@ exports[`Parse samples Sample: apex-rollup 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-rollup",
     "path": "apex-rollup/plugins/CustomObjectRollupLogger",
     "pkg": "plugins/CustomObjectRollupLogger",
@@ -761,6 +1110,10 @@ exports[`Parse samples Sample: apex-rollup 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-rollup",
     "path": "apex-rollup/plugins/NebulaLogger",
     "pkg": "plugins/NebulaLogger",
@@ -768,6 +1121,10 @@ exports[`Parse samples Sample: apex-rollup 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-rollup",
     "path": "apex-rollup/plugins/RollupCallback",
     "pkg": "plugins/RollupCallback",
@@ -775,6 +1132,10 @@ exports[`Parse samples Sample: apex-rollup 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-rollup",
     "path": "apex-rollup/plugins/ExtraCodeCoverage",
     "pkg": "plugins/ExtraCodeCoverage",
@@ -782,9 +1143,22 @@ exports[`Parse samples Sample: apex-rollup 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-rollup",
     "path": "apex-rollup/extra-tests",
     "pkg": "extra-tests",
+    "status": 0,
+  },
+  {
+    "errors": [],
+    "extensions": [
+      ".apex",
+    ],
+    "name": "apex-rollup",
+    "path": ".",
     "status": 0,
   },
 ]
@@ -794,6 +1168,10 @@ exports[`Parse samples Sample: apex-sobjectdataloader 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-sobjectdataloader",
     "path": ".",
     "status": 0,
@@ -805,6 +1183,10 @@ exports[`Parse samples Sample: apex-toolingapi 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-toolingapi",
     "path": ".",
     "status": 0,
@@ -816,6 +1198,10 @@ exports[`Parse samples Sample: apex-trigger-actions-framework 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-trigger-actions-framework",
     "path": "apex-trigger-actions-framework/trigger-actions-framework",
     "pkg": "trigger-actions-framework",
@@ -828,9 +1214,22 @@ exports[`Parse samples Sample: apex-unified-logging 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "apex-unified-logging",
     "path": "apex-unified-logging/force-app",
     "pkg": "force-app",
+    "status": 0,
+  },
+  {
+    "errors": [],
+    "extensions": [
+      ".apex",
+    ],
+    "name": "apex-unified-logging",
+    "path": ".",
     "status": 0,
   },
 ]
@@ -840,6 +1239,10 @@ exports[`Parse samples Sample: at4dx 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "at4dx",
     "path": "fflib-apex-mocks/sfdx-source/apex-mocks",
     "pkg": "fflib-apex-mocks/sfdx-source/apex-mocks",
@@ -847,6 +1250,10 @@ exports[`Parse samples Sample: at4dx 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "at4dx",
     "path": "fflib-apex-common/sfdx-source/apex-common",
     "pkg": "fflib-apex-common/sfdx-source/apex-common",
@@ -854,6 +1261,10 @@ exports[`Parse samples Sample: at4dx 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "at4dx",
     "path": "force-di/force-di",
     "pkg": "force-di/force-di",
@@ -861,6 +1272,10 @@ exports[`Parse samples Sample: at4dx 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "at4dx",
     "path": "at4dx/sfdx-source/core",
     "pkg": "at4dx/sfdx-source/core",
@@ -873,6 +1288,10 @@ exports[`Parse samples Sample: automation-components 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "automation-components",
     "path": "automation-components/src-apex-formula-evaluator",
     "pkg": "src-apex-formula-evaluator",
@@ -880,6 +1299,10 @@ exports[`Parse samples Sample: automation-components 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "automation-components",
     "path": "automation-components/src-collections",
     "pkg": "src-collections",
@@ -887,6 +1310,10 @@ exports[`Parse samples Sample: automation-components 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "automation-components",
     "path": "automation-components/src-data",
     "pkg": "src-data",
@@ -894,6 +1321,10 @@ exports[`Parse samples Sample: automation-components 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "automation-components",
     "path": "automation-components/src-flows",
     "pkg": "src-flows",
@@ -901,6 +1332,10 @@ exports[`Parse samples Sample: automation-components 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "automation-components",
     "path": "automation-components/src-messaging",
     "pkg": "src-messaging",
@@ -908,6 +1343,10 @@ exports[`Parse samples Sample: automation-components 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "automation-components",
     "path": "automation-components/src-security",
     "pkg": "src-security",
@@ -915,6 +1354,10 @@ exports[`Parse samples Sample: automation-components 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "automation-components",
     "path": "automation-components/src-strings",
     "pkg": "src-strings",
@@ -922,6 +1365,10 @@ exports[`Parse samples Sample: automation-components 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "automation-components",
     "path": "automation-components/src-ui",
     "pkg": "src-ui",
@@ -929,6 +1376,10 @@ exports[`Parse samples Sample: automation-components 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "automation-components",
     "path": "automation-components/src-utilities",
     "pkg": "src-utilities",
@@ -941,6 +1392,10 @@ exports[`Parse samples Sample: box-salesforce-sdk 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "box-salesforce-sdk",
     "path": ".",
     "status": 0,
@@ -952,6 +1407,10 @@ exports[`Parse samples Sample: declarative-lookup-rollup-summaries 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "declarative-lookup-rollup-summaries",
     "path": "declarative-lookup-rollup-summaries/dlrs/libs/fflib-apexmocks",
     "pkg": "dlrs/libs/fflib-apexmocks",
@@ -959,6 +1418,10 @@ exports[`Parse samples Sample: declarative-lookup-rollup-summaries 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "declarative-lookup-rollup-summaries",
     "path": "declarative-lookup-rollup-summaries/dlrs/libs/fflib-common",
     "pkg": "dlrs/libs/fflib-common",
@@ -966,6 +1429,10 @@ exports[`Parse samples Sample: declarative-lookup-rollup-summaries 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "declarative-lookup-rollup-summaries",
     "path": "declarative-lookup-rollup-summaries/dlrs/libs/lrengine",
     "pkg": "dlrs/libs/lrengine",
@@ -973,6 +1440,10 @@ exports[`Parse samples Sample: declarative-lookup-rollup-summaries 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "declarative-lookup-rollup-summaries",
     "path": "declarative-lookup-rollup-summaries/dlrs/libs/metadataservice",
     "pkg": "dlrs/libs/metadataservice",
@@ -980,6 +1451,10 @@ exports[`Parse samples Sample: declarative-lookup-rollup-summaries 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "declarative-lookup-rollup-summaries",
     "path": "declarative-lookup-rollup-summaries/dlrs/main",
     "pkg": "dlrs/main",
@@ -987,6 +1462,10 @@ exports[`Parse samples Sample: declarative-lookup-rollup-summaries 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "declarative-lookup-rollup-summaries",
     "path": "declarative-lookup-rollup-summaries/dlrs/default",
     "pkg": "dlrs/default",
@@ -994,6 +1473,10 @@ exports[`Parse samples Sample: declarative-lookup-rollup-summaries 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "declarative-lookup-rollup-summaries",
     "path": "declarative-lookup-rollup-summaries/unpackaged/config/test",
     "pkg": "unpackaged/config/test",
@@ -1001,6 +1484,10 @@ exports[`Parse samples Sample: declarative-lookup-rollup-summaries 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "declarative-lookup-rollup-summaries",
     "path": "declarative-lookup-rollup-summaries/unpackaged/config/test_triggers",
     "pkg": "unpackaged/config/test_triggers",
@@ -1013,6 +1500,10 @@ exports[`Parse samples Sample: df12-apex-enterprise-patterns 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "df12-apex-enterprise-patterns",
     "path": ".",
     "status": 0,
@@ -1024,6 +1515,10 @@ exports[`Parse samples Sample: df12-deployment-tools 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "df12-deployment-tools",
     "path": ".",
     "status": 0,
@@ -1035,6 +1530,10 @@ exports[`Parse samples Sample: einstein-ai 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "einstein-ai",
     "path": "einstein-ai/force-app",
     "pkg": "force-app",
@@ -1047,6 +1546,10 @@ exports[`Parse samples Sample: esapi 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "esapi",
     "path": "esapi/force-app",
     "pkg": "force-app",
@@ -1059,6 +1562,10 @@ exports[`Parse samples Sample: eventlogging 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "eventlogging",
     "path": ".",
     "status": 0,
@@ -1070,6 +1577,10 @@ exports[`Parse samples Sample: ffhttp-core 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "ffhttp-core",
     "path": ".",
     "status": 0,
@@ -1081,6 +1592,10 @@ exports[`Parse samples Sample: fflib-apex-common 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "fflib-apex-common",
     "path": "fflib-apex-mocks/sfdx-source/apex-mocks",
     "pkg": "fflib-apex-mocks/sfdx-source/apex-mocks",
@@ -1088,6 +1603,10 @@ exports[`Parse samples Sample: fflib-apex-common 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "fflib-apex-common",
     "path": "fflib-apex-common/sfdx-source/apex-common",
     "pkg": "fflib-apex-common/sfdx-source/apex-common",
@@ -1100,6 +1619,10 @@ exports[`Parse samples Sample: fflib-apex-common-samplecode 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "fflib-apex-common-samplecode",
     "path": "fflib-apex-mocks/sfdx-source/apex-mocks",
     "pkg": "fflib-apex-mocks/sfdx-source/apex-mocks",
@@ -1107,6 +1630,10 @@ exports[`Parse samples Sample: fflib-apex-common-samplecode 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "fflib-apex-common-samplecode",
     "path": "fflib-apex-common/sfdx-source/apex-common",
     "pkg": "fflib-apex-common/sfdx-source/apex-common",
@@ -1114,6 +1641,10 @@ exports[`Parse samples Sample: fflib-apex-common-samplecode 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "fflib-apex-common-samplecode",
     "path": "fflib-apex-common-samplecode/sfdx-source/apex-common-samplecode",
     "pkg": "fflib-apex-common-samplecode/sfdx-source/apex-common-samplecode",
@@ -1126,6 +1657,10 @@ exports[`Parse samples Sample: fflib-apex-mocks 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "fflib-apex-mocks",
     "path": "fflib-apex-mocks/sfdx-source/apex-mocks",
     "pkg": "sfdx-source/apex-mocks",
@@ -1138,6 +1673,10 @@ exports[`Parse samples Sample: flowtoolbelt 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "flowtoolbelt",
     "path": "flowtoolbelt/force-app",
     "pkg": "force-app",
@@ -1145,6 +1684,10 @@ exports[`Parse samples Sample: flowtoolbelt 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "flowtoolbelt",
     "path": "flowtoolbelt/force-app-test",
     "pkg": "force-app-test",
@@ -1157,6 +1700,10 @@ exports[`Parse samples Sample: force-di 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "force-di",
     "path": "force-di/force-di",
     "pkg": "force-di",
@@ -1169,6 +1716,10 @@ exports[`Parse samples Sample: forcedotcom-enterprise-architecture 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "forcedotcom-enterprise-architecture",
     "path": ".",
     "status": 0,
@@ -1180,6 +1731,10 @@ exports[`Parse samples Sample: forcelog 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "forcelog",
     "path": "forcelog/src",
     "pkg": "src",
@@ -1192,6 +1747,10 @@ exports[`Parse samples Sample: grid 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "grid",
     "path": "grid/force-app",
     "pkg": "force-app",
@@ -1204,6 +1763,10 @@ exports[`Parse samples Sample: jsonparse 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "jsonparse",
     "path": ".",
     "status": 0,
@@ -1215,6 +1778,10 @@ exports[`Parse samples Sample: logger 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "logger",
     "path": "logger/force-app",
     "pkg": "force-app",
@@ -1227,6 +1794,10 @@ exports[`Parse samples Sample: processBuilderBlocks 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "processBuilderBlocks",
     "path": ".",
     "status": 0,
@@ -1238,6 +1809,10 @@ exports[`Parse samples Sample: promise 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "promise",
     "path": ".",
     "status": 0,
@@ -1249,9 +1824,22 @@ exports[`Parse samples Sample: promiseV3 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "promiseV3",
     "path": "promiseV3/force-app",
     "pkg": "force-app",
+    "status": 0,
+  },
+  {
+    "errors": [],
+    "extensions": [
+      ".apex",
+    ],
+    "name": "promiseV3",
+    "path": ".",
     "status": 0,
   },
 ]
@@ -1261,6 +1849,10 @@ exports[`Parse samples Sample: q 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "q",
     "path": "q/force-app",
     "pkg": "force-app",
@@ -1273,9 +1865,22 @@ exports[`Parse samples Sample: quiz-host-app 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "quiz-host-app",
     "path": "quiz-host-app/src",
     "pkg": "src",
+    "status": 0,
+  },
+  {
+    "errors": [],
+    "extensions": [
+      ".apex",
+    ],
+    "name": "quiz-host-app",
+    "path": ".",
     "status": 0,
   },
 ]
@@ -1285,6 +1890,10 @@ exports[`Parse samples Sample: rflib 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "rflib",
     "path": "rflib/rflib",
     "pkg": "rflib",
@@ -1292,6 +1901,10 @@ exports[`Parse samples Sample: rflib 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "rflib",
     "path": "rflib/rflib-fs",
     "pkg": "rflib-fs",
@@ -1299,9 +1912,22 @@ exports[`Parse samples Sample: rflib 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "rflib",
     "path": "rflib/rflib-tf",
     "pkg": "rflib-tf",
+    "status": 0,
+  },
+  {
+    "errors": [],
+    "extensions": [
+      ".apex",
+    ],
+    "name": "rflib",
+    "path": ".",
     "status": 0,
   },
 ]
@@ -1311,6 +1937,10 @@ exports[`Parse samples Sample: sObject-Remote 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "sObject-Remote",
     "path": ".",
     "status": 0,
@@ -1322,6 +1952,10 @@ exports[`Parse samples Sample: salesforce-bot-toolkit 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "salesforce-bot-toolkit",
     "path": ".",
     "status": 0,
@@ -1333,6 +1967,10 @@ exports[`Parse samples Sample: salesforce-limit-monitor 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "salesforce-limit-monitor",
     "path": "salesforce-limit-monitor/force-app",
     "pkg": "force-app",
@@ -1345,6 +1983,10 @@ exports[`Parse samples Sample: selector 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "selector",
     "path": ".",
     "status": 0,
@@ -1356,6 +1998,10 @@ exports[`Parse samples Sample: sendgrid-apex 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "sendgrid-apex",
     "path": ".",
     "status": 0,
@@ -1367,6 +2013,10 @@ exports[`Parse samples Sample: sf-sandbox-post-copy 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "sf-sandbox-post-copy",
     "path": ".",
     "status": 0,
@@ -1378,6 +2028,10 @@ exports[`Parse samples Sample: sfdc-convert-attachments-to-chatter-files 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "sfdc-convert-attachments-to-chatter-files",
     "path": ".",
     "status": 0,
@@ -1389,6 +2043,10 @@ exports[`Parse samples Sample: sfdc-oauth-playground 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "sfdc-oauth-playground",
     "path": ".",
     "status": 0,
@@ -1400,6 +2058,10 @@ exports[`Parse samples Sample: sfdc-related-files-lightning 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "sfdc-related-files-lightning",
     "path": ".",
     "status": 0,
@@ -1411,6 +2073,10 @@ exports[`Parse samples Sample: sfdc-trigger-framework 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "sfdc-trigger-framework",
     "path": ".",
     "status": 0,
@@ -1422,6 +2088,10 @@ exports[`Parse samples Sample: sfdx-mass-action-scheduler 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "sfdx-mass-action-scheduler",
     "path": "sfdx-mass-action-scheduler/force-app",
     "pkg": "force-app",
@@ -1434,6 +2104,10 @@ exports[`Parse samples Sample: sfdx-simple 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "sfdx-simple",
     "path": "sfdx-simple/force-app",
     "pkg": "force-app",
@@ -1446,6 +2120,10 @@ exports[`Parse samples Sample: sirono-common 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "sirono-common",
     "path": "sirono-common/force-app/main/default",
     "pkg": "force-app/main/default",
@@ -1453,6 +2131,10 @@ exports[`Parse samples Sample: sirono-common 1`] = `
   },
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "sirono-common",
     "path": "sirono-common/force-app/test/default",
     "pkg": "force-app/test/default",
@@ -1465,6 +2147,10 @@ exports[`Parse samples Sample: sobject-work-queue 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "sobject-work-queue",
     "path": "sobject-work-queue/force-app",
     "pkg": "force-app",
@@ -1477,6 +2163,10 @@ exports[`Parse samples Sample: soql-secure 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "soql-secure",
     "path": ".",
     "status": 0,
@@ -1488,9 +2178,22 @@ exports[`Parse samples Sample: survey-force 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "survey-force",
     "path": "survey-force/force-app",
     "pkg": "force-app",
+    "status": 0,
+  },
+  {
+    "errors": [],
+    "extensions": [
+      ".apex",
+    ],
+    "name": "survey-force",
+    "path": ".",
     "status": 0,
   },
 ]
@@ -1500,6 +2203,10 @@ exports[`Parse samples Sample: twilio-salesforce 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "twilio-salesforce",
     "path": ".",
     "status": 0,
@@ -1511,6 +2218,10 @@ exports[`Parse samples Sample: user-access-visualization 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "user-access-visualization",
     "path": ".",
     "status": 0,
@@ -1522,6 +2233,10 @@ exports[`Parse samples Sample: visualforce-table-grid 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "visualforce-table-grid",
     "path": ".",
     "status": 0,
@@ -1533,6 +2248,10 @@ exports[`Parse samples Sample: visualforce-typeahead 1`] = `
 [
   {
     "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
     "name": "visualforce-typeahead",
     "path": ".",
     "status": 0,

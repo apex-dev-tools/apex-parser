@@ -13,6 +13,8 @@
 - Added abstract class `ApexErrorListener`:
   - Implement method `apexSyntaxError(line, column, message)` to avoid antlr specific types.
 
+- Added support for parsing Anonymous Apex via `anonymousUnit` (.apex files) and `anonymousBlock` parser rules.
+
 ### Java
 
 - Added `Check.run` to programmatically run syntax check operation on a path.

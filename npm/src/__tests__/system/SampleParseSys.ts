@@ -4,9 +4,24 @@
 import { spawnSync } from "child_process";
 import { readdirSync, lstatSync } from "fs";
 import { basename, resolve, join } from "path";
-import { checkProject } from "../..";
+import { check, checkProject } from "../..";
 
 describe("Parse samples", () => {
+  // known samples with .apex
+  const anon = new Set([
+    "promiseV3",
+    "quiz-host-app",
+    "apex-rollup",
+    "apex-unified-logging",
+    "NebulaLogger",
+    "ActionPlansV4",
+    "apex-recipes",
+    "FormulaShare-DX",
+    "ApexTestKit",
+    "survey-force",
+    "rflib",
+  ]);
+
   // .each runs first before any hooks like beforeAll
   function getSamples(): string[][] {
     if (!process.env.SAMPLES) {
@@ -33,8 +48,19 @@ describe("Parse samples", () => {
 
   test.each(getSamples())(
     "Sample: %s",
-    async (_name, path) => {
+    async (name, path) => {
       const result = await checkProject(path);
+
+      // run additional check for known apex scripts
+      if (anon.has(name)) {
+        const anonResult = await check(path, ".apex");
+        result.push({
+          name,
+          path: ".",
+          ...anonResult,
+        });
+      }
+
       expect(result).toMatchSnapshot();
 
       // run the jvm version of check over same dirs
@@ -46,6 +72,7 @@ describe("Parse samples", () => {
             "jvm/target/dependency/*:jvm/target/apex-parser.jar",
             "io.github.apexdevtools.apexparser.Check",
             resolve(path, r.path),
+            r.extensions.join(","),
           ],
           {
             // can only be run from npm dir (use npm run scripts)

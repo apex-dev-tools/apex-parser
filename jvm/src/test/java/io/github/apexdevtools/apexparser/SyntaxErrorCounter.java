@@ -38,15 +38,11 @@ public class SyntaxErrorCounter extends BaseErrorListener {
   }
 
   public static Map.Entry<ApexLexer, SyntaxErrorCounter> createLexer(
-    String input,
-    Boolean caseInsensitive
+    String input
   ) {
-    CharStream stream = CharStreams.fromString(input);
-    ApexLexer lexer = new ApexLexer(
-      caseInsensitive ? new CaseInsensitiveInputStream(stream) : stream
+    ApexLexer lexer = ApexParserFactory.createLexer(
+      CharStreams.fromString(input)
     );
-
-    lexer.removeErrorListeners();
     SyntaxErrorCounter errorCounter = new SyntaxErrorCounter();
     lexer.addErrorListener(errorCounter);
 

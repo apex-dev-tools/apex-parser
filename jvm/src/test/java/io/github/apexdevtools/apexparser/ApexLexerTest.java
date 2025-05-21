@@ -25,8 +25,7 @@ public class ApexLexerTest {
   @Test
   void testLexerGeneratesTokens() {
     Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer(
-      "public class Hello {}",
-      false
+      "public class Hello {}"
     );
     CommonTokenStream tokens = new CommonTokenStream(lexerAndCounter.getKey());
     assertEquals(6, tokens.getNumberOfOnChannelTokens());
@@ -36,8 +35,7 @@ public class ApexLexerTest {
   @Test
   void testCaseInsensitivityLowerCase() {
     Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer(
-      "public",
-      true
+      "public"
     );
     CommonTokenStream tokens = new CommonTokenStream(lexerAndCounter.getKey());
     assertEquals(2, tokens.getNumberOfOnChannelTokens());
@@ -47,8 +45,7 @@ public class ApexLexerTest {
   @Test
   void testCaseInsensitivityUpperCase() {
     Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer(
-      "PUBLIC",
-      true
+      "PUBLIC"
     );
     CommonTokenStream tokens = new CommonTokenStream(lexerAndCounter.getKey());
     assertEquals(2, tokens.getNumberOfOnChannelTokens());
@@ -58,8 +55,7 @@ public class ApexLexerTest {
   @Test
   void testCaseInsensitivityMixedCase() {
     Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer(
-      "PuBliC",
-      true
+      "PuBliC"
     );
     CommonTokenStream tokens = new CommonTokenStream(lexerAndCounter.getKey());
     assertEquals(2, tokens.getNumberOfOnChannelTokens());
@@ -67,10 +63,25 @@ public class ApexLexerTest {
   }
 
   @Test
+  @SuppressWarnings("deprecation")
+  void testCaseInsensitivityDeprecated() {
+    // intentional testing deprecated type backward compat
+    ApexLexer lexer = new ApexLexer(
+      new CaseInsensitiveInputStream(CharStreams.fromString("PuBliC"))
+    );
+    lexer.removeErrorListeners();
+    SyntaxErrorCounter errorCounter = new SyntaxErrorCounter();
+    lexer.addErrorListener(errorCounter);
+
+    CommonTokenStream tokens = new CommonTokenStream(lexer);
+    assertEquals(2, tokens.getNumberOfOnChannelTokens());
+    assertEquals(0, errorCounter.getNumErrors());
+  }
+
+  @Test
   void testLexerUnicodeEscapes() {
     Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer(
-      "'Fran\\u00E7ois'",
-      false
+      "'Fran\\u00E7ois'"
     );
     CommonTokenStream tokens = new CommonTokenStream(lexerAndCounter.getKey());
     assertEquals(2, tokens.getNumberOfOnChannelTokens());

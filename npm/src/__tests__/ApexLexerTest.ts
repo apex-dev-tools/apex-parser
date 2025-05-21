@@ -12,7 +12,9 @@
     derived from this software without specific prior written permission.
  */
 import { CommonTokenStream } from "antlr4";
-import { createLexer } from "./SyntaxErrorCounter";
+import { createLexer, SyntaxErrorCounter } from "./SyntaxErrorCounter";
+import { CaseInsensitiveInputStream } from "../CaseInsensitiveInputStream";
+import ApexLexer from "../antlr/ApexLexer";
 
 type ExtCommonTokenStream = CommonTokenStream & {
   // This method is present but not available
@@ -21,7 +23,7 @@ type ExtCommonTokenStream = CommonTokenStream & {
 };
 
 test("Lexer generates tokens", () => {
-  const [lexer, errorCounter] = createLexer("public class Hello {}", false);
+  const [lexer, errorCounter] = createLexer("public class Hello {}");
   const tokens = new CommonTokenStream(lexer) as ExtCommonTokenStream;
   expect(tokens.getNumberOfOnChannelTokens()).toBe(6);
   expect(errorCounter.getNumErrors()).toEqual(0);
@@ -48,8 +50,20 @@ test("Case insensitivity (mixed case)", () => {
   expect(errorCounter.getNumErrors()).toEqual(0);
 });
 
+test("Case insensitivity (deprecated stream)", () => {
+  // intentional testing deprecated type backward compat
+  const lexer = new ApexLexer(new CaseInsensitiveInputStream("PuBliC"));
+  lexer.removeErrorListeners();
+  const errorCounter = new SyntaxErrorCounter<number>();
+  lexer.addErrorListener(errorCounter);
+
+  const tokens = new CommonTokenStream(lexer) as ExtCommonTokenStream;
+  expect(tokens.getNumberOfOnChannelTokens()).toBe(2);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});
+
 test("Lexer unicode escapes", () => {
-  const [lexer, errorCounter] = createLexer("'Fran\\u00E7ois'", false);
+  const [lexer, errorCounter] = createLexer("'Fran\\u00E7ois'");
   const tokens = new CommonTokenStream(lexer) as ExtCommonTokenStream;
   expect(tokens.getNumberOfOnChannelTokens()).toBe(2);
   expect(errorCounter.getNumErrors()).toEqual(0);

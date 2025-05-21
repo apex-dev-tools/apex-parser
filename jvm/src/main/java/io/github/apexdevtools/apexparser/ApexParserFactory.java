@@ -51,6 +51,10 @@ public final class ApexParserFactory {
   }
 
   public static ApexLexer createLexer(CharStream stream) {
-    return new ApexLexer(new CaseInsensitiveInputStream(stream));
+    ApexLexer lexer = new ApexLexer(stream);
+
+    // always remove default console listener
+    lexer.removeErrorListeners();
+    return lexer;
   }
 }

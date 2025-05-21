@@ -27,6 +27,7 @@
 */
 
 import {
+  CharStreams,
   CommonTokenStream,
   ErrorNode,
   ParserRuleContext,
@@ -41,7 +42,6 @@ import {
 import ApexParserListener from "./antlr/ApexParserListener";
 import ApexParserVisitor from "./antlr/ApexParserVisitor";
 import ApexLexer from "./antlr/ApexLexer";
-import { CaseInsensitiveInputStream } from "./CaseInsensitiveInputStream";
 import ApexParser from "./antlr/ApexParser";
 import { ThrowingErrorListener } from "./ApexErrorListener";
 
@@ -85,7 +85,11 @@ export class ApexParserFactory {
   }
 
   static createLexer(source: string): ApexLexer {
-    return new ApexLexer(new CaseInsensitiveInputStream(source));
+    const lexer = new ApexLexer(CharStreams.fromString(source));
+
+    // always remove default console listener
+    lexer.removeErrorListeners();
+    return lexer;
   }
 }
 

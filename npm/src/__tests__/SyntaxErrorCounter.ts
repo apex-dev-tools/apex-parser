@@ -11,16 +11,9 @@
  3. The name of the author may not be used to endorse or promote products
     derived from this software without specific prior written permission.
  */
-import {
-  ErrorListener,
-  CharStreams,
-  RecognitionException,
-  Recognizer,
-  Token,
-} from "antlr4";
+import { ErrorListener, RecognitionException, Recognizer, Token } from "antlr4";
 import ApexLexer from "../antlr/ApexLexer";
 import ApexParser from "../antlr/ApexParser";
-import { CaseInsensitiveInputStream } from "../CaseInsensitiveInputStream";
 import { ApexParserFactory } from "../ApexParserFactory";
 
 export class SyntaxErrorCounter<T = Token> extends ErrorListener<T> {
@@ -43,16 +36,9 @@ export class SyntaxErrorCounter<T = Token> extends ErrorListener<T> {
 }
 
 export function createLexer(
-  input: string,
-  caseInsensitive: boolean = true
+  input: string
 ): [ApexLexer, SyntaxErrorCounter<number>] {
-  const lexer = new ApexLexer(
-    caseInsensitive
-      ? new CaseInsensitiveInputStream(input)
-      : CharStreams.fromString(input)
-  );
-
-  lexer.removeErrorListeners();
+  const lexer = ApexParserFactory.createLexer(input);
   const errorCounter = new SyntaxErrorCounter<number>();
   lexer.addErrorListener(errorCounter);
 

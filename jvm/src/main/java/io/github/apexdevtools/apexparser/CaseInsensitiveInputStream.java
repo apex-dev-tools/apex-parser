@@ -37,8 +37,12 @@ import org.antlr.v4.runtime.misc.Interval;
 
 /**
  * ANTLR4 stream handler that allows use of case insensitive handling.
+ *
+ * @deprecated since 5.0.0. ApexLexer is generated with ANTLR 4.10
+ * `caseInsensitive` option enabled.
  */
-@SuppressWarnings({ "unused" })
+@SuppressWarnings("all")
+@Deprecated
 public class CaseInsensitiveInputStream implements CharStream {
 
   private final CharStream src;

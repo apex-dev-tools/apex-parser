@@ -299,16 +299,16 @@ IntegerLiteral
     ;
 
 LongLiteral
-    : Digit Digit* [lL]
+    : Digit Digit* [l]
     ;
 
 NumberLiteral
-    :   Digit* '.' Digit Digit* [dD]?
+    :   Digit* '.' Digit Digit* [d]?
     ;
 
 fragment
 HexCharacter
-    :   [0-9a-fA-F]
+    :   [0-9a-f]
     ;
 
 fragment
@@ -424,7 +424,7 @@ Identifier
 // so we can give better error messages
 fragment
 JavaLetter
-    :   [a-zA-Z$_] // these are the "java letters" below 0xFF
+    :   [a-z$_] // these are the "java letters" below 0xFF
     |   // covers all characters above 0xFF which are not a surrogate
         ~[\u0000-\u00FF\uD800-\uDBFF]
     |   // covers UTF-16 surrogate pairs encodings for U+10000 to U+10FFFF
@@ -433,7 +433,7 @@ JavaLetter
 
 fragment
 JavaLetterOrDigit
-    :   [a-zA-Z0-9$_] // these are the "java letters or digits" below 0xFF
+    :   [a-z0-9$_] // these are the "java letters or digits" below 0xFF
     |   // covers all characters above 0xFF which are not a surrogate
         ~[\u0000-\u00FF\uD800-\uDBFF]
     |   // covers UTF-16 surrogate pairs encodings for U+10000 to U+10FFFF

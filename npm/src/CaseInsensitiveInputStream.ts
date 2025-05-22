@@ -28,6 +28,12 @@
 
 import { CharStream } from "antlr4";
 
+/**
+ * Converts char stream to lower case for case insensitive usage.
+ *
+ * @deprecated since 5.0.0. ApexLexer is generated with ANTLR 4.10
+ * `caseInsensitive` option enabled.
+ */
 export class CaseInsensitiveInputStream extends CharStream {
   constructor(data: string, decodeToUnicodeCodePoints?: boolean);
   constructor(stream: CharStream, decodeToUnicodeCodePoints?: boolean);

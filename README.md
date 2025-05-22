@@ -2,7 +2,7 @@
 
 Parser for Salesforce Apex (including Triggers & inline SOQL/SOQL). This is based on an [ANTLR4](https://www.antlr.org/) grammar, see [`antlr/BaseApexParser.g4`](./antlr/BaseApexParser.g4). Currently packaged for Java and JavaScript/TypeScript targets.
 
-With the ANTLR4 generated types, a `CaseInsensitiveInputStream` is included (and required) for the lexer. Type aliases and abstractions like `ApexParserFactory` and `ApexErrorListener` are also available for quick start. There are minimal examples in the test classes.
+The packages include ANTLR4 generated types plus optional extras for convenience. The TypeScript package exports type aliases for ANTLR types, while both packages have abstractions like `ApexParserFactory` and `ApexErrorListener`. There are minimal examples below and in the test classes.
 
 ## Installation
 

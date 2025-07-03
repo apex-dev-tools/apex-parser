@@ -1727,22 +1727,6 @@ exports[`Parse samples Sample: forcedotcom-enterprise-architecture 1`] = `
 ]
 `;
 
-exports[`Parse samples Sample: forcelog 1`] = `
-[
-  {
-    "errors": [],
-    "extensions": [
-      ".cls",
-      ".trigger",
-    ],
-    "name": "forcelog",
-    "path": "forcelog/src",
-    "pkg": "src",
-    "status": 0,
-  },
-]
-`;
-
 exports[`Parse samples Sample: grid 1`] = `
 [
   {
@@ -1919,6 +1903,17 @@ exports[`Parse samples Sample: rflib 1`] = `
     "name": "rflib",
     "path": "rflib/rflib-tf",
     "pkg": "rflib-tf",
+    "status": 0,
+  },
+  {
+    "errors": [],
+    "extensions": [
+      ".cls",
+      ".trigger",
+    ],
+    "name": "rflib",
+    "path": "rflib/rflib-pharos",
+    "pkg": "rflib-pharos",
     "status": 0,
   },
   {

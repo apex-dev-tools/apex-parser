@@ -77,8 +77,8 @@ Array [
   Object {
     "errors": Array [],
     "name": "Apex-Opensource-Library",
-    "path": "Apex-Opensource-Library/force-app/commons/queries",
-    "pkg": "./force-app/commons/queries",
+    "path": "Apex-Opensource-Library/force-app/commons/query",
+    "pkg": "./force-app/commons/query",
     "status": 0,
   },
   Object {
@@ -1031,18 +1031,6 @@ Array [
 ]
 `;
 
-exports[`Parse samples Sample: dreamhouse-sfdx 1`] = `
-Array [
-  Object {
-    "errors": Array [],
-    "name": "dreamhouse-sfdx",
-    "path": "dreamhouse-sfdx/force-app",
-    "pkg": "./force-app",
-    "status": 0,
-  },
-]
-`;
-
 exports[`Parse samples Sample: einstein-ai 1`] = `
 Array [
   Object {
@@ -1188,18 +1176,6 @@ Array [
 ]
 `;
 
-exports[`Parse samples Sample: forcelog 1`] = `
-Array [
-  Object {
-    "errors": Array [],
-    "name": "forcelog",
-    "path": "forcelog/src",
-    "pkg": "src",
-    "status": 0,
-  },
-]
-`;
-
 exports[`Parse samples Sample: grid 1`] = `
 Array [
   Object {
@@ -1314,6 +1290,13 @@ Array [
     "name": "rflib",
     "path": "rflib/rflib-tf",
     "pkg": "rflib-tf",
+    "status": 0,
+  },
+  Object {
+    "errors": Array [],
+    "name": "rflib",
+    "path": "rflib/rflib-pharos",
+    "pkg": "rflib-pharos",
     "status": 0,
   },
 ]

@@ -144,30 +144,30 @@ modifier
 
 memberDeclaration
     : methodDeclaration
-    | fieldDeclaration
     | constructorDeclaration
     | interfaceDeclaration
     | classDeclaration
     | enumDeclaration
     | propertyDeclaration
+    | fieldDeclaration
     ;
 
 triggerMemberDeclaration
     : methodDeclaration
-    | fieldDeclaration
     | interfaceDeclaration
     | classDeclaration
     | enumDeclaration
     | propertyDeclaration
+    | fieldDeclaration
     ;
 
 anonymousMemberDeclaration
     : methodDeclaration
-    | fieldDeclaration
     | interfaceDeclaration
     | classDeclaration
     | enumDeclaration
     | propertyDeclaration
+    | fieldDeclaration
     ;
 
 /* We use rule this even for void methods which cannot have [] after parameters.

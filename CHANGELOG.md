@@ -18,6 +18,8 @@
 
 - Added support for parsing Anonymous Apex via `anonymousUnit` (.apex files) and `anonymousBlock` parser rules.
 
+- Re-ordered `memberDeclaration` alternate rules to de-prioritise field declarations due to its `typeDef` rule.
+
 ### Java
 
 - Added `Check.run` to programmatically run syntax check operation on a path.

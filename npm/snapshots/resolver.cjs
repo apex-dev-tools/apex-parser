@@ -1,6 +1,9 @@
 /*
  * Copyright (c) 2022 FinancialForce.com, inc. All rights reserved.
  */
+
+// Jest does not support this as ESM yet
+
 module.exports = {
   // resolves from test to snapshot path
   resolveSnapshotPath: (testPath, snapshotExtension) =>

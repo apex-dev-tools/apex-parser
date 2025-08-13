@@ -1,4 +1,4 @@
 {
   "testRegex": "dist/test/.*Test.js$",
-  "snapshotResolver": "./snapshots/resolver.js"
+  "snapshotResolver": "./snapshots/resolver.cjs"
 }

@@ -1,4 +1,4 @@
 {
   "testRegex": "dist/test/system/.*Sys.js$",
-  "snapshotResolver": "./snapshots/resolver.js"
+  "snapshotResolver": "./snapshots/resolver.cjs"
 }

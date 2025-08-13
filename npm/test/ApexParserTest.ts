@@ -22,9 +22,12 @@ import {
   PrimaryExpressionContext,
   Arth2ExpressionContext,
   LogOrExpressionContext,
-} from "../antlr/ApexParser";
-import { ApexSyntaxError, ThrowingErrorListener } from "../ApexErrorListener";
-import { createParser } from "./SyntaxErrorCounter";
+} from "../src/antlr/ApexParser.js";
+import {
+  ApexSyntaxError,
+  ThrowingErrorListener,
+} from "../src/ApexErrorListener.js";
+import { createParser } from "./SyntaxErrorCounter.js";
 
 test("Boolean Literal", () => {
   const [parser, errorCounter] = createParser("true");

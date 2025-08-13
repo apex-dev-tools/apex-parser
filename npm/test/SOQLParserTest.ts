@@ -15,8 +15,8 @@ import {
   QueryContext,
   StatementContext,
   SoqlLiteralContext,
-} from "../antlr/ApexParser";
-import { createParser } from "./SyntaxErrorCounter";
+} from "../src/antlr/ApexParser.js";
+import { createParser } from "./SyntaxErrorCounter.js";
 
 test("SOQL Query", () => {
   const [parser, errorCounter] = createParser("Select Id from Account");

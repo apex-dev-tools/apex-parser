@@ -11,8 +11,11 @@
  3. The name of the author may not be used to endorse or promote products
     derived from this software without specific prior written permission.
  */
-import { SoslLiteralAltContext, SoslLiteralContext } from "../antlr/ApexParser";
-import { createParser } from "./SyntaxErrorCounter";
+import {
+  SoslLiteralAltContext,
+  SoslLiteralContext,
+} from "../src/antlr/ApexParser.js";
+import { createParser } from "./SyntaxErrorCounter.js";
 
 test("testBasicQuery", () => {
   const [parser, errorCounter] = createParser(

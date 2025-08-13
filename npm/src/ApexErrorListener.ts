@@ -25,7 +25,12 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-import { ErrorListener, RecognitionException, Recognizer, Token } from "antlr4";
+import {
+  ErrorListener,
+  type RecognitionException,
+  type Recognizer,
+  type Token,
+} from "antlr4";
 
 /**
  * Base `ErrorListener` for Apex parsers.
@@ -50,7 +55,7 @@ export abstract class ApexErrorListener extends ErrorListener<Token> {
 export class ApexSyntaxError extends Error {
   line: number;
   column: number;
-  message: string;
+  message!: string;
 
   constructor(line: number, column: number, message: string) {
     super(message);

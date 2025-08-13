@@ -39,11 +39,11 @@ import {
   TerminalNode,
   Token,
 } from "antlr4";
-import ApexParserListener from "./antlr/ApexParserListener";
-import ApexParserVisitor from "./antlr/ApexParserVisitor";
-import ApexLexer from "./antlr/ApexLexer";
-import ApexParser from "./antlr/ApexParser";
-import { ThrowingErrorListener } from "./ApexErrorListener";
+import type ApexParserListener from "./antlr/ApexParserListener.js";
+import type ApexParserVisitor from "./antlr/ApexParserVisitor.js";
+import ApexLexer from "./antlr/ApexLexer.js";
+import ApexParser from "./antlr/ApexParser.js";
+import { ThrowingErrorListener } from "./ApexErrorListener.js";
 
 export type ApexParserRuleContext = ParserRuleContext;
 export type ApexErrorNode = ErrorNode;

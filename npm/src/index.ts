@@ -26,12 +26,12 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-export * from "./ApexErrorListener";
-export * from "./ApexParserFactory";
-export * from "./CaseInsensitiveInputStream";
-export * from "./Check";
-export * from "./antlr/ApexParser"; // RuleContext types
-export { default as ApexLexer } from "./antlr/ApexLexer";
-export { default as ApexParser } from "./antlr/ApexParser";
-export { default as ApexParserListener } from "./antlr/ApexParserListener";
-export { default as ApexParserVisitor } from "./antlr/ApexParserVisitor";
+export * from "./ApexErrorListener.js";
+export * from "./ApexParserFactory.js";
+export * from "./CaseInsensitiveInputStream.js";
+export * from "./Check.js";
+export * from "./antlr/ApexParser.js"; // RuleContext types
+export { default as ApexLexer } from "./antlr/ApexLexer.js";
+export { default as ApexParser } from "./antlr/ApexParser.js";
+export { default as ApexParserListener } from "./antlr/ApexParserListener.js";
+export { default as ApexParserVisitor } from "./antlr/ApexParserVisitor.js";

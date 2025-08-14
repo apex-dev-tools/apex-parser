@@ -1,6 +1,6 @@
 {
   "name": "@apexdevtools/apex-parser",
-  "version": "5.0.0-beta.4",
+  "version": "5.0.0-beta.5",
   "description": "Javascript parser for Salesforce Apex Language",
   "author": "Apex Dev Tools Team <apexdevtools@gmail.com> (https://github.com/apex-dev-tools)",
   "bugs": "https://github.com/apex-dev-tools/apex-parser/issues",
@@ -21,7 +21,7 @@
     "clean": "rm -rf dist",
     "init": "npm ci && npm run antlr",
     "lint": "eslint --cache --cache-location .eslintcache ./src --fix",
-    "postinstall": "patch-package",
+    "prepare": "patch-package",
     "prepack": "cp ../*.md .",
     "test": "jest --config jestconfig.json",
     "test:samples": "jest --config sys.jestconfig.json",
@@ -31,6 +31,9 @@
     "dist/src",
     "patches",
     "CHANGELOG.md"
+  ],
+  "bundleDependencies": [
+    "antlr4"
   ],
   "dependencies": {
     "antlr4": "4.13.2"

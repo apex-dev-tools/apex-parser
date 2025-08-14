@@ -39,8 +39,8 @@
 - **(BREAKING)** Updated to ES Module format. Node 20/22, TypeScript 5.9 support `require(esm)`.
   - Increased min node version to 20.
   - `antlr4` has to be patched to fix module resolution of the type declaration files.
-    - The patch can be copied to `patches/*` and applied with `patch-package` if needed.
-    - Until it is fixed, imports of `antlr4` will cause type errors (`skipLibCheck` can be used in some cases).
+    - The patch is applied to a bundled version of the package.
+    - For reference it is also published under `patches/*`.
 
 - **(BREAKING)** Re-exported antlr classes `CommonTokenStream` and `ParseTreeWalker` removed.
   - Added type aliases like `ApexTokenStream`, `ApexParseTree`, and more to use with listener/visitor/walker.

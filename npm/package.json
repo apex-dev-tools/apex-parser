@@ -1,6 +1,6 @@
 {
   "name": "@apexdevtools/apex-parser",
-  "version": "5.0.0-beta.4",
+  "version": "5.0.0-beta.5",
   "description": "Javascript parser for Salesforce Apex Language",
   "author": "Apex Dev Tools Team <apexdevtools@gmail.com> (https://github.com/apex-dev-tools)",
   "bugs": "https://github.com/apex-dev-tools/apex-parser/issues",

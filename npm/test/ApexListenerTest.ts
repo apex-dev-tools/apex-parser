@@ -16,7 +16,7 @@ import {
   ApexParserFactory,
   ApexParserBaseListener,
   ApexParseTreeWalker,
-} from "../ApexParserFactory";
+} from "../src/ApexParserFactory.js";
 
 class TestListener extends ApexParserBaseListener {
   public methodCount = 0;

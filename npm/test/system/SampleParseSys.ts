@@ -1,10 +1,10 @@
 /*
  * Copyright (c) 2022 FinancialForce.com, inc. All rights reserved.
  */
-import { spawnSync } from "child_process";
-import { readdirSync, lstatSync } from "fs";
-import { basename, resolve, join } from "path";
-import { check, checkProject } from "../..";
+import { spawnSync } from "node:child_process";
+import { readdirSync, lstatSync } from "node:fs";
+import { basename, resolve, join } from "node:path";
+import { check, CheckError, checkProject } from "../../src/Check.js";
 
 describe("Parse samples", () => {
   // known samples with .apex
@@ -39,8 +39,8 @@ describe("Parse samples", () => {
 
   // disable jest wrapped logging
   const jestConsole = console;
-  beforeEach(() => {
-    global.console = require("console");
+  beforeEach(async () => {
+    global.console = await import("node:console");
   });
   afterEach(() => {
     global.console = jestConsole;
@@ -97,7 +97,9 @@ describe("Parse samples", () => {
         // catch unexpected failures or timeouts
         expect(jvmCheck.status).toEqual(r.status);
         // match syntax errors to snapshot value
-        expect(checkErrors.map(j => JSON.parse(j))).toMatchObject(r.errors);
+        expect(
+          checkErrors.map(j => JSON.parse(j) as unknown as CheckError[])
+        ).toMatchObject(r.errors);
       });
     },
     15000

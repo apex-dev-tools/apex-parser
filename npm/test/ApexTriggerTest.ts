@@ -12,8 +12,8 @@
     derived from this software without specific prior written permission.
  */
 
-import { TriggerUnitContext } from "../antlr/ApexParser";
-import { createParser } from "./SyntaxErrorCounter";
+import { TriggerUnitContext } from "../src/antlr/ApexParser.js";
+import { createParser } from "./SyntaxErrorCounter.js";
 
 test("Empty Trigger", () => {
   const [parser, errorCounter] = createParser(

@@ -12,9 +12,9 @@
     derived from this software without specific prior written permission.
  */
 import { ErrorListener, RecognitionException, Recognizer, Token } from "antlr4";
-import ApexLexer from "../antlr/ApexLexer";
-import ApexParser from "../antlr/ApexParser";
-import { ApexParserFactory } from "../ApexParserFactory";
+import ApexLexer from "../src/antlr/ApexLexer.js";
+import ApexParser from "../src/antlr/ApexParser.js";
+import { ApexParserFactory } from "../src/ApexParserFactory.js";
 
 export class SyntaxErrorCounter<T = Token> extends ErrorListener<T> {
   numErrors = 0;

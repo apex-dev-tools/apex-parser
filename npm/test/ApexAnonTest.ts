@@ -12,8 +12,8 @@
     derived from this software without specific prior written permission.
  */
 
-import { AnonymousUnitContext } from "../antlr/ApexParser";
-import { createParser } from "./SyntaxErrorCounter";
+import { AnonymousUnitContext } from "../src/antlr/ApexParser.js";
+import { createParser } from "./SyntaxErrorCounter.js";
 
 test("Empty file", () => {
   const [parser, errorCounter] = createParser("");

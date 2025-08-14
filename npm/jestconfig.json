@@ -1,15 +1,4 @@
 {
-  "transform": {
-    "^.+\\.jsx?$": "babel-jest"
-  },
-  "testRegex": "lib/__tests__/.*Test.js$",
-  "moduleFileExtensions": [
-    "ts",
-    "tsx",
-    "js",
-    "jsx",
-    "json",
-    "node"
-  ],
-  "snapshotResolver": "./snapshots/resolver.js"
+  "testRegex": "dist/test/.*Test.js$",
+  "snapshotResolver": "./snapshots/resolver.cjs"
 }

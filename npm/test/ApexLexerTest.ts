@@ -12,9 +12,9 @@
     derived from this software without specific prior written permission.
  */
 import { CommonTokenStream } from "antlr4";
-import { createLexer, SyntaxErrorCounter } from "./SyntaxErrorCounter";
-import { CaseInsensitiveInputStream } from "../CaseInsensitiveInputStream";
-import ApexLexer from "../antlr/ApexLexer";
+import { createLexer, SyntaxErrorCounter } from "./SyntaxErrorCounter.js";
+import { CaseInsensitiveInputStream } from "../src/CaseInsensitiveInputStream.js";
+import ApexLexer from "../src/antlr/ApexLexer.js";
 
 type ExtCommonTokenStream = CommonTokenStream & {
   // This method is present but not available

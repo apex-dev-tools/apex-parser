@@ -29,9 +29,9 @@
 import { readdir } from "node:fs/promises";
 import { readdirSync, readFileSync, lstatSync, existsSync } from "node:fs";
 import { basename, dirname, extname, resolve, relative, join } from "node:path";
-import ApexParser from "./antlr/ApexParser";
-import { ApexErrorListener } from "./ApexErrorListener";
-import { ApexParserFactory } from "./ApexParserFactory";
+import type ApexParser from "./antlr/ApexParser.js";
+import { ApexErrorListener } from "./ApexErrorListener.js";
+import { ApexParserFactory } from "./ApexParserFactory.js";
 
 export interface CheckError {
   column: number;
@@ -108,9 +108,8 @@ export async function checkProject(
   const ext = ".cls,.trigger";
   const name = basename(path);
   const project = findProjectFile(path, 1);
-  const packages = getProjectPackages(project);
 
-  if (packages.length == 0) {
+  if (!project) {
     console.error(
       `[${name}]: No valid SFDX project, checking all cls & trigger files`
     );
@@ -124,6 +123,7 @@ export async function checkProject(
     ];
   }
 
+  const packages = getProjectPackages(project);
   const projectDir = dirname(project);
   const projectResult = await Promise.all(
     packages.map(async pkg => {
@@ -263,15 +263,14 @@ function findProjectFile(wd: string, depth: number): string | undefined {
   return undefined;
 }
 
-function getProjectPackages(projectFilePath?: string): string[] {
-  if (!projectFilePath) {
-    return [];
-  }
-  const config: {
+function getProjectPackages(projectFilePath: string): string[] {
+  const config = JSON.parse(
+    readFileSync(projectFilePath, { encoding: "utf8" })
+  ) as unknown as {
     packageDirectories?: {
       path?: string;
     }[];
-  } = JSON.parse(readFileSync(projectFilePath, { encoding: "utf8" }));
+  };
   const packages = config.packageDirectories || [];
   return packages.flatMap(p => (p.path ? p.path.replace(/\\/g, "/") : []));
 }

@@ -12,8 +12,11 @@
     derived from this software without specific prior written permission.
  */
 
-import { MethodDeclarationContext } from "../antlr/ApexParser";
-import { ApexParserFactory, ApexParserBaseVisitor } from "../ApexParserFactory";
+import { MethodDeclarationContext } from "../src/antlr/ApexParser.js";
+import {
+  ApexParserFactory,
+  ApexParserBaseVisitor,
+} from "../src/ApexParserFactory.js";
 
 class TestVisitor extends ApexParserBaseVisitor<number> {
   public methodCount = 0;

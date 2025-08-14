@@ -36,13 +36,16 @@
     - A rule `expr*` generates `expr_list()` and `expr(number)`.
     - By contrast Java would have overloads of `expr()`/`expr(int)` returning list or value.
 
+- **(BREAKING)** Updated to ES Module format. Node 20/22, TypeScript 5.9 support `require(esm)`.
+  - Increased min node version to 20.
+  - `antlr4` has been temporarily patched to fix module resolution of the type declaration files.
+  - TS ESM projects not using `"module": "node20"` or above may produce type errors (without `skipLibCheck`).
+
 - **(BREAKING)** Re-exported antlr classes `CommonTokenStream` and `ParseTreeWalker` removed.
   - Added type aliases like `ApexTokenStream`, `ApexParseTree`, and more to use with listener/visitor/walker.
   - For the walker, use `ApexParseTreeWalker.DEFAULT`. Same instance but typed for `ApexParserListener` and `ApexParseTree`.
   - It should no longer be required to depend on `antlr4` package directly.
     - Can still add the package as a dependency, but remember to match the version `apex-parser` uses.
-
-- **(BREAKING)** Updated output to `ES2020` and increased min node version to 16.
 
 - `CaseInsensitiveInputStream` (deprecated) type now extends `CharStream` and can be constructed from `string`.
   - Constructor passing in `CharStream` retained to match Java version.

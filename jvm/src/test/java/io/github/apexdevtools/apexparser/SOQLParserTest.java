@@ -193,4 +193,31 @@ public class SOQLParserTest {
     assertNotNull(context);
     assertEquals(0, parserAndCounter.getValue().getNumErrors());
   }
+
+  @Test
+  void rollupWithSoqlFunction() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "[" +
+      "SELECT\n" +
+      "    ExternalId__c,\n" +
+      "    CALENDAR_YEAR(CustomDateField__c) year,\n" +
+      "    SUM(CustomAmountField__c) amount,\n" +
+      "    COUNT(Id) counter\n" +
+      "FROM CustomObject__c\n" +
+      "GROUP BY ROLLUP(\n" +
+      "    CALENDAR_YEAR(CustomDateField__c),\n" +
+      "    ExternalId__c\n" +
+      ")\n" +
+      "ORDER BY\n" +
+      "    ExternalId__c ASC NULLS FIRST,\n" +
+      "    CALENDAR_YEAR(CustomDateField__c) ASC NULLS LAST\n" +
+      "LIMIT 2000" +
+      "]"
+    );
+    ApexParser.SoqlLiteralContext context = parserAndCounter
+      .getKey()
+      .soqlLiteral();
+    assertNotNull(context);
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
 }

@@ -186,3 +186,28 @@ test("Time Literal", () => {
   expect(context).toBeInstanceOf(SoqlLiteralContext);
   expect(errorCounter.getNumErrors()).toEqual(0);
 });
+
+test("rollupWithSoqlFunction", () => {
+  const [parser, errorCounter] = createParser(
+    `[
+    SELECT
+        ExternalId__c,
+        CALENDAR_YEAR(CustomDateField__c) year,
+        SUM(CustomAmountField__c) amount,
+        COUNT(Id) counter
+    FROM CustomObject__c
+    GROUP BY ROLLUP(
+        CALENDAR_YEAR(CustomDateField__c),
+        ExternalId__c
+    )
+    ORDER BY
+        ExternalId__c ASC NULLS FIRST,
+        CALENDAR_YEAR(CustomDateField__c) ASC NULLS LAST
+    LIMIT 2000
+    ]`
+  );
+  const context = parser.soqlLiteral();
+
+  expect(context).toBeInstanceOf(SoqlLiteralContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});

@@ -752,9 +752,20 @@ filteringSelector
     : AT | ABOVE | BELOW | ABOVE_OR_BELOW;
 
 groupByClause
-    : GROUP BY selectList (HAVING logicalExpression)?
-    | GROUP BY ROLLUP LPAREN fieldName (COMMA fieldName)* RPAREN
-    | GROUP BY CUBE LPAREN fieldName (COMMA fieldName)* RPAREN;
+    : GROUP BY
+        (
+            fieldGroupByList
+            | ROLLUP LPAREN fieldGroupByList RPAREN
+            | CUBE LPAREN fieldGroupByList RPAREN
+        )
+        (HAVING logicalExpression)?;
+
+fieldGroupByList
+    : fieldGroupBy (COMMA fieldGroupBy)*;
+
+fieldGroupBy
+    : fieldName
+    | soqlFunction;
 
 orderByClause
     : ORDER BY fieldOrderList;

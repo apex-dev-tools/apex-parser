@@ -1,6 +1,6 @@
 # apex-parser - Changelog
 
-## 5.0.0
+## 5.0.0 - 2026-04-21
 
 ## General
 

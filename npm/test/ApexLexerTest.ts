@@ -12,7 +12,11 @@
     derived from this software without specific prior written permission.
  */
 import { CommonTokenStream } from "antlr4";
-import { createLexer, SyntaxErrorCounter } from "./SyntaxErrorCounter.js";
+import {
+  createLexer,
+  createLexerAndParser,
+  SyntaxErrorCounter,
+} from "./SyntaxErrorCounter.js";
 import { CaseInsensitiveInputStream } from "../src/CaseInsensitiveInputStream.js";
 import ApexLexer from "../src/antlr/ApexLexer.js";
 
@@ -54,7 +58,7 @@ test("Case insensitivity (deprecated stream)", () => {
   // intentional testing deprecated type backward compat
   const lexer = new ApexLexer(new CaseInsensitiveInputStream("PuBliC"));
   lexer.removeErrorListeners();
-  const errorCounter = new SyntaxErrorCounter<number>();
+  const errorCounter = new SyntaxErrorCounter();
   lexer.addErrorListener(errorCounter);
 
   const tokens = new CommonTokenStream(lexer) as ExtCommonTokenStream;
@@ -67,4 +71,12 @@ test("Lexer unicode escapes", () => {
   const tokens = new CommonTokenStream(lexer) as ExtCommonTokenStream;
   expect(tokens.getNumberOfOnChannelTokens()).toBe(2);
   expect(errorCounter.getNumErrors()).toEqual(0);
+});
+
+test("Lexer error is captured via createLexerAndParser", () => {
+  const { parser, errorCounter } = createLexerAndParser(
+    "public class X { String s = '\\q'; }"
+  );
+  parser.compilationUnit();
+  expect(errorCounter.getNumErrors()).toBeGreaterThan(0);
 });

@@ -43,7 +43,10 @@ import type ApexParserListener from "./antlr/ApexParserListener.js";
 import type ApexParserVisitor from "./antlr/ApexParserVisitor.js";
 import ApexLexer from "./antlr/ApexLexer.js";
 import ApexParser from "./antlr/ApexParser.js";
-import { ThrowingErrorListener } from "./ApexErrorListener.js";
+import {
+  ApexErrorListener,
+  ThrowingErrorListener,
+} from "./ApexErrorListener.js";
 
 export type ApexParserRuleContext = ParserRuleContext;
 export type ApexErrorNode = ErrorNode;
@@ -90,6 +93,24 @@ export class ApexParserFactory {
     // always remove default console listener
     lexer.removeErrorListeners();
     return lexer;
+  }
+
+  /**
+   * Creates a lexer and parser pair with the given error listener attached to
+   * both. This is the recommended way to capture all syntax errors when parsing
+   * full Apex source - lexer errors (e.g. invalid string escape sequences) are
+   * only reported to listeners attached to the lexer, and parser errors are
+   * only reported to listeners attached to the parser.
+   */
+  static createLexerAndParser(
+    source: string,
+    errorListener: ApexErrorListener
+  ): { lexer: ApexLexer; parser: ApexParser } {
+    const lexer = this.createLexer(source);
+    lexer.addErrorListener(errorListener);
+    const parser = this.createParser(new CommonTokenStream(lexer));
+    parser.addErrorListener(errorListener);
+    return { lexer, parser };
   }
 }
 

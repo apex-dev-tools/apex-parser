@@ -57,6 +57,32 @@ const listener = new Listener();
 ApexParseTreeWalker.DEFAULT.walk(listener, parser.compilationUnit());
 ```
 
+### Capturing syntax errors
+
+Lexer errors (e.g. invalid string escape sequences) are only reported to listeners attached to the lexer, while parser errors are only reported to listeners attached to the parser. To capture both from a single listener, use `createLexerAndParser`, which wires the listener to both:
+
+```typescript
+import { ApexParserFactory, ApexErrorListener } from "@apexdevtools/apex-parser";
+
+class MyListener extends ApexErrorListener {
+  apexSyntaxError(line: number, column: number, msg: string): void {
+    console.log(`${line}:${column} ${msg}`);
+  }
+}
+
+const { parser } = ApexParserFactory.createLexerAndParser(source, new MyListener());
+parser.compilationUnit();
+```
+
+The Java API is equivalent:
+
+```java
+ApexErrorListener listener = new MyListener();
+LexerAndParser pair = ApexParserFactory.createLexerAndParser(
+  CharStreams.fromString(source), listener);
+pair.getParser().compilationUnit();
+```
+
 ### SOSL FIND quoting
 
 SOSL FIND uses ' as a quoting character when embedded in Apex, in the API braces are used:

@@ -11,22 +11,15 @@
  3. The name of the author may not be used to endorse or promote products
     derived from this software without specific prior written permission.
  */
-import { ErrorListener, RecognitionException, Recognizer, Token } from "antlr4";
 import ApexLexer from "../src/antlr/ApexLexer.js";
 import ApexParser from "../src/antlr/ApexParser.js";
+import { ApexErrorListener } from "../src/ApexErrorListener.js";
 import { ApexParserFactory } from "../src/ApexParserFactory.js";
 
-export class SyntaxErrorCounter<T = Token> extends ErrorListener<T> {
+export class SyntaxErrorCounter extends ApexErrorListener {
   numErrors = 0;
 
-  syntaxError(
-    recognizer: Recognizer<T>,
-    offendingSymbol: T,
-    line: number,
-    column: number,
-    msg: string,
-    e: RecognitionException | undefined
-  ): void {
+  apexSyntaxError(line: number, column: number, msg: string): void {
     this.numErrors += 1;
   }
 
@@ -35,11 +28,9 @@ export class SyntaxErrorCounter<T = Token> extends ErrorListener<T> {
   }
 }
 
-export function createLexer(
-  input: string
-): [ApexLexer, SyntaxErrorCounter<number>] {
+export function createLexer(input: string): [ApexLexer, SyntaxErrorCounter] {
   const lexer = ApexParserFactory.createLexer(input);
-  const errorCounter = new SyntaxErrorCounter<number>();
+  const errorCounter = new SyntaxErrorCounter();
   lexer.addErrorListener(errorCounter);
 
   return [lexer, errorCounter];
@@ -51,4 +42,17 @@ export function createParser(input: string): [ApexParser, SyntaxErrorCounter] {
   parser.addErrorListener(errorCounter);
 
   return [parser, errorCounter];
+}
+
+export function createLexerAndParser(input: string): {
+  lexer: ApexLexer;
+  parser: ApexParser;
+  errorCounter: SyntaxErrorCounter;
+} {
+  const errorCounter = new SyntaxErrorCounter();
+  const { lexer, parser } = ApexParserFactory.createLexerAndParser(
+    input,
+    errorCounter
+  );
+  return { lexer, parser, errorCounter };
 }

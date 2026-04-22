@@ -14,8 +14,11 @@
 package io.github.apexdevtools.apexparser;
 
 import static io.github.apexdevtools.apexparser.SyntaxErrorCounter.createLexer;
+import static io.github.apexdevtools.apexparser.SyntaxErrorCounter.createLexerAndParser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.github.apexdevtools.apexparser.ApexParserFactory.LexerAndParser;
 import java.util.Map;
 import org.antlr.v4.runtime.*;
 import org.junit.jupiter.api.Test;
@@ -86,5 +89,13 @@ public class ApexLexerTest {
     CommonTokenStream tokens = new CommonTokenStream(lexerAndCounter.getKey());
     assertEquals(2, tokens.getNumberOfOnChannelTokens());
     assertEquals(0, lexerAndCounter.getValue().getNumErrors());
+  }
+
+  @Test
+  void testLexerErrorCapturedViaCreateLexerAndParser() {
+    Map.Entry<LexerAndParser, SyntaxErrorCounter> pairAndCounter =
+      createLexerAndParser("public class X { String s = '\\q'; }");
+    pairAndCounter.getKey().getParser().compilationUnit();
+    assertTrue(pairAndCounter.getValue().getNumErrors() > 0);
   }
 }

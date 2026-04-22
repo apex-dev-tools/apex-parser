@@ -156,14 +156,9 @@ test("testFormatWithAggregate", () => {
   expect(errorCounter.getNumErrors()).toEqual(0);
 });
 
-test("testBindVarInWithClauses", () => {
+test("testBindVarInDivisionClause", () => {
   const [parser, errorCounter] = createParser(
-    `[FIND :q IN ALL FIELDS RETURNING Account
-        WITH DIVISION = :d
-        WITH NETWORK = :n
-        WITH PRICEBOOKID = :p
-        WITH METADATA = :m
-        LIMIT :l]`
+    "[FIND :q IN ALL FIELDS RETURNING Account WITH DIVISION = :d LIMIT :l]"
   );
   const context = parser.soslLiteral();
 

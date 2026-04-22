@@ -220,16 +220,4 @@ public class SOQLParserTest {
     assertNotNull(context);
     assertEquals(0, parserAndCounter.getValue().getNumErrors());
   }
-
-  @Test
-  void testBindVarOnIncludesLHS() {
-    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
-      "[SELECT Id FROM Account WHERE :A.TYPE INCLUDES ('Customer - Direct; Customer - Channel')]"
-    );
-    ApexParser.SoqlLiteralContext context = parserAndCounter
-      .getKey()
-      .soqlLiteral();
-    assertNotNull(context);
-    assertEquals(0, parserAndCounter.getValue().getNumErrors());
-  }
 }

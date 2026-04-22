@@ -166,14 +166,9 @@ public class SOSLParserTest {
   }
 
   @Test
-  void testBindVarInWithClauses() {
+  void testBindVarInDivisionClause() {
     Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
-      "[FIND :q IN ALL FIELDS RETURNING Account \n" +
-      "    WITH DIVISION = :d \n" +
-      "    WITH NETWORK = :n \n" +
-      "    WITH PRICEBOOKID = :p \n" +
-      "    WITH METADATA = :m \n" +
-      "    LIMIT :l]"
+      "[FIND :q IN ALL FIELDS RETURNING Account WITH DIVISION = :d LIMIT :l]"
     );
     ApexParser.SoslLiteralContext context = parserAndCounter
       .getKey()

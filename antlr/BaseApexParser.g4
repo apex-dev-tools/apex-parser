@@ -704,8 +704,7 @@ conditionalExpression
 
 fieldExpression
     : fieldName comparisonOperator value
-    | soqlFunction comparisonOperator value
-    | boundExpression comparisonOperator value;
+    | soqlFunction comparisonOperator value;
 
 comparisonOperator
     : ASSIGN | NOTEQUAL | LT | GT | LT ASSIGN | GT ASSIGN | LESSANDGREATER | LIKE | IN | NOT IN | INCLUDES | EXCLUDES;
@@ -871,9 +870,9 @@ soslWithClause
     | WITH DATA CATEGORY filteringExpression
     | WITH SNIPPET (LPAREN TARGET_LENGTH ASSIGN IntegerLiteral RPAREN)?
     | WITH NETWORK IN LPAREN networkList RPAREN
-    | WITH NETWORK ASSIGN (StringLiteral | boundExpression)
-    | WITH PRICEBOOKID ASSIGN (StringLiteral | boundExpression)
-    | WITH METADATA ASSIGN (StringLiteral | boundExpression)
+    | WITH NETWORK ASSIGN StringLiteral
+    | WITH PRICEBOOKID ASSIGN StringLiteral
+    | WITH METADATA ASSIGN StringLiteral
     | WITH USER_MODE
     | WITH SYSTEM_MODE
     ;

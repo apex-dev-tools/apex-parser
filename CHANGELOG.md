@@ -3,8 +3,7 @@
 ## 5.1.0-beta.1
 
 - Allow functions in `GROUP BY` clause of SOQL queries
-- Support Apex bind variables (`:expr`) on the left-hand side of SOQL `INCLUDES`/`EXCLUDES` conditions
-- Support Apex bind variables (`:expr`) in SOSL `WITH DIVISION`/`NETWORK`/`PRICEBOOKID`/`METADATA` clauses
+- Support Apex bind variables (`:expr`) in SOSL `WITH DIVISION` clause
 
 ## 5.0.0 - 2026-04-21
 

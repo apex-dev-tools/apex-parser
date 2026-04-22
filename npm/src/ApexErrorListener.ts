@@ -35,14 +35,15 @@ import {
 /**
  * Base `ErrorListener` for Apex parsers.
  *
- * Implement `apexSyntaxError()` to set behaviour.
+ * Implement `apexSyntaxError()` to set behaviour. A single instance can be
+ * attached to both a lexer and a parser - see `ApexParserFactory.createLexerAndParser`.
  */
-export abstract class ApexErrorListener extends ErrorListener<Token> {
+export abstract class ApexErrorListener extends ErrorListener<Token | number> {
   abstract apexSyntaxError(line: number, column: number, msg: string): void;
 
   syntaxError(
-    recognizer: Recognizer<Token>,
-    offendingSymbol: Token,
+    recognizer: Recognizer<Token | number>,
+    offendingSymbol: Token | number,
     line: number,
     column: number,
     msg: string,

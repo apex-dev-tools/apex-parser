@@ -13,23 +13,17 @@
  */
 package io.github.apexdevtools.apexparser;
 
+import io.github.apexdevtools.apexparser.ApexParserFactory.LexerAndParser;
 import java.util.AbstractMap;
 import java.util.Map;
-import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.CharStreams;
 
-public class SyntaxErrorCounter extends BaseErrorListener {
+public class SyntaxErrorCounter extends ApexErrorListener {
 
   private int numErrors = 0;
 
   @Override
-  public void syntaxError(
-    Recognizer<?, ?> recognizer,
-    Object offendingSymbol,
-    int line,
-    int charPositionInLine,
-    String msg,
-    RecognitionException e
-  ) {
+  public void apexSyntaxError(int line, int column, String msg) {
     this.numErrors += 1;
   }
 
@@ -59,5 +53,17 @@ public class SyntaxErrorCounter extends BaseErrorListener {
     parser.addErrorListener(errorCounter);
 
     return new AbstractMap.SimpleEntry<>(parser, errorCounter);
+  }
+
+  public static Map.Entry<
+    LexerAndParser,
+    SyntaxErrorCounter
+  > createLexerAndParser(String input) {
+    SyntaxErrorCounter errorCounter = new SyntaxErrorCounter();
+    LexerAndParser pair = ApexParserFactory.createLexerAndParser(
+      CharStreams.fromString(input),
+      errorCounter
+    );
+    return new AbstractMap.SimpleEntry<>(pair, errorCounter);
   }
 }

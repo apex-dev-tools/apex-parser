@@ -57,4 +57,42 @@ public final class ApexParserFactory {
     lexer.removeErrorListeners();
     return lexer;
   }
+
+  /**
+   * Creates a lexer and parser pair with the given error listener attached to
+   * both. This is the recommended way to capture all syntax errors when parsing
+   * full Apex source - lexer errors (e.g. invalid string escape sequences) are
+   * only reported to listeners attached to the lexer, and parser errors are
+   * only reported to listeners attached to the parser.
+   */
+  public static LexerAndParser createLexerAndParser(
+    CharStream stream,
+    ApexErrorListener errorListener
+  ) {
+    ApexLexer lexer = createLexer(stream);
+    lexer.addErrorListener(errorListener);
+    ApexParser parser = createParser(new CommonTokenStream(lexer));
+    parser.addErrorListener(errorListener);
+    return new LexerAndParser(lexer, parser);
+  }
+
+  /** Holder for a paired {@link ApexLexer} and {@link ApexParser}. */
+  public static final class LexerAndParser {
+
+    private final ApexLexer lexer;
+    private final ApexParser parser;
+
+    LexerAndParser(ApexLexer lexer, ApexParser parser) {
+      this.lexer = lexer;
+      this.parser = parser;
+    }
+
+    public ApexLexer getLexer() {
+      return lexer;
+    }
+
+    public ApexParser getParser() {
+      return parser;
+    }
+  }
 }

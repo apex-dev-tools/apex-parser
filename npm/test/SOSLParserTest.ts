@@ -155,3 +155,18 @@ test("testFormatWithAggregate", () => {
   expect(context).toBeInstanceOf(SoslLiteralContext);
   expect(errorCounter.getNumErrors()).toEqual(0);
 });
+
+test("testBindVarInWithClauses", () => {
+  const [parser, errorCounter] = createParser(
+    `[FIND :q IN ALL FIELDS RETURNING Account
+        WITH DIVISION = :d
+        WITH NETWORK = :n
+        WITH PRICEBOOKID = :p
+        WITH METADATA = :m
+        LIMIT :l]`
+  );
+  const context = parser.soslLiteral();
+
+  expect(context).toBeInstanceOf(SoslLiteralContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});

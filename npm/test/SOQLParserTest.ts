@@ -187,6 +187,16 @@ test("Time Literal", () => {
   expect(errorCounter.getNumErrors()).toEqual(0);
 });
 
+test("BindVarOnIncludesLHS", () => {
+  const [parser, errorCounter] = createParser(
+    "[SELECT Id FROM Account WHERE :A.TYPE INCLUDES ('Customer - Direct; Customer - Channel')]"
+  );
+  const context = parser.soqlLiteral();
+
+  expect(context).toBeInstanceOf(SoqlLiteralContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});
+
 test("rollupWithSoqlFunction", () => {
   const [parser, errorCounter] = createParser(
     `[

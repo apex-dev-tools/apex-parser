@@ -164,4 +164,21 @@ public class SOSLParserTest {
     assertNotNull(context);
     assertEquals(0, parserAndCounter.getValue().getNumErrors());
   }
+
+  @Test
+  void testBindVarInWithClauses() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "[FIND :q IN ALL FIELDS RETURNING Account \n" +
+      "    WITH DIVISION = :d \n" +
+      "    WITH NETWORK = :n \n" +
+      "    WITH PRICEBOOKID = :p \n" +
+      "    WITH METADATA = :m \n" +
+      "    LIMIT :l]"
+    );
+    ApexParser.SoslLiteralContext context = parserAndCounter
+      .getKey()
+      .soslLiteral();
+    assertNotNull(context);
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
 }

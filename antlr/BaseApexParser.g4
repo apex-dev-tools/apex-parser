@@ -341,7 +341,7 @@ whenLiteral
     | (SUB|ADD)* LongLiteral
     | StringLiteral
     | NULL
-    | id
+    | qualifiedName
     // Salesforce tolerates paren pairs around each literal,
     // although this is not explicitly documented.
     | LPAREN whenLiteral RPAREN

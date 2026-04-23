@@ -226,6 +226,20 @@ test("testWhenLiteralParens", () => {
   expect(errorCounter.getNumErrors()).toEqual(0);
 });
 
+test("testWhenQualifiedEnumValue", () => {
+  const [parser, errorCounter] = createParser(`
+      switch on (x) {
+          when MyEnum.A { return 1; }
+          when MyClass.MyEnum.B { return 2; }
+          when MyEnum.C, MyEnum.D { return 3; }
+       }`);
+
+  const context = parser.statement();
+
+  expect(context).toBeInstanceOf(StatementContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});
+
 test("testSoqlModeKeywords", () => {
   const MODES = ["USER_MODE", "SYSTEM_MODE"];
   for (const mode of MODES) {

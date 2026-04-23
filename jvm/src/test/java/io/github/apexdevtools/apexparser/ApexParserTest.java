@@ -223,6 +223,20 @@ public class ApexParserTest {
   }
 
   @Test
+  void testWhenQualifiedEnumValue() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "switch on (x) { \n" +
+      "  when MyEnum.A { return 1; } \n" +
+      "  when MyClass.MyEnum.B { return 2; } \n" +
+      "  when MyEnum.C, MyEnum.D { return 3; } \n" +
+      "}"
+    );
+    ApexParser.StatementContext context = parserAndCounter.getKey().statement();
+    assertNotNull(context);
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
+
+  @Test
   void testWhenLiteralSigns() {
     Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
       "switch on (x) { \n" +

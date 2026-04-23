@@ -3,6 +3,8 @@
 ## 5.1.0-beta.1
 
 - Allow functions in `GROUP BY` clause of SOQL queries
+- Support fully-qualified enum values in switch `when` clauses, e.g. `when MyClass.MyEnum.VALUE`
+  - `whenLiteral` now matches `qualifiedName` in place of `id`, so bare enum values like `when VALUE` now parse as `WhenLiteral > qualifiedName > id` rather than `WhenLiteral > id` (AST shape change for tree-walking consumers)
 
 ## 5.0.0 - 2026-04-21
 

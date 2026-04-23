@@ -45,7 +45,7 @@
     "eslint": "^10.2.1",
     "jest": "^30.3.0",
     "patch-package": "^8.0.1",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.0"
   },
   "engines": {

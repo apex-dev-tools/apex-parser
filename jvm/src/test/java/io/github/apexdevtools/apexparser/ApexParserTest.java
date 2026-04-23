@@ -74,13 +74,15 @@ public class ApexParserTest {
       .expression();
     assertTrue(context instanceof ApexParser.CoalExpressionContext);
 
-    List<ApexParser.ExpressionContext> outer =
-      ((ApexParser.CoalExpressionContext) context).expression();
+    List<ApexParser.ExpressionContext> outer = (
+      (ApexParser.CoalExpressionContext) context
+    ).expression();
     assertEquals(2, outer.size());
 
     assertTrue(outer.get(0) instanceof ApexParser.CoalExpressionContext);
-    List<ApexParser.ExpressionContext> inner =
-      ((ApexParser.CoalExpressionContext) outer.get(0)).expression();
+    List<ApexParser.ExpressionContext> inner = (
+      (ApexParser.CoalExpressionContext) outer.get(0)
+    ).expression();
     assertEquals(2, inner.size());
 
     assertTrue(inner.get(0) instanceof ApexParser.PrimaryExpressionContext);
@@ -99,13 +101,15 @@ public class ApexParserTest {
       .expression();
     assertTrue(context instanceof ApexParser.CoalExpressionContext);
 
-    List<ApexParser.ExpressionContext> outer =
-      ((ApexParser.CoalExpressionContext) context).expression();
+    List<ApexParser.ExpressionContext> outer = (
+      (ApexParser.CoalExpressionContext) context
+    ).expression();
     assertEquals(2, outer.size());
 
     assertTrue(outer.get(0) instanceof ApexParser.CoalExpressionContext);
-    List<ApexParser.ExpressionContext> inner =
-      ((ApexParser.CoalExpressionContext) outer.get(0)).expression();
+    List<ApexParser.ExpressionContext> inner = (
+      (ApexParser.CoalExpressionContext) outer.get(0)
+    ).expression();
     assertEquals(2, inner.size());
 
     assertTrue(inner.get(0) instanceof ApexParser.PrimaryExpressionContext);
@@ -154,10 +158,10 @@ public class ApexParserTest {
   void testClassWithSOQL() {
     Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
       "public class Hello {\n" +
-      "        public void func() {\n" +
-      "            List<Account> accounts = [Select Id from Accounts];\n" +
-      "        }\n" +
-      "    }"
+        "        public void func() {\n" +
+        "            List<Account> accounts = [Select Id from Accounts];\n" +
+        "        }\n" +
+        "    }"
     );
     ApexParser.CompilationUnitContext context = parserAndCounter
       .getKey()
@@ -212,10 +216,10 @@ public class ApexParserTest {
   void testWhenLiteralParens() {
     Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
       "switch on (x) { \n" +
-      "  when 1 { return 1; } \n" +
-      "  when ((2)) { return 2; } \n" +
-      "  when (3), (4) { return 3; } \n" +
-      "}"
+        "  when 1 { return 1; } \n" +
+        "  when ((2)) { return 2; } \n" +
+        "  when (3), (4) { return 3; } \n" +
+        "}"
     );
     ApexParser.StatementContext context = parserAndCounter.getKey().statement();
     assertNotNull(context);
@@ -226,10 +230,10 @@ public class ApexParserTest {
   void testWhenLiteralSigns() {
     Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
       "switch on (x) { \n" +
-      "  when -1 { return 1; } \n" +
-      "  when (+2l) { return 1; } \n" +
-      "  when -+-3 { return 3; } \n" +
-      "}"
+        "  when -1 { return 1; } \n" +
+        "  when (+2l) { return 1; } \n" +
+        "  when -+-3 { return 3; } \n" +
+        "}"
     );
     ApexParser.StatementContext context = parserAndCounter.getKey().statement();
     assertNotNull(context);

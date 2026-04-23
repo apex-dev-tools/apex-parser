@@ -80,8 +80,8 @@ public class Check {
         System.err.println("Error processing: " + dir);
         System.err.println(
           "Requested file extensions '" +
-          String.join(", ", ext) +
-          "' not known."
+            String.join(", ", ext) +
+            "' not known."
         );
         return new CheckResult(1);
       }
@@ -151,14 +151,14 @@ public class Check {
 
       System.out.println(
         "{\"column\":" +
-        column +
-        ",\"line\":" +
-        line +
-        ",\"message\":\"" +
-        msg.replace("\\", "\\\\") +
-        "\",\"path\":\"" +
-        this.path +
-        "\"}"
+          column +
+          ",\"line\":" +
+          line +
+          ",\"message\":\"" +
+          msg.replace("\\", "\\\\") +
+          "\",\"path\":\"" +
+          this.path +
+          "\"}"
       );
     }
 
@@ -215,11 +215,11 @@ public class Check {
     public void reportCount(Path root) {
       System.out.println(
         "Parsed " +
-        this.parsedCount +
-        " '" +
-        this.fileExtension +
-        "' files in: " +
-        root
+          this.parsedCount +
+          " '" +
+          this.fileExtension +
+          "' files in: " +
+          root
       );
     }
 

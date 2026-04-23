@@ -127,15 +127,15 @@ public class SOQLParserTest {
   void testGroupingFunction() {
     Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
       "SELECT\n" +
-      "  OBJ1__c O1,\n" +
-      "  OBJ2__c O2,\n" +
-      "  OBJ3__c O3,\n" +
-      "  SUM(OBJ4__c) O4,\n" +
-      "  GROUPING(OBJ1__c) O1Group,\n" +
-      "  GROUPING(OBJ2__c) O2Group,\n" +
-      "  GROUPING(OBJ3__c) O3Group\n" +
-      "FROM OBJ4__c\n" +
-      "GROUP BY ROLLUP(OBJ1__c, OBJ2__c, OBJ3__c)"
+        "  OBJ1__c O1,\n" +
+        "  OBJ2__c O2,\n" +
+        "  OBJ3__c O3,\n" +
+        "  SUM(OBJ4__c) O4,\n" +
+        "  GROUPING(OBJ1__c) O1Group,\n" +
+        "  GROUPING(OBJ2__c) O2Group,\n" +
+        "  GROUPING(OBJ3__c) O3Group\n" +
+        "FROM OBJ4__c\n" +
+        "GROUP BY ROLLUP(OBJ1__c, OBJ2__c, OBJ3__c)"
     );
     ApexParser.QueryContext context = parserAndCounter.getKey().query();
     assertNotNull(context);
@@ -158,10 +158,10 @@ public class SOQLParserTest {
   void testConvertCurrencyWithFormat() {
     Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
       "[\n" +
-      "SELECT Amount, FORMAT(amount) Amt, convertCurrency(amount) convertedAmount,\n" +
-      "    FORMAT(convertCurrency(amount)) convertedCurrency\n" +
-      "FROM Opportunity where id = '006R00000024gDtIAI'\n" +
-      "]"
+        "SELECT Amount, FORMAT(amount) Amt, convertCurrency(amount) convertedAmount,\n" +
+        "    FORMAT(convertCurrency(amount)) convertedCurrency\n" +
+        "FROM Opportunity where id = '006R00000024gDtIAI'\n" +
+        "]"
     );
     ApexParser.SoqlLiteralContext context = parserAndCounter
       .getKey()
@@ -198,21 +198,21 @@ public class SOQLParserTest {
   void rollupWithSoqlFunction() {
     Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
       "[" +
-      "SELECT\n" +
-      "    ExternalId__c,\n" +
-      "    CALENDAR_YEAR(CustomDateField__c) year,\n" +
-      "    SUM(CustomAmountField__c) amount,\n" +
-      "    COUNT(Id) counter\n" +
-      "FROM CustomObject__c\n" +
-      "GROUP BY ROLLUP(\n" +
-      "    CALENDAR_YEAR(CustomDateField__c),\n" +
-      "    ExternalId__c\n" +
-      ")\n" +
-      "ORDER BY\n" +
-      "    ExternalId__c ASC NULLS FIRST,\n" +
-      "    CALENDAR_YEAR(CustomDateField__c) ASC NULLS LAST\n" +
-      "LIMIT 2000" +
-      "]"
+        "SELECT\n" +
+        "    ExternalId__c,\n" +
+        "    CALENDAR_YEAR(CustomDateField__c) year,\n" +
+        "    SUM(CustomAmountField__c) amount,\n" +
+        "    COUNT(Id) counter\n" +
+        "FROM CustomObject__c\n" +
+        "GROUP BY ROLLUP(\n" +
+        "    CALENDAR_YEAR(CustomDateField__c),\n" +
+        "    ExternalId__c\n" +
+        ")\n" +
+        "ORDER BY\n" +
+        "    ExternalId__c ASC NULLS FIRST,\n" +
+        "    CALENDAR_YEAR(CustomDateField__c) ASC NULLS LAST\n" +
+        "LIMIT 2000" +
+        "]"
     );
     ApexParser.SoqlLiteralContext context = parserAndCounter
       .getKey()

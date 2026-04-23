@@ -122,13 +122,13 @@ public class ApexAnonTest {
   void testCombinedSyntax() {
     Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
       "System.debug('');\n" +
-      "String a;\n" +
-      "a = '';\n" +
-      "public void func() {}\n" +
-      "interface Foo {}\n" +
-      "class FooClass {}\n" +
-      "enum FooEnum {}\n" +
-      "String b {get { return b; } set { b = value; }}\n"
+        "String a;\n" +
+        "a = '';\n" +
+        "public void func() {}\n" +
+        "interface Foo {}\n" +
+        "class FooClass {}\n" +
+        "enum FooEnum {}\n" +
+        "String b {get { return b; } set { b = value; }}\n"
     );
     ApexParser.AnonymousUnitContext context = parserAndCounter
       .getKey()

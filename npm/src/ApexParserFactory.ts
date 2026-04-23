@@ -177,6 +177,8 @@ export class ApexParserBaseListener
  * ApexParseTreeWalker.DEFAULT.walk(listener, parser.compilationUnit());
  */
 export class ApexParseTreeWalker extends ParseTreeWalker {
+  // Preserves the narrower exported type; runtime value is a ParseTreeWalker from antlr4.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   static DEFAULT = super.DEFAULT as ApexParseTreeWalker;
 
   walk<T extends ApexParserListener>(listener: T, t: ApexParseTree): void {

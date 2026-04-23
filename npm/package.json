@@ -39,17 +39,17 @@
     "antlr4": "4.13.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.33.0",
+    "@eslint/js": "^9.39.4",
     "@types/jest": "^30.0.0",
-    "@types/node": "^22.17.1",
-    "eslint": "^9.33.0",
-    "jest": "^30.0.5",
-    "patch-package": "^8.0.0",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.39.1"
+    "@types/node": "^22.19.17",
+    "eslint": "^9.39.4",
+    "jest": "^30.3.0",
+    "patch-package": "^8.0.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.59.0"
   },
   "engines": {
-    "node": ">=20.19.0 || >=22.12.0"
+    "node": "^20.19.0 || ^22.13.0 || >=24"
   },
   "exports": {
     ".": "./dist/src/index.js",

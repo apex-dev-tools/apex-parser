@@ -164,4 +164,16 @@ public class SOSLParserTest {
     assertNotNull(context);
     assertEquals(0, parserAndCounter.getValue().getNumErrors());
   }
+
+  @Test
+  void testBindVarInDivisionClause() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "[FIND :q IN ALL FIELDS RETURNING Account WITH DIVISION = :d LIMIT :l]"
+    );
+    ApexParser.SoslLiteralContext context = parserAndCounter
+      .getKey()
+      .soslLiteral();
+    assertNotNull(context);
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
 }

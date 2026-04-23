@@ -155,3 +155,13 @@ test("testFormatWithAggregate", () => {
   expect(context).toBeInstanceOf(SoslLiteralContext);
   expect(errorCounter.getNumErrors()).toEqual(0);
 });
+
+test("testBindVarInDivisionClause", () => {
+  const [parser, errorCounter] = createParser(
+    "[FIND :q IN ALL FIELDS RETURNING Account WITH DIVISION = :d LIMIT :l]"
+  );
+  const context = parser.soslLiteral();
+
+  expect(context).toBeInstanceOf(SoslLiteralContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});

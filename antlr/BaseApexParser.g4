@@ -866,7 +866,7 @@ soslClauses
     ;
 
 soslWithClause
-    : WITH DIVISION ASSIGN StringLiteral
+    : WITH DIVISION ASSIGN (StringLiteral | boundExpression)
     | WITH DATA CATEGORY filteringExpression
     | WITH SNIPPET (LPAREN TARGET_LENGTH ASSIGN IntegerLiteral RPAREN)?
     | WITH NETWORK IN LPAREN networkList RPAREN

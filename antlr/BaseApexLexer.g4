@@ -325,6 +325,17 @@ BooleanLiteral
 
 // §3.10.5 String Literals
 
+// Multi-line strings (Salesforce Summer '26).
+// Body must start on a new line after the opening '''. The first newline is
+// part of the token but conventionally stripped at runtime by the platform.
+// Declared before StringLiteral so longest-match prefers '''...''' over the
+// degenerate ''+'...'+'' fallback when a newline follows the opening.
+// Backslashes must form a valid EscapeSequence (matching StringLiteral
+// semantics — '\q' is rejected in both single- and triple-quoted forms).
+MultilineStringLiteral
+    :   '\'\'\'' [\r\n] ( EscapeSequence | '\'' | ~['\\] )*? '\'\'\''
+    ;
+
 StringLiteral
     :   '\'' StringCharacters? '\''
     ;

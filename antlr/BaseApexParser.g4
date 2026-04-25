@@ -252,6 +252,7 @@ literal
     | LongLiteral
     | NumberLiteral
     | StringLiteral
+    | MultilineStringLiteral
     | BooleanLiteral
     | NULL
     ;
@@ -340,6 +341,7 @@ whenLiteral
     : (SUB|ADD)* IntegerLiteral
     | (SUB|ADD)* LongLiteral
     | StringLiteral
+    | MultilineStringLiteral
     | NULL
     | qualifiedName
     // Salesforce tolerates paren pairs around each literal,
@@ -654,7 +656,7 @@ soqlFunction
     | WEEK_IN_MONTH LPAREN dateFieldName RPAREN
     | WEEK_IN_YEAR LPAREN dateFieldName RPAREN
     | FIELDS LPAREN soqlFieldsParameter RPAREN
-    | DISTANCE LPAREN locationValue COMMA locationValue COMMA StringLiteral RPAREN
+    | DISTANCE LPAREN locationValue COMMA locationValue COMMA (StringLiteral | MultilineStringLiteral) RPAREN
     | GROUPING LPAREN fieldName RPAREN
     | CONVERT_CURRENCY LPAREN fieldName RPAREN
     ;
@@ -714,6 +716,7 @@ value
     | BooleanLiteral
     | signedNumber
     | StringLiteral
+    | MultilineStringLiteral
     | DateLiteral
     | TimeLiteral
     | DateTimeLiteral
@@ -866,13 +869,13 @@ soslClauses
     ;
 
 soslWithClause
-    : WITH DIVISION ASSIGN (StringLiteral | boundExpression)
+    : WITH DIVISION ASSIGN (StringLiteral | MultilineStringLiteral | boundExpression)
     | WITH DATA CATEGORY filteringExpression
     | WITH SNIPPET (LPAREN TARGET_LENGTH ASSIGN IntegerLiteral RPAREN)?
     | WITH NETWORK IN LPAREN networkList RPAREN
-    | WITH NETWORK ASSIGN StringLiteral
-    | WITH PRICEBOOKID ASSIGN StringLiteral
-    | WITH METADATA ASSIGN StringLiteral
+    | WITH NETWORK ASSIGN (StringLiteral | MultilineStringLiteral)
+    | WITH PRICEBOOKID ASSIGN (StringLiteral | MultilineStringLiteral)
+    | WITH METADATA ASSIGN (StringLiteral | MultilineStringLiteral)
     | WITH USER_MODE
     | WITH SYSTEM_MODE
     ;
@@ -910,7 +913,7 @@ updateType
     : TRACKING | VIEWSTAT;
 
 networkList
-    : StringLiteral (COMMA networkList)?
+    : (StringLiteral | MultilineStringLiteral) (COMMA networkList)?
     ;
 
 soslId

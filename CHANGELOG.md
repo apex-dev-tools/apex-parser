@@ -6,6 +6,9 @@
 - Support Apex bind variables (`:expr`) in SOSL `WITH DIVISION` clause
 - Support fully-qualified enum values in switch `when` clauses, e.g. `when MyClass.MyEnum.VALUE`
   - `whenLiteral` now matches `qualifiedName` in place of `id`, so bare enum values like `when VALUE` now parse as `WhenLiteral > qualifiedName > id` rather than `WhenLiteral > id` (AST shape change for tree-walking consumers)
+- Support multi-line string literals (Salesforce Summer '26), e.g. `String json = '''<NL>{...}<NL>''';`
+  - New `MultilineStringLiteral` token, accepted alongside `StringLiteral` in literal/SOQL/SOSL contexts.
+  - Body must start on a new line after the opening `'''`, matching platform behaviour. Malformed forms like `'''abc'''` continue to lex as legacy `StringLiteral` tokens (`''`, `'abc'`, `''`); apex-ls consumes this pattern to surface a targeted diagnostic (apex-ls#443).
 
 ## 5.0.0 - 2026-04-21
 

@@ -166,3 +166,10 @@ test("Multi-line string: unterminated literal produces a lexer error", () => {
   const { errors } = lex("'''\nnever closed");
   expect(errors).toBeGreaterThan(0);
 });
+
+test("Multi-line string: invalid backslash escape produces a lexer error", () => {
+  // Apex platform rejects '\q' in both single- and triple-quoted strings.
+  // A bare backslash in the body must form a valid EscapeSequence.
+  const { errors } = lex("'''\ninvalid \\q here\n'''");
+  expect(errors).toBeGreaterThan(0);
+});

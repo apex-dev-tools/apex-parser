@@ -208,4 +208,16 @@ public class ApexLexerTest {
     tokens.fill();
     assertTrue(lc.getValue().getNumErrors() > 0);
   }
+
+  @Test
+  void testMultilineStringInvalidEscape() {
+    // Apex platform rejects '\q' in both single- and triple-quoted strings.
+    // A bare backslash in the body must form a valid EscapeSequence.
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lc = createLexer(
+      "'''\ninvalid \\q here\n'''"
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lc.getKey());
+    tokens.fill();
+    assertTrue(lc.getValue().getNumErrors() > 0);
+  }
 }

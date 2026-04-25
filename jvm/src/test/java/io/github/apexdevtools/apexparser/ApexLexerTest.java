@@ -98,4 +98,114 @@ public class ApexLexerTest {
     pairAndCounter.getKey().getParser().compilationUnit();
     assertTrue(pairAndCounter.getValue().getNumErrors() > 0);
   }
+
+  // Salesforce Summer '26 multi-line string literals: '''<NL>...'''
+
+  @Test
+  void testMultilineStringBasic() {
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lc = createLexer(
+      "'''\nhello\nworld'''"
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lc.getKey());
+    tokens.fill();
+    assertEquals(0, lc.getValue().getNumErrors());
+    assertEquals(2, tokens.getNumberOfOnChannelTokens());
+    assertEquals(ApexLexer.MultilineStringLiteral, tokens.get(0).getType());
+  }
+
+  @Test
+  void testMultilineStringClosingOnOwnLine() {
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lc = createLexer(
+      "'''\nhello\n'''"
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lc.getKey());
+    tokens.fill();
+    assertEquals(0, lc.getValue().getNumErrors());
+    assertEquals(ApexLexer.MultilineStringLiteral, tokens.get(0).getType());
+  }
+
+  @Test
+  void testMultilineStringEmptyBody() {
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lc = createLexer("'''\n'''");
+    CommonTokenStream tokens = new CommonTokenStream(lc.getKey());
+    tokens.fill();
+    assertEquals(0, lc.getValue().getNumErrors());
+    assertEquals(ApexLexer.MultilineStringLiteral, tokens.get(0).getType());
+  }
+
+  @Test
+  void testMultilineStringInternalQuotes() {
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lc = createLexer(
+      "'''\nit's a 'test' with ''two'' quotes\nend'''"
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lc.getKey());
+    tokens.fill();
+    assertEquals(0, lc.getValue().getNumErrors());
+    assertEquals(ApexLexer.MultilineStringLiteral, tokens.get(0).getType());
+  }
+
+  @Test
+  void testMultilineStringEscapeSequences() {
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lc = createLexer(
+      "'''\nescaped: \\'\\'\\'\nend'''"
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lc.getKey());
+    tokens.fill();
+    assertEquals(0, lc.getValue().getNumErrors());
+    assertEquals(ApexLexer.MultilineStringLiteral, tokens.get(0).getType());
+  }
+
+  @Test
+  void testMultilineStringLineTracking() {
+    // Token after a 3-line literal should report line 4.
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lc = createLexer(
+      "'''\nhello\nworld\n''' x"
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lc.getKey());
+    tokens.fill();
+    assertEquals(0, lc.getValue().getNumErrors());
+    Token last = tokens.get(tokens.size() - 2); // skip EOF
+    assertEquals("x", last.getText());
+    assertEquals(4, last.getLine());
+  }
+
+  @Test
+  void testMultilineStringFallbackWhenNewlineMissing() {
+    // ''' without a following newline must NOT be lexed as a multi-line literal.
+    // ANTLR falls back to legacy: '' 'abc' ''. apex-ls relies on this pattern
+    // (apex-ls#443) to surface a targeted "did you mean a multi-line string?" diagnostic.
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lc = createLexer("'''abc'''");
+    CommonTokenStream tokens = new CommonTokenStream(lc.getKey());
+    tokens.fill();
+    assertEquals(0, lc.getValue().getNumErrors());
+    assertEquals(4, tokens.size()); // '', 'abc', '', EOF
+    assertEquals(ApexLexer.StringLiteral, tokens.get(0).getType());
+    assertEquals("''", tokens.get(0).getText());
+    assertEquals(ApexLexer.StringLiteral, tokens.get(1).getType());
+    assertEquals("'abc'", tokens.get(1).getText());
+    assertEquals(ApexLexer.StringLiteral, tokens.get(2).getType());
+    assertEquals("''", tokens.get(2).getText());
+  }
+
+  @Test
+  void testMultilineStringSixQuoteFallback() {
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lc = createLexer("''''''");
+    CommonTokenStream tokens = new CommonTokenStream(lc.getKey());
+    tokens.fill();
+    assertEquals(0, lc.getValue().getNumErrors());
+    assertEquals(4, tokens.size()); // '', '', '', EOF
+    assertEquals(ApexLexer.StringLiteral, tokens.get(0).getType());
+    assertEquals(ApexLexer.StringLiteral, tokens.get(1).getType());
+    assertEquals(ApexLexer.StringLiteral, tokens.get(2).getType());
+  }
+
+  @Test
+  void testMultilineStringUnterminated() {
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lc = createLexer(
+      "'''\nnever closed"
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lc.getKey());
+    tokens.fill();
+    assertTrue(lc.getValue().getNumErrors() > 0);
+  }
 }

@@ -285,3 +285,39 @@ test("testDoWhileWithoutBlockFails", () => {
   expect(context).toBeInstanceOf(CompilationUnitContext);
   expect(errorCounter.getNumErrors()).toEqual(3);
 });
+
+// Salesforce Summer '26 multi-line string literals.
+
+test("Multiline String Literal", () => {
+  const [parser, errorCounter] = createParser("'''\nhello\nworld\n'''");
+  const context = parser.literal();
+
+  expect(errorCounter.getNumErrors()).toEqual(0);
+  expect(context).toBeInstanceOf(LiteralContext);
+  expect(context.MultilineStringLiteral()).toBeTruthy();
+  expect(context.MultilineStringLiteral().getText()).toBe(
+    "'''\nhello\nworld\n'''"
+  );
+});
+
+test("Multiline String Literal in class body", () => {
+  const [parser, errorCounter] = createParser(
+    "public class Hello { String s = '''\n{\n  \"name\": \"John\"\n}'''; }"
+  );
+
+  const context = parser.compilationUnit();
+
+  expect(context).toBeInstanceOf(CompilationUnitContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});
+
+test("Multiline String Literal in concatenation", () => {
+  const [parser, errorCounter] = createParser(
+    "public class Hello {{ String s = '''\nab''' + ' middle ' + '''\ncd'''; }}"
+  );
+
+  const context = parser.compilationUnit();
+
+  expect(context).toBeInstanceOf(CompilationUnitContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});

@@ -80,3 +80,89 @@ test("Lexer error is captured via createLexerAndParser", () => {
   parser.compilationUnit();
   expect(errorCounter.getNumErrors()).toBeGreaterThan(0);
 });
+
+// Salesforce Summer '26 multi-line string literals: '''<NL>...'''
+// Body must start on a new line after the opening triple quote.
+
+function lex(input: string): { tokens: CommonTokenStream; errors: number } {
+  const [lexer, errorCounter] = createLexer(input);
+  const tokens = new CommonTokenStream(lexer);
+  tokens.fill();
+  return { tokens, errors: errorCounter.getNumErrors() };
+}
+
+test("Multi-line string: basic body, closing on same line", () => {
+  const { tokens, errors } = lex("'''\nhello\nworld'''");
+  expect(errors).toEqual(0);
+  // 1 MultilineStringLiteral + EOF
+  expect((tokens as ExtCommonTokenStream).getNumberOfOnChannelTokens()).toBe(2);
+  expect(tokens.tokens[0].type).toBe(ApexLexer.MultilineStringLiteral);
+});
+
+test("Multi-line string: closing on its own line", () => {
+  const { tokens, errors } = lex("'''\nhello\n'''");
+  expect(errors).toEqual(0);
+  expect(tokens.tokens[0].type).toBe(ApexLexer.MultilineStringLiteral);
+});
+
+test("Multi-line string: empty body", () => {
+  const { tokens, errors } = lex("'''\n'''");
+  expect(errors).toEqual(0);
+  expect(tokens.tokens[0].type).toBe(ApexLexer.MultilineStringLiteral);
+});
+
+test("Multi-line string: single and paired quotes inside body are allowed", () => {
+  const { tokens, errors } = lex(
+    "'''\nit's a 'test' with ''two'' quotes\nend'''"
+  );
+  expect(errors).toEqual(0);
+  expect(tokens.tokens[0].type).toBe(ApexLexer.MultilineStringLiteral);
+});
+
+test("Multi-line string: escape sequences are honoured", () => {
+  // \\'\\'\\' would terminate; \' \' \' should be three escaped quotes.
+  const { tokens, errors } = lex("'''\nescaped: \\'\\'\\'\nend'''");
+  expect(errors).toEqual(0);
+  expect(tokens.tokens[0].type).toBe(ApexLexer.MultilineStringLiteral);
+});
+
+test("Multi-line string: line/column tracking continues after the literal", () => {
+  // Token after a 3-line literal should report line 4.
+  const { tokens, errors } = lex("'''\nhello\nworld\n''' x");
+  expect(errors).toEqual(0);
+  const last = tokens.tokens[tokens.tokens.length - 2]; // skip EOF
+  expect(last.text).toBe("x");
+  expect(last.line).toBe(4);
+});
+
+test("Multi-line string: fallback when newline missing — '''abc''' lexes as 3 string literals", () => {
+  // ''' without a following newline must NOT be lexed as a multi-line literal.
+  // ANTLR falls back to legacy: '' 'abc' ''. apex-ls relies on this pattern
+  // (apex-ls#443) to surface a targeted "did you mean a multi-line string?" diagnostic.
+  const { tokens, errors } = lex("'''abc'''");
+  expect(errors).toEqual(0);
+  expect(tokens.tokens.length).toBe(4); // '', 'abc', '', EOF
+  expect(tokens.tokens[0].type).toBe(ApexLexer.StringLiteral);
+  expect(tokens.tokens[0].text).toBe("''");
+  expect(tokens.tokens[1].type).toBe(ApexLexer.StringLiteral);
+  expect(tokens.tokens[1].text).toBe("'abc'");
+  expect(tokens.tokens[2].type).toBe(ApexLexer.StringLiteral);
+  expect(tokens.tokens[2].text).toBe("''");
+});
+
+test("Multi-line string: six-quote sequence falls back to three empty string literals", () => {
+  const { tokens, errors } = lex("''''''");
+  expect(errors).toEqual(0);
+  expect(tokens.tokens.length).toBe(4); // '', '', '', EOF
+  expect(tokens.tokens[0].type).toBe(ApexLexer.StringLiteral);
+  expect(tokens.tokens[0].text).toBe("''");
+  expect(tokens.tokens[1].type).toBe(ApexLexer.StringLiteral);
+  expect(tokens.tokens[1].text).toBe("''");
+  expect(tokens.tokens[2].type).toBe(ApexLexer.StringLiteral);
+  expect(tokens.tokens[2].text).toBe("''");
+});
+
+test("Multi-line string: unterminated literal produces a lexer error", () => {
+  const { errors } = lex("'''\nnever closed");
+  expect(errors).toBeGreaterThan(0);
+});

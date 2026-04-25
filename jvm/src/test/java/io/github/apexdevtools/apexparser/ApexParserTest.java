@@ -230,10 +230,10 @@ public class ApexParserTest {
   void testWhenQualifiedEnumValue() {
     Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
       "switch on (x) { \n" +
-      "  when MyEnum.A { return 1; } \n" +
-      "  when MyClass.MyEnum.B { return 2; } \n" +
-      "  when MyEnum.C, MyEnum.D { return 3; } \n" +
-      "}"
+        "  when MyEnum.A { return 1; } \n" +
+        "  when MyClass.MyEnum.B { return 2; } \n" +
+        "  when MyEnum.C, MyEnum.D { return 3; } \n" +
+        "}"
     );
     ApexParser.StatementContext context = parserAndCounter.getKey().statement();
     assertNotNull(context);
@@ -304,5 +304,46 @@ public class ApexParserTest {
       .compilationUnit();
     assertNotNull(context);
     assertEquals(3, parserAndCounter.getValue().getNumErrors());
+  }
+
+  // Salesforce Summer '26 multi-line string literals.
+
+  @Test
+  void testMultilineStringLiteral() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "'''\nhello\nworld\n'''"
+    );
+    ApexParser.LiteralContext context = parserAndCounter.getKey().literal();
+    assertNotNull(context);
+    assertNotNull(context.MultilineStringLiteral());
+    assertEquals(
+      "'''\nhello\nworld\n'''",
+      context.MultilineStringLiteral().getText()
+    );
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
+
+  @Test
+  void testMultilineStringInClassBody() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "public class Hello { String s = '''\n{\n  \"name\": \"John\"\n}'''; }"
+    );
+    ApexParser.CompilationUnitContext context = parserAndCounter
+      .getKey()
+      .compilationUnit();
+    assertNotNull(context);
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
+
+  @Test
+  void testMultilineStringInConcatenation() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "public class Hello {{ String s = '''\nab''' + ' middle ' + '''\ncd'''; }}"
+    );
+    ApexParser.CompilationUnitContext context = parserAndCounter
+      .getKey()
+      .compilationUnit();
+    assertNotNull(context);
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
   }
 }

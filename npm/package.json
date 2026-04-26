@@ -17,7 +17,7 @@
     "antlr": "mvn exec:exec",
     "build": "npm run clean && npm run antlr && tsc",
     "build:test": "npm run build && npm test",
-    "check": "node -e 'require(\"./dist/src/index.js\").check()'",
+    "check": "node -e 'import(\"./dist/src/index.js\").then(m => m.check())'",
     "clean": "rm -rf dist",
     "init": "npm ci && npm run antlr",
     "lint": "eslint --cache --cache-location .eslintcache ./src --fix",

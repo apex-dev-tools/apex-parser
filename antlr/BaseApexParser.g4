@@ -706,7 +706,8 @@ conditionalExpression
 
 fieldExpression
     : fieldName comparisonOperator value
-    | soqlFunction comparisonOperator value;
+    | soqlFunction comparisonOperator value
+    | FORMULA LPAREN StringLiteral RPAREN comparisonOperator value;
 
 comparisonOperator
     : ASSIGN | NOTEQUAL | LT | GT | LT ASSIGN | GT ASSIGN | LESSANDGREATER | LIKE | IN | NOT IN | INCLUDES | EXCLUDES;
@@ -1002,6 +1003,7 @@ id
     | DISTANCE
     | GEOLOCATION
     | GROUPING
+    | FORMULA
     | CONVERT_CURRENCY
     // SOQL date functions
     | CALENDAR_MONTH
@@ -1202,6 +1204,7 @@ anyId
     | DISTANCE
     | GEOLOCATION
     | GROUPING
+    | FORMULA
     | CONVERT_CURRENCY
     // SOQL date functions
     | CALENDAR_MONTH

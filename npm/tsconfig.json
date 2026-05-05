@@ -3,11 +3,10 @@
     "target": "es2022",
     "module": "node20",
     "moduleResolution": "node16",
-    "outDir": "./dist",
     "sourceMap": true,
-    "declaration": true,
     "strict": true,
     "allowJs": true,
+    "noEmit": true,
     "types": ["node", "jest"]
   },
   "include": [

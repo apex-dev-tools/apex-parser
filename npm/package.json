@@ -10,14 +10,18 @@
     "url": "git+https://github.com/apex-dev-tools/apex-parser.git"
   },
   "license": "BSD-3-Clause",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "browser": "./dist/browser/apex-parser.mjs",
   "type": "module",
   "scripts": {
     "antlr": "mvn exec:exec",
-    "build": "npm run clean && npm run antlr && tsc",
-    "build:test": "npm run build && npm test",
-    "check": "node -e 'import(\"./dist/src/index.js\").then(m => m.check())'",
+    "build": "npm run clean && npm run antlr && npm run build:bundle && npm run build:types",
+    "build:bundle": "rollup -c",
+    "build:types": "tsc -p tsconfig.declarations.json && node scripts/copy-dcts.mjs",
+    "build:test": "npm run build && tsc -p tsconfig.test.json && npm test",
+    "check": "node -e 'import(\"./dist/esm/index.js\").then(m => m.check())'",
     "clean": "rm -rf dist",
     "init": "npm ci && npm run antlr",
     "lint": "eslint --cache --cache-location .eslintcache ./src --fix",
@@ -28,7 +32,10 @@
     "test:snapshot": "npm run test:samples -- --updateSnapshot"
   },
   "files": [
-    "dist/src",
+    "dist/esm",
+    "dist/cjs",
+    "dist/browser",
+    "dist/types",
     "patches",
     "CHANGELOG.md"
   ],
@@ -40,11 +47,14 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.19.17",
     "eslint": "^10.2.1",
     "jest": "^30.3.0",
     "patch-package": "^8.0.1",
+    "rollup": "^4.60.3",
+    "rollup-plugin-esbuild": "^6.2.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.0"
   },
@@ -52,11 +62,69 @@
     "node": "^20.19.0 || ^22.13.0 || >=24"
   },
   "exports": {
-    ".": "./dist/src/index.js",
-    "./antlr/*": "./dist/src/antlr/*.js",
-    "./ApexErrorListener": "./dist/src/ApexErrorListener.js",
-    "./ApexParserFactory": "./dist/src/ApexParserFactory.js",
-    "./CaseInsensitiveInputStream": "./dist/src/CaseInsensitiveInputStream.js",
-    "./Check": "./dist/src/Check.js"
+    ".": {
+      "browser": {
+        "types": "./dist/types/index.browser.d.ts",
+        "default": "./dist/browser/apex-parser.mjs"
+      },
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    },
+    "./antlr/*": {
+      "import": {
+        "types": "./dist/types/antlr/*.d.ts",
+        "default": "./dist/esm/antlr/*.js"
+      },
+      "require": {
+        "types": "./dist/types/antlr/*.d.cts",
+        "default": "./dist/cjs/antlr/*.cjs"
+      }
+    },
+    "./ApexErrorListener": {
+      "import": {
+        "types": "./dist/types/ApexErrorListener.d.ts",
+        "default": "./dist/esm/ApexErrorListener.js"
+      },
+      "require": {
+        "types": "./dist/types/ApexErrorListener.d.cts",
+        "default": "./dist/cjs/ApexErrorListener.cjs"
+      }
+    },
+    "./ApexParserFactory": {
+      "import": {
+        "types": "./dist/types/ApexParserFactory.d.ts",
+        "default": "./dist/esm/ApexParserFactory.js"
+      },
+      "require": {
+        "types": "./dist/types/ApexParserFactory.d.cts",
+        "default": "./dist/cjs/ApexParserFactory.cjs"
+      }
+    },
+    "./CaseInsensitiveInputStream": {
+      "import": {
+        "types": "./dist/types/CaseInsensitiveInputStream.d.ts",
+        "default": "./dist/esm/CaseInsensitiveInputStream.js"
+      },
+      "require": {
+        "types": "./dist/types/CaseInsensitiveInputStream.d.cts",
+        "default": "./dist/cjs/CaseInsensitiveInputStream.cjs"
+      }
+    },
+    "./Check": {
+      "import": {
+        "types": "./dist/types/Check.d.ts",
+        "default": "./dist/esm/Check.js"
+      },
+      "require": {
+        "types": "./dist/types/Check.d.cts",
+        "default": "./dist/cjs/Check.cjs"
+      }
+    }
   }
 }

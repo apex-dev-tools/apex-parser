@@ -10,6 +10,7 @@
   - New `MultilineStringLiteral` token, accepted alongside `StringLiteral` in literal/SOQL/SOSL contexts.
   - Body must start on a new line after the opening `'''`, matching platform behaviour. Malformed forms like `'''abc'''` continue to lex as legacy `StringLiteral` tokens (`''`, `'abc'`, `''`); apex-ls consumes this pattern to surface a targeted diagnostic (apex-ls#443).
 - Fix `npm run check` failing with `ERR_REQUIRE_ESM` on Node 20+ by switching the script from `require()` to dynamic `import()` (the package is `"type": "module"`).
+- Update npm package build output to publish separate ESM, CommonJS, browser, and TypeScript declaration artifacts through the package `exports` map.
 
 ## 5.0.0 - 2026-04-21
 

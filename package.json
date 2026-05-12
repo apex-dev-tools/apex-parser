@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run build:npm && npm run build:jvm",
     "build:jvm": "mvn package -f jvm",
-    "build:npm": "npm run --prefix npm build:test",
+    "build:npm": "npm --prefix npm ci && npm run --prefix npm build:test",
     "prepare": "husky",
     "init": "npm ci && npm run init:npm && npm run init:jvm",
     "init:jvm": "mvn exec:exec -f jvm",

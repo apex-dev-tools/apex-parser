@@ -1,6 +1,6 @@
 # apex-parser
 
-Parser for Salesforce Apex (including Triggers & inline SOQL/SOQL). This is based on an [ANTLR4](https://www.antlr.org/) grammar, see [`antlr/BaseApexParser.g4`](./antlr/BaseApexParser.g4). Currently packaged for Java and JavaScript/TypeScript targets.
+Parser for Salesforce Apex (including triggers and inline SOQL/SOSL). This is based on an [ANTLR4](https://www.antlr.org/) grammar, see [`antlr/BaseApexParser.g4`](./antlr/BaseApexParser.g4). Currently packaged for Java and JavaScript/TypeScript targets.
 
 The packages include ANTLR4 generated types plus optional extras for convenience. The TypeScript package exports type aliases for ANTLR types, while both packages have abstractions like `ApexParserFactory` and `ApexErrorListener`. There are minimal examples below and in the test classes.
 
@@ -19,9 +19,29 @@ The packages include ANTLR4 generated types plus optional extras for convenience
 ### NPM
 
 ```sh
-# Optionally install `antlr4` to use runtime types
 npm i @apexdevtools/apex-parser
 ```
+
+The npm package ships multiple JavaScript outputs:
+
+- ESM for modern Node and bundlers, selected by `import`.
+- CommonJS for `require`.
+- A browser ESM bundle, selected by browser-aware bundlers.
+- TypeScript declarations for the root package and exported subpaths.
+
+These are exposed through the package `exports` map, so most consumers should import from the package name rather than from `dist` paths:
+
+```typescript
+import { ApexParserFactory } from "@apexdevtools/apex-parser";
+```
+
+CommonJS consumers can use `require`:
+
+```javascript
+const { ApexParserFactory } = require("@apexdevtools/apex-parser");
+```
+
+The browser bundle includes the parser APIs, but excludes Node-only file checking helpers such as `check` and `checkProject`.
 
 ## Usage
 
@@ -35,7 +55,12 @@ npm i @apexdevtools/apex-parser
 ### Explore Parse Tree (TypeScript)
 
 ```typescript
-import { ApexParserFactory, ApexParserBaseVisitor } from "@apexdevtools/apex-parser";
+import {
+  ApexParserBaseListener,
+  ApexParserBaseVisitor,
+  ApexParseTreeWalker,
+  ApexParserFactory,
+} from "@apexdevtools/apex-parser";
 
 const parser = ApexParserFactory.createParser("public class Hello {}");
 
@@ -99,7 +124,7 @@ To parse the API format there is an alternative parser rule, `soslLiteralAlt`, t
 
 - JDK 11+ (for ANTLR tool)
 - Maven
-- NodeJS LTS
+- Node.js ^20.19.0, ^22.13.0, or >=24
 
 ### Building
 

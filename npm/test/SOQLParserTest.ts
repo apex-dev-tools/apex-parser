@@ -211,3 +211,36 @@ test("rollupWithSoqlFunction", () => {
   expect(context).toBeInstanceOf(SoqlLiteralContext);
   expect(errorCounter.getNumErrors()).toEqual(0);
 });
+
+test("testFormulaFunction", () => {
+  const [parser, errorCounter] = createParser(
+    "SELECT Id FROM Account WHERE FORMULA('EndDate - StartDate') > 10"
+  );
+
+  const context = parser.query();
+
+  expect(context).toBeInstanceOf(QueryContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});
+
+test("testFormulaFunctionWithStringComparison", () => {
+  const [parser, errorCounter] = createParser(
+    "SELECT Id FROM Account WHERE FORMULA('TRIM(name, 4)') = 'Acme'"
+  );
+
+  const context = parser.query();
+
+  expect(context).toBeInstanceOf(QueryContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});
+
+test("testFormulaFunctionWithEscapedQuotes", () => {
+  const [parser, errorCounter] = createParser(
+    "SELECT Id FROM Contact WHERE FORMULA('FirstName & \" O\\'Brian\"') = 'Colleen O\\'Brian'"
+  );
+
+  const context = parser.query();
+
+  expect(context).toBeInstanceOf(QueryContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});

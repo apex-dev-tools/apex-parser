@@ -220,4 +220,34 @@ public class SOQLParserTest {
     assertNotNull(context);
     assertEquals(0, parserAndCounter.getValue().getNumErrors());
   }
+
+  @Test
+  void testFormulaFunction() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "SELECT Id FROM Account WHERE FORMULA('EndDate - StartDate') > 10"
+    );
+    ApexParser.QueryContext context = parserAndCounter.getKey().query();
+    assertNotNull(context);
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
+
+  @Test
+  void testFormulaFunctionWithStringComparison() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "SELECT Id FROM Account WHERE FORMULA('TRIM(name, 4)') = 'Acme'"
+    );
+    ApexParser.QueryContext context = parserAndCounter.getKey().query();
+    assertNotNull(context);
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
+
+  @Test
+  void testFormulaFunctionWithEscapedQuotes() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "SELECT Id FROM Contact WHERE FORMULA('FirstName & \" O\\'Brian\"') = 'Colleen O\\'Brian'"
+    );
+    ApexParser.QueryContext context = parserAndCounter.getKey().query();
+    assertNotNull(context);
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
 }

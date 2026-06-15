@@ -169,6 +169,7 @@ DISTANCE        : 'distance';
 GEOLOCATION     : 'geolocation';
 GROUPING        : 'grouping';
 CONVERT_CURRENCY : 'convertcurrency'; // used in both SOQL and SOSL
+FORMULA          : 'formula';
 
 // SOQL Date functions
 CALENDAR_MONTH      : 'calendar_month';

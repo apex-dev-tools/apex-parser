@@ -693,7 +693,20 @@ usingScope
     : USING SCOPE soqlId;
 
 whereClause
-    : WHERE logicalExpression;
+    : WHERE whereLogicalExpression;
+
+whereLogicalExpression
+    : whereConditionalExpression (SOQLAND whereConditionalExpression)*
+    | whereConditionalExpression (SOQLOR whereConditionalExpression)*
+    | NOT whereConditionalExpression;
+
+whereConditionalExpression
+    : LPAREN whereLogicalExpression RPAREN
+    | whereFieldExpression;
+
+whereFieldExpression
+    : fieldExpression
+    | FORMULA LPAREN StringLiteral RPAREN comparisonOperator value;
 
 logicalExpression
     : conditionalExpression (SOQLAND conditionalExpression)*
@@ -706,8 +719,7 @@ conditionalExpression
 
 fieldExpression
     : fieldName comparisonOperator value
-    | soqlFunction comparisonOperator value
-    | FORMULA LPAREN StringLiteral RPAREN comparisonOperator value;
+    | soqlFunction comparisonOperator value;
 
 comparisonOperator
     : ASSIGN | NOTEQUAL | LT | GT | LT ASSIGN | GT ASSIGN | LESSANDGREATER | LIKE | IN | NOT IN | INCLUDES | EXCLUDES;

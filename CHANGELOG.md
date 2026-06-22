@@ -1,5 +1,9 @@
 # apex-parser - Changelog
 
+## Unreleased
+
+- Restrict SOQL `FORMULA()` expressions to `WHERE` clauses; `HAVING FORMULA(...)` now reports a syntax error.
+
 ## 5.1.0-beta.1
 
 - Allow functions in `GROUP BY` clause of SOQL queries

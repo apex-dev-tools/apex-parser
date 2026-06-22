@@ -250,4 +250,14 @@ public class SOQLParserTest {
     assertNotNull(context);
     assertEquals(0, parserAndCounter.getValue().getNumErrors());
   }
+
+  @Test
+  void testFormulaFunctionNotAllowedInHaving() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "SELECT Name FROM Account GROUP BY Name HAVING FORMULA('1+1') = 2"
+    );
+    ApexParser.QueryContext context = parserAndCounter.getKey().query();
+    assertNotNull(context);
+    assertTrue(parserAndCounter.getValue().getNumErrors() > 0);
+  }
 }

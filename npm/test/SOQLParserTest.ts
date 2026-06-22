@@ -244,3 +244,14 @@ test("testFormulaFunctionWithEscapedQuotes", () => {
   expect(context).toBeInstanceOf(QueryContext);
   expect(errorCounter.getNumErrors()).toEqual(0);
 });
+
+test("testFormulaFunctionNotAllowedInHaving", () => {
+  const [parser, errorCounter] = createParser(
+    "SELECT Name FROM Account GROUP BY Name HAVING FORMULA('1+1') = 2"
+  );
+
+  const context = parser.query();
+
+  expect(context).toBeInstanceOf(QueryContext);
+  expect(errorCounter.getNumErrors()).toBeGreaterThan(0);
+});

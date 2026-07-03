@@ -1,10 +1,6 @@
 # apex-parser - Changelog
 
-## Unreleased
-
-- Restrict SOQL `FORMULA()` expressions to `WHERE` clauses; `HAVING FORMULA(...)` now reports a syntax error.
-
-## 5.1.0-beta.1
+## 5.1.0 - 2026-07-03
 
 - Allow functions in `GROUP BY` clause of SOQL queries
 - Support Apex bind variables (`:expr`) in SOSL `WITH DIVISION` clause
@@ -13,6 +9,7 @@
 - Support multi-line string literals (Salesforce Summer '26), e.g. `String json = '''<NL>{...}<NL>''';`
   - New `MultilineStringLiteral` token, accepted alongside `StringLiteral` in literal/SOQL/SOSL contexts.
   - Body must start on a new line after the opening `'''`, matching platform behaviour. Malformed forms like `'''abc'''` continue to lex as legacy `StringLiteral` tokens (`''`, `'abc'`, `''`); apex-ls consumes this pattern to surface a targeted diagnostic (apex-ls#443).
+- Support the SOQL `FORMULA()` function in `WHERE` clauses, e.g. `WHERE FORMULA('...') = true`; use in any other clause (e.g. `HAVING FORMULA(...)`) reports a syntax error.
 - Fix `npm run check` failing with `ERR_REQUIRE_ESM` on Node 20+ by switching the script from `require()` to dynamic `import()` (the package is `"type": "module"`).
 - Update npm package build output to publish separate ESM, CommonJS, browser, and TypeScript declaration artifacts through the package `exports` map.
 

@@ -762,7 +762,7 @@ dataCategorySelection
 
 dataCategoryName
     : soqlId
-    | LPAREN soqlId (COMMA soqlId)* LPAREN;
+    | LPAREN soqlId (COMMA soqlId)* RPAREN;
 
 filteringSelector
     : AT | ABOVE | BELOW | ABOVE_OR_BELOW;

@@ -26,6 +26,36 @@ test("SOQL Query", () => {
   expect(errorCounter.getNumErrors()).toEqual(0);
 });
 
+test("SOQL Where with single data category filter", () => {
+  const [parser, errorCounter] = createParser(
+    "SELECT Title FROM KnowledgeArticleVersion WHERE PublishStatus='online' WITH DATA CATEGORY Geography__c ABOVE usa__c"
+  );
+  const context = parser.query();
+
+  expect(context).toBeInstanceOf(QueryContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});
+
+test("SOQL Where with data category list filter", () => {
+  const [parser, errorCounter] = createParser(
+    "SELECT Title FROM Question WHERE LastReplyDate > 2005-10-08T01:02:03Z WITH DATA CATEGORY Geography__c AT (usa__c, uk__c)"
+  );
+  const context = parser.query();
+
+  expect(context).toBeInstanceOf(QueryContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});
+
+test("SOQL Where with multiple data category filters", () => {
+  const [parser, errorCounter] = createParser(
+    "SELECT UrlName FROM KnowledgeArticleVersion WHERE PublishStatus='draft' WITH DATA CATEGORY Geography__c AT usa__c AND Product__c ABOVE_OR_BELOW mobile_phones__c"
+  );
+  const context = parser.query();
+
+  expect(context).toBeInstanceOf(QueryContext);
+  expect(errorCounter.getNumErrors()).toEqual(0);
+});
+
 test("SOQL Query Using Field function", () => {
   const [parser, errorCounter] = createParser(
     "Select Fields(All) from Account"

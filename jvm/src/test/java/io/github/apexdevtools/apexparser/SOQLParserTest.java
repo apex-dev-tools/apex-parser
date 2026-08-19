@@ -44,6 +44,36 @@ public class SOQLParserTest {
   }
 
   @Test
+  void testSOQLWhereWithSingleDataCategoryFilter() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "SELECT Title FROM KnowledgeArticleVersion WHERE PublishStatus='online' WITH DATA CATEGORY Geography__c ABOVE usa__c"
+    );
+    ApexParser.QueryContext context = parserAndCounter.getKey().query();
+    assertNotNull(context);
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
+
+  @Test
+  void testSOQLWhereWithDataCategoryListFilter() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "SELECT Title FROM Question WHERE LastReplyDate > 2005-10-08T01:02:03Z WITH DATA CATEGORY Geography__c AT (usa__c, uk__c)"
+    );
+    ApexParser.QueryContext context = parserAndCounter.getKey().query();
+    assertNotNull(context);
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
+
+  @Test
+  void testSOQLWhereWithMultipleDataCategoryFilters() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "SELECT UrlName FROM KnowledgeArticleVersion WHERE PublishStatus='draft' WITH DATA CATEGORY Geography__c AT usa__c AND Product__c ABOVE_OR_BELOW mobile_phones__c"
+    );
+    ApexParser.QueryContext context = parserAndCounter.getKey().query();
+    assertNotNull(context);
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
+
+  @Test
   void testCurrencyLiteral() {
     Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
       "SELECT Id FROM Account WHERE Amount > USD100.01 AND Amount < USD200"

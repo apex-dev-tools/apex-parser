@@ -1,5 +1,9 @@
 # apex-parser - Changelog
 
+## Unreleased
+
+- Fix the `dataCategoryName` grammar rule so parenthesized SOQL data category lists close with `RPAREN`; previously, valid multi-category `WITH DATA CATEGORY` filters failed to parse.
+
 ## 5.1.0 - 2026-07-03
 
 - Allow functions in `GROUP BY` clause of SOQL queries

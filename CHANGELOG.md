@@ -3,6 +3,10 @@
 ## Unreleased
 
 - Fix the `dataCategoryName` grammar rule so parenthesized SOQL data category lists close with `RPAREN`; previously, valid multi-category `WITH DATA CATEGORY` filters failed to parse.
+- Support the SOSL `WITH SPELL_CORRECTION = { true | false }` clause, e.g. `[FIND :term IN ALL FIELDS RETURNING Account WITH SPELL_CORRECTION = false]`; an Apex bind variable (`:expr`) is also accepted in place of the literal
+- Support the SOSL `WITH HIGHLIGHT` clause, e.g. `[FIND 'salesforce' IN ALL FIELDS RETURNING Account(Name, Description) WITH HIGHLIGHT]`
+- New `HIGHLIGHT` and `SPELL_CORRECTION` lexer tokens; both are also accepted as identifiers (`id`/`anyId`), so existing code using them as names is unaffected
+- Fix `WITH DATA CATEGORY` filters with more than one selection. `filteringExpression` joined selections with the `AND` token, which is the Java `&&` operator, not the SOQL `and` keyword. In SOSL this was a parse error; in SOQL the trailing selections were silently left unconsumed
 
 ## 5.1.0 - 2026-07-03
 

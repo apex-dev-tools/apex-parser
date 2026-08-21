@@ -755,7 +755,7 @@ withClause
     | WITH logicalExpression;
 
 filteringExpression
-    : dataCategorySelection (AND dataCategorySelection)*;
+    : dataCategorySelection (SOQLAND dataCategorySelection)*;
 
 dataCategorySelection
     : soqlId filteringSelector dataCategoryName;
@@ -889,6 +889,8 @@ soslWithClause
     | WITH NETWORK ASSIGN (StringLiteral | MultilineStringLiteral)
     | WITH PRICEBOOKID ASSIGN (StringLiteral | MultilineStringLiteral)
     | WITH METADATA ASSIGN (StringLiteral | MultilineStringLiteral)
+    | WITH HIGHLIGHT
+    | WITH SPELL_CORRECTION ASSIGN (BooleanLiteral | boundExpression)
     | WITH USER_MODE
     | WITH SYSTEM_MODE
     ;
@@ -1092,6 +1094,8 @@ id
     | DIVISION
     | RETURNING
     | LISTVIEW
+    | HIGHLIGHT
+    | SPELL_CORRECTION
     ;
 
 // In dot expressions we, can use a wider set of of identifiers, apparently any of them althogh I have excluding VOID
@@ -1293,4 +1297,6 @@ anyId
     | DIVISION
     | RETURNING
     | LISTVIEW
+    | HIGHLIGHT
+    | SPELL_CORRECTION
     ;

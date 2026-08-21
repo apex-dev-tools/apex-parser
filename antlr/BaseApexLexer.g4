@@ -257,6 +257,8 @@ TARGET_LENGTH             : 'target_length';
 DIVISION                  : 'division';
 RETURNING                 : 'returning';
 LISTVIEW                  : 'listview';
+HIGHLIGHT                 : 'highlight';
+SPELL_CORRECTION          : 'spell_correction';
 
 FindLiteral
     :   '[' WS? 'find' WS '\'' FindCharacters? '\''

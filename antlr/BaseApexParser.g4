@@ -271,7 +271,8 @@ annotation
    is the most common developer error here, and rejecting it at parse time reproduces the platform
    compiler's own failure mode: on a member level annotation jorje recovers by reading the line as
    a constructor declaration and emits eight or more cascading errors, losing the rest of the file.
-   Accepting it lets apex-ls report one targeted error and keep analysing. */
+   Accepting it lets apex-ls report one targeted error and keep analysing.
+   Recorded in doc/SalesforceDifferences.md. */
 elementValuePairs
     : elementValuePair (COMMA? elementValuePair)*
     ;

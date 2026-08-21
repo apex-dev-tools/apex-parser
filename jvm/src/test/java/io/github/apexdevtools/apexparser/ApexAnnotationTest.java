@@ -136,6 +136,28 @@ public class ApexAnnotationTest {
     );
   }
 
+  /* The separator is optional per pair, so a list may mix both forms. See
+     doc/SalesforceDifferences.md. */
+  @Test
+  void testMixedSeparatorsAreAccepted() {
+    List<ApexParser.ElementValuePairContext> pairs = pairs(
+      "@InvocableMethod(label='a', category='b' description='c')"
+    );
+    assertEquals(3, pairs.size());
+  }
+
+  @Test
+  void testLeadingCommaIsRejected() {
+    assertTrue(typeAnnotationErrors("@IsTest(,SeeAllData=true)") > 0);
+  }
+
+  @Test
+  void testDoubledCommaIsRejected() {
+    assertTrue(
+      typeAnnotationErrors("@IsTest(SeeAllData=true,,IsParallel=false)") > 0
+    );
+  }
+
   @Test
   void testTrailingCommaIsRejected() {
     assertEquals(1, typeAnnotationErrors("@IsTest(SeeAllData=true,)"));

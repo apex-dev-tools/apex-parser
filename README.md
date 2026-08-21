@@ -4,6 +4,8 @@ Parser for Salesforce Apex (including triggers and inline SOQL/SOSL). This is ba
 
 The packages include ANTLR4 generated types plus optional extras for convenience. The TypeScript package exports type aliases for ANTLR types, while both packages have abstractions like `ApexParserFactory` and `ApexErrorListener`. There are minimal examples below and in the test classes.
 
+The grammar aims to match the platform compiler. Where it deliberately does not, the difference is recorded in [Differences From Salesforce Behaviour](doc/SalesforceDifferences.md).
+
 ## Installation
 
 ### Maven

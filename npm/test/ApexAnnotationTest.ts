@@ -115,6 +115,26 @@ test("Comma separated pairs are accepted on a member", () => {
   ).toEqual(0);
 });
 
+// The separator is optional per pair, so a list may mix both forms. See
+// doc/SalesforceDifferences.md.
+test("Mixed separators are accepted", () => {
+  const params = pairs(
+    "@InvocableMethod(label='a', category='b' description='c')"
+  );
+
+  expect(params.length).toBe(3);
+});
+
+test("Leading comma is rejected", () => {
+  expect(typeAnnotationErrors("@IsTest(,SeeAllData=true)")).toBeGreaterThan(0);
+});
+
+test("Doubled comma is rejected", () => {
+  expect(
+    typeAnnotationErrors("@IsTest(SeeAllData=true,,IsParallel=false)")
+  ).toBeGreaterThan(0);
+});
+
 test("Trailing comma is rejected", () => {
   expect(typeAnnotationErrors("@IsTest(SeeAllData=true,)")).toEqual(1);
 });

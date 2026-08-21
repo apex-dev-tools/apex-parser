@@ -259,10 +259,19 @@ literal
 
 // ANNOTATIONS
 
+/* Annotation names are never namespace qualified. The platform rejects '@Schema.AuraEnabled' with
+   'Unexpected token .', and Apex has no user defined annotations, so the set is closed and every
+   member of it is a bare identifier. */
 annotation
-    : ATSIGN qualifiedName ( LPAREN ( elementValuePairs | elementValue )? RPAREN )?
+    : ATSIGN id ( LPAREN ( elementValuePairs | elementValue )? RPAREN )?
     ;
 
+/* The COMMA is a deliberate divergence from the platform, which separates annotation parameters by
+   whitespace alone and rejects '@IsTest(SeeAllData=true, IsParallel=true)'. It is kept because it
+   is the most common developer error here, and rejecting it at parse time reproduces the platform
+   compiler's own failure mode: on a member level annotation jorje recovers by reading the line as
+   a constructor declaration and emits eight or more cascading errors, losing the rest of the file.
+   Accepting it lets apex-ls report one targeted error and keep analysing. */
 elementValuePairs
     : elementValuePair (COMMA? elementValuePair)*
     ;
@@ -271,14 +280,13 @@ elementValuePair
     : id ASSIGN elementValue
     ;
 
+/* An annotation is decoration on a body declaration, not code, so a value is a literal rather than
+   an expression. This is wider than the platform accepts - 'cacheable=0' and 'cacheable=null' parse
+   here - which is intended, so that apex-ls can diagnose the value precisely instead of losing the
+   file to a parse error. Nested annotations and array initialisers ('label={'a','b'}') are Java
+   forms the platform rejects, and are not accepted. */
 elementValue
-    : expression
-    | annotation
-    | elementValueArrayInitializer
-    ;
-
-elementValueArrayInitializer
-    : LBRACE (elementValue (COMMA elementValue)*)? (COMMA)? RBRACE
+    : literal
     ;
 
 

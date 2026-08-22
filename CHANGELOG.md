@@ -1,20 +1,20 @@
 # apex-parser - Changelog
 
-## Unreleased
+## 5.2.0 - 2026-08-21
 
 - Tighten the annotation grammar to reject constructs that are inherited from Java but are not legal Apex
+  - **(SOURCE BREAKING)** `ElementValueArrayInitializerContext` is no longer generated, `AnnotationContext.qualifiedName()` becomes `id()`, and `ElementValueContext` exposes only `literal()`. Tree-walking consumers referencing these need updating. This ships as a minor version, not a major one; grammar changes of this kind are routine here and major bumps are reserved for build-environment or large-scale changes
   - `annotation` matches `id` in place of `qualifiedName`; `@Schema.AuraEnabled` is now a syntax error, matching the platform (`Unexpected token '.'`). Apex has no user-defined annotations, so a namespace-qualified form has never been legal
   - `elementValue` matches `literal` in place of `expression`, so a bare identifier value such as `@AuraEnabled(cacheable=foo)` is now a syntax error, as it is on the platform
   - Nested annotations and array initialiser values (`label={'a','b'}`) are no longer accepted, and the `elementValueArrayInitializer` rule is removed. `elementValue` is now non-recursive
-  - **(SOURCE BREAKING)** `ElementValueArrayInitializerContext` is no longer generated, `AnnotationContext.qualifiedName()` becomes `id()`, and `ElementValueContext` exposes only `literal()`. Tree-walking consumers referencing these need updating. This ships as a minor version, not a major one; grammar changes of this kind are routine here and major bumps are reserved for build-environment or large-scale changes
   - The optional `COMMA` separator between annotation parameters is deliberately kept, and is now documented in the grammar as the one exception. The platform separates parameters by whitespace alone, but rejecting the comma form at parse time reproduces the platform compiler's own failure mode, where a member-level annotation is recovered as a constructor declaration and the rest of the file is lost to cascading errors
   - Values the platform rejects for type reasons, such as `@AuraEnabled(cacheable=0)` and `cacheable=null`, still parse. That is intended, so a consumer can diagnose the value precisely instead of losing the file to a syntax error
-  - Adds annotation parameter test coverage to both the maven and npm targets
+  - Add annotation parameter test coverage to both the maven and npm targets
 - Add [`doc/SalesforceDifferences.md`](doc/SalesforceDifferences.md), recording deliberate differences between what this grammar accepts and what the Salesforce platform compiler accepts, so they are not mistakenly "corrected" later. The first entry is the annotation parameter comma separator above
-- Fix the `dataCategoryName` grammar rule so parenthesized SOQL data category lists close with `RPAREN`; previously, valid multi-category `WITH DATA CATEGORY` filters failed to parse.
 - Support the SOSL `WITH SPELL_CORRECTION = { true | false }` clause, e.g. `[FIND :term IN ALL FIELDS RETURNING Account WITH SPELL_CORRECTION = false]`; an Apex bind variable (`:expr`) is also accepted in place of the literal
 - Support the SOSL `WITH HIGHLIGHT` clause, e.g. `[FIND 'salesforce' IN ALL FIELDS RETURNING Account(Name, Description) WITH HIGHLIGHT]`
 - New `HIGHLIGHT` and `SPELL_CORRECTION` lexer tokens; both are also accepted as identifiers (`id`/`anyId`), so existing code using them as names is unaffected
+- Fix the `dataCategoryName` grammar rule so parenthesized SOQL data category lists close with `RPAREN`; previously, valid multi-category `WITH DATA CATEGORY` filters failed to parse
 - Fix `WITH DATA CATEGORY` filters with more than one selection. `filteringExpression` joined selections with the `AND` token, which is the Java `&&` operator, not the SOQL `and` keyword. In SOSL this was a parse error; in SOQL the trailing selections were silently left unconsumed
 
 ## 5.1.0 - 2026-07-03

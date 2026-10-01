@@ -22,6 +22,8 @@ import io.github.apexdevtools.apexparser.ApexParserFactory.LexerAndParser;
 import java.util.Map;
 import org.antlr.v4.runtime.*;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class ApexLexerTest {
 
@@ -111,6 +113,45 @@ public class ApexLexerTest {
     assertEquals(0, lc.getValue().getNumErrors());
     assertEquals(2, tokens.getNumberOfOnChannelTokens());
     assertEquals(ApexLexer.MultilineStringLiteral, tokens.get(0).getType());
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = { "\n", "\r\n", "\r" })
+  void testMultilineStringLineEndingsPreserveRawText(String newline) {
+    String body = newline + "Hello" + newline + "  World\\n" + newline;
+    String source = "'''" + body + "'''";
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lc = createLexer(source);
+    CommonTokenStream tokens = new CommonTokenStream(lc.getKey());
+    tokens.fill();
+    assertEquals(0, lc.getValue().getNumErrors());
+    assertEquals(2, tokens.size()); // MultilineStringLiteral + EOF
+    Token literal = tokens.get(0);
+    assertEquals(ApexLexer.MultilineStringLiteral, literal.getType());
+    assertEquals(source, literal.getText());
+    // Remove only the delimiters: retain the opening newline and raw escapes.
+    assertEquals(body, literal.getText().substring(3, source.length() - 3));
+  }
+
+  @Test
+  void testMultilineStringCRLFLineAndColumnTracking() {
+    Map.Entry<ApexLexer, SyntaxErrorCounter> lc = createLexer(
+      "\r\n  '''\r\nHello\r\nWorld\r\n''' x\r\n  y"
+    );
+    CommonTokenStream tokens = new CommonTokenStream(lc.getKey());
+    tokens.fill();
+    assertEquals(0, lc.getValue().getNumErrors());
+    Token literal = tokens.get(1); // leading whitespace is on a hidden channel
+    assertEquals(ApexLexer.MultilineStringLiteral, literal.getType());
+    assertEquals(2, literal.getLine());
+    assertEquals(2, literal.getCharPositionInLine());
+    Token sameLine = tokens.get(3);
+    assertEquals("x", sameLine.getText());
+    assertEquals(5, sameLine.getLine());
+    assertEquals(4, sameLine.getCharPositionInLine());
+    Token nextLine = tokens.get(5);
+    assertEquals("y", nextLine.getText());
+    assertEquals(6, nextLine.getLine());
+    assertEquals(2, nextLine.getCharPositionInLine());
   }
 
   @Test

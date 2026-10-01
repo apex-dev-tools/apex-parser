@@ -300,6 +300,22 @@ test("Multiline String Literal", () => {
   );
 });
 
+test.each([
+  ["LF", "\n"],
+  ["CRLF", "\r\n"],
+  ["bare CR", "\r"],
+])("Multiline String Literal: %s preserves raw text", (_name, newline) => {
+  const body = newline + "Hello" + newline + "  World\\n" + newline;
+  const source = "'''" + body + "'''";
+  const [parser, errorCounter] = createParser(source);
+  const context = parser.literal();
+  expect(errorCounter.getNumErrors()).toEqual(0);
+  expect(context.MultilineStringLiteral()).toBeTruthy();
+  const text = context.MultilineStringLiteral().getText();
+  expect(text).toBe(source);
+  expect(text.slice(3, -3)).toBe(body);
+});
+
 test("Multiline String Literal in class body", () => {
   const [parser, errorCounter] = createParser(
     "public class Hello { String s = '''\n{\n  \"name\": \"John\"\n}'''; }"

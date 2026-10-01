@@ -19,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class ApexParserTest {
 
@@ -320,6 +322,22 @@ public class ApexParserTest {
       "'''\nhello\nworld\n'''",
       context.MultilineStringLiteral().getText()
     );
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = { "\n", "\r\n", "\r" })
+  void testMultilineStringLineEndingsPreserveRawText(String newline) {
+    String body = newline + "Hello" + newline + "  World\\n" + newline;
+    String source = "'''" + body + "'''";
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      source
+    );
+    ApexParser.LiteralContext context = parserAndCounter.getKey().literal();
+    assertNotNull(context.MultilineStringLiteral());
+    String text = context.MultilineStringLiteral().getText();
+    assertEquals(source, text);
+    assertEquals(body, text.substring(3, text.length() - 3));
     assertEquals(0, parserAndCounter.getValue().getNumErrors());
   }
 

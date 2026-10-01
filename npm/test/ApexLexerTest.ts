@@ -99,6 +99,40 @@ test("Multi-line string: basic body, closing on same line", () => {
   expect(tokens.tokens[0].type).toBe(ApexLexer.MultilineStringLiteral);
 });
 
+test.each([
+  ["LF", "\n"],
+  ["CRLF", "\r\n"],
+  ["bare CR", "\r"],
+])("Multi-line string: %s preserves raw token and body", (_name, newline) => {
+  const body = newline + "Hello" + newline + "  World\\n" + newline;
+  const source = "'''" + body + "'''";
+  const { tokens, errors } = lex(source);
+  expect(errors).toEqual(0);
+  expect(tokens.tokens.length).toBe(2); // MultilineStringLiteral + EOF
+  const literal = tokens.tokens[0];
+  expect(literal.type).toBe(ApexLexer.MultilineStringLiteral);
+  expect(literal.text).toBe(source);
+  // Remove only the delimiters: retain the opening newline and raw escapes.
+  expect(literal.text.slice(3, -3)).toBe(body);
+});
+
+test("Multi-line string: CRLF line/column tracking", () => {
+  const { tokens, errors } = lex("\r\n  '''\r\nHello\r\nWorld\r\n''' x\r\n  y");
+  expect(errors).toEqual(0);
+  const literal = tokens.tokens[1]; // leading whitespace is on a hidden channel
+  expect(literal.type).toBe(ApexLexer.MultilineStringLiteral);
+  expect(literal.line).toBe(2);
+  expect(literal.column).toBe(2);
+  const sameLine = tokens.tokens[3];
+  expect(sameLine.text).toBe("x");
+  expect(sameLine.line).toBe(5);
+  expect(sameLine.column).toBe(4);
+  const nextLine = tokens.tokens[5];
+  expect(nextLine.text).toBe("y");
+  expect(nextLine.line).toBe(6);
+  expect(nextLine.column).toBe(2);
+});
+
 test("Multi-line string: closing on its own line", () => {
   const { tokens, errors } = lex("'''\nhello\n'''");
   expect(errors).toEqual(0);

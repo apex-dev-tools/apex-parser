@@ -16,8 +16,13 @@ package io.github.apexdevtools.apexparser;
 import static io.github.apexdevtools.apexparser.SyntaxErrorCounter.createParser;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class SOQLParserTest {
 
@@ -289,5 +294,187 @@ public class SOQLParserTest {
     ApexParser.QueryContext context = parserAndCounter.getKey().query();
     assertNotNull(context);
     assertTrue(parserAndCounter.getValue().getNumErrors() > 0);
+  }
+
+  // SET OPTIONS examples are standalone/dynamic SOQL, not inline Apex.
+  @ParameterizedTest
+  @ValueSource(
+    strings = {
+      "SELECT Id, Name FROM MyDLO__dlm WHERE Status__c = 'Active' SET OPTIONS (dataspace = 'default', honorEmptyStrings = true)",
+      "SELECT AccountId__c, Email__c FROM CustomerProfile__dlm SET OPTIONS (dataspace = 'default')",
+      "SELECT Id, EmailOptIn__c FROM ContactDLO__dlm WHERE EmailOptIn__c = '' SET OPTIONS (dataspace = 'default', honorEmptyStrings = false)",
+      "SELECT Id FROM SimpleDMO__dlm SET OPTIONS (honorEmptyStrings = true)",
+      "SELECT Id FROM SimpleDMO__dlm SET OPTIONS (honorEmptyStrings = false)",
+      "SELECT Id FROM MyDLO__dlm ORDER BY Id LIMIT 10 OFFSET 1 SET OPTIONS (honorEmptyStrings = true, dataspace = 'default')",
+      "select Id from MyDLO__dlm set options (DATASPACE = 'default', HONOREMPTYSTRINGS = TRUE)",
+      "SELECT Id, Name, Age__c, ExPackageNS__Age__c FROM Account SET OPTIONS :opts",
+      "SELECT Id FROM Account WHERE Name = :name WITH USER_MODE ORDER BY Id LIMIT 10 OFFSET 1 FOR VIEW UPDATE TRACKING SET OPTIONS :opts",
+    }
+  )
+  void testSetOptionsAccepted(String source) {
+    Map.Entry<ApexParser, SyntaxErrorCounter> pair = createParser(source);
+    ApexParser parser = pair.getKey();
+    ApexParser.QueryContext context = parser.query();
+    assertNotNull(context.setOptionsClause());
+    assertEquals(0, pair.getValue().getNumErrors());
+    assertEquals(-1, parser.getTokenStream().LA(1));
+  }
+
+  @ParameterizedTest
+  @ValueSource(
+    strings = {
+      "SELECT Id FROM Account SET OPTIONS",
+      "SELECT Id FROM Account SET OPTIONS ()",
+      "SELECT Id FROM Account SET OPTIONS opts",
+      "SELECT Id FROM Account SET OPTIONS :true",
+      "SELECT Id FROM Account SET OPTIONS :'package'",
+      "SELECT Id FROM Account SET OPTIONS :opts.member",
+      "SELECT Id FROM Account SET OPTIONS :opts + 1",
+      "SELECT Id FROM Account SET OPTIONS :getOptions()",
+      "SELECT Id FROM Account SET OPTIONS :",
+      "SELECT Id FROM Account SET OPTIONS (:opts)",
+      "SELECT Id FROM Account SET OPTIONS dataspace = 'default'",
+      "SELECT Id FROM Account SET OPTIONS (dataspace = true)",
+      "SELECT Id FROM Account SET OPTIONS (dataspace = 1)",
+      "SELECT Id FROM Account SET OPTIONS (dataspace = :space)",
+      "SELECT Id FROM Account SET OPTIONS (honorEmptyStrings = 'true')",
+      "SELECT Id FROM Account SET OPTIONS (honorEmptyStrings = 1)",
+      "SELECT Id FROM Account SET OPTIONS (honorEmptyStrings = :flag)",
+      "SELECT Id FROM Account SET OPTIONS (explicitNamespace = true)",
+      "SELECT Id FROM Account SET OPTIONS (explicitNamespace = 'package')",
+      "SELECT Id FROM Account SET OPTIONS (explicitNamespace = :packageName)",
+      "SELECT Id FROM Account SET OPTIONS (unknown = true)",
+      "SELECT Id FROM Account SET OPTIONS (dataspace = 'default',)",
+      "SELECT Id FROM Account SET OPTIONS (dataspace = 'default' honorEmptyStrings = true)",
+      "SELECT Id SET OPTIONS :opts FROM Account",
+      "SELECT Id FROM Account SET OPTIONS :opts WHERE Name = 'Acme'",
+      "SELECT Id FROM Account SET OPTIONS :opts ORDER BY Id",
+      "SELECT Id FROM Account SET OPTIONS :opts LIMIT 1",
+      "SELECT Id FROM Account SET OPTIONS :opts OFFSET 1",
+      "SELECT Id FROM Account SET OPTIONS :opts FOR UPDATE",
+      "SELECT Id FROM Account SET OPTIONS :opts UPDATE TRACKING",
+      "SELECT Id FROM Account SET OPTIONS :opts SET OPTIONS :other",
+      "SELECT Id FROM Account SET OPTIONS :opts, dataspace = 'default'",
+      "SELECT Id, (SELECT Id FROM Contacts SET OPTIONS :opts) FROM Account",
+    }
+  )
+  void testSetOptionsRejected(String source) {
+    Map.Entry<ApexParser, SyntaxErrorCounter> pair = createParser(source);
+    ApexParser parser = pair.getKey();
+    parser.query();
+    // query() can parse a prefix; also check for unconsumed input.
+    assertTrue(
+      pair.getValue().getNumErrors() > 0 || parser.getTokenStream().LA(1) != -1
+    );
+  }
+
+  @ParameterizedTest
+  @ValueSource(
+    strings = { "(dataspace = 'default')", "(honorEmptyStrings = true)" }
+  )
+  void testSetOptionsExcludedFromInlineApex(String options) {
+    Map.Entry<ApexParser, SyntaxErrorCounter> pair = createParser(
+      "[SELECT Id FROM Account SET OPTIONS " + options + "]"
+    );
+    pair.getKey().soqlLiteral();
+    assertTrue(pair.getValue().getNumErrors() > 0);
+  }
+
+  @Test
+  void testQueryOptionsPreserveShapeAndBindTraversal() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> pair = createParser(
+      "SELECT Id FROM Account WHERE Name = :name SET OPTIONS :opts"
+    );
+    ApexParser.QueryContext context = pair.getKey().query();
+    List<String> binds = new ArrayList<>();
+    new ApexParserBaseVisitor<Void>() {
+      @Override
+      public Void visitBoundExpression(ApexParser.BoundExpressionContext ctx) {
+        binds.add(ctx.expression().getText());
+        return null;
+      }
+    }.visit(context);
+    assertEquals(Arrays.asList("name", "opts"), binds);
+    assertEquals("Id", context.selectList().getText());
+    assertEquals("Account", context.fromNameList().getText());
+    assertEquals(
+      "opts",
+      context.setOptionsClause().boundExpression().expression().getText()
+    );
+    assertEquals(0, pair.getValue().getNumErrors());
+  }
+
+  @Test
+  void testOptionKeywordsRemainIdentifiers() {
+    Map.Entry<ApexParser, SyntaxErrorCounter> pair = createParser(
+      "SELECT options, dataspace, honorEmptyStrings FROM Account"
+    );
+    pair.getKey().query();
+    assertEquals(0, pair.getValue().getNumErrors());
+    pair = createParser(
+      "Integer options = 1; String dataspace = 'default'; Boolean honorEmptyStrings = true; List<Account> records = [SELECT Id FROM Account];"
+    );
+    pair.getKey().anonymousUnit();
+    assertEquals(0, pair.getValue().getNumErrors());
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = { "opts", "holder.get('opts')" })
+  void testLiveVerifiedInlineOptionsBind(String expression) {
+    Map.Entry<ApexParser, SyntaxErrorCounter> pair = createParser(
+      "[SELECT Id FROM Account LIMIT 1 SET OPTIONS :" + expression + "]"
+    );
+    ApexParser.SoqlLiteralContext literal = pair.getKey().soqlLiteral();
+    assertNotNull(literal.query());
+    assertEquals("Account", literal.query().fromNameList().getText());
+    assertEquals(
+      expression,
+      literal
+        .query()
+        .setOptionsClause()
+        .boundExpression()
+        .expression()
+        .getText()
+    );
+    List<String> binds = new ArrayList<>();
+    new ApexParserBaseVisitor<Void>() {
+      @Override
+      public Void visitBoundExpression(ApexParser.BoundExpressionContext ctx) {
+        binds.add(ctx.expression().getText());
+        return null;
+      }
+    }.visit(literal);
+    assertEquals(Arrays.asList(expression), binds);
+    assertEquals(0, pair.getValue().getNumErrors());
+    assertEquals(-1, pair.getKey().getTokenStream().LA(1));
+  }
+
+  @ParameterizedTest
+  @ValueSource(
+    strings = {
+      "SELECT COUNT() FROM Account SET OPTIONS :opts",
+      "SELECT Name, COUNT(Id) FROM Account GROUP BY Name LIMIT 1 SET OPTIONS :opts",
+    }
+  )
+  void testOptionsRetainCountAndAggregateShape(String source) {
+    Map.Entry<ApexParser, SyntaxErrorCounter> pair = createParser(
+      "[" + source + "]"
+    );
+    ApexParser.QueryContext query = pair.getKey().soqlLiteral().query();
+    boolean grouped = source.contains("GROUP BY");
+    ApexParser.SoqlFunctionContext fn = query
+      .selectList()
+      .selectEntry(grouped ? 1 : 0)
+      .soqlFunction();
+    assertNotNull(fn.COUNT());
+    if (grouped) {
+      assertEquals("Id", fn.fieldName().getText());
+      assertEquals("GROUPBYName", query.groupByClause().getText());
+    } else {
+      assertNull(fn.fieldName());
+      assertNull(query.groupByClause());
+    }
+    assertEquals("Account", query.fromNameList().getText());
+    assertEquals(0, pair.getValue().getNumErrors());
   }
 }

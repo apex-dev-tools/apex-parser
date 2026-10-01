@@ -16,6 +16,8 @@ import {
   StatementContext,
   SoqlLiteralContext,
 } from "../src/antlr/ApexParser.js";
+import { ApexParserBaseVisitor } from "../src/ApexParserFactory.js";
+import { BoundExpressionContext } from "../src/antlr/ApexParser.js";
 import { createParser } from "./SyntaxErrorCounter.js";
 
 test("SOQL Query", () => {
@@ -284,4 +286,167 @@ test("testFormulaFunctionNotAllowedInHaving", () => {
 
   expect(context).toBeInstanceOf(QueryContext);
   expect(errorCounter.getNumErrors()).toBeGreaterThan(0);
+});
+
+// SET OPTIONS examples are standalone/dynamic SOQL, not inline Apex.
+test.each([
+  "SELECT Id, Name FROM MyDLO__dlm WHERE Status__c = 'Active' SET OPTIONS (dataspace = 'default', honorEmptyStrings = true)",
+  "SELECT AccountId__c, Email__c FROM CustomerProfile__dlm SET OPTIONS (dataspace = 'default')",
+  "SELECT Id, EmailOptIn__c FROM ContactDLO__dlm WHERE EmailOptIn__c = '' SET OPTIONS (dataspace = 'default', honorEmptyStrings = false)",
+  "SELECT Id FROM SimpleDMO__dlm SET OPTIONS (honorEmptyStrings = true)",
+  "SELECT Id FROM SimpleDMO__dlm SET OPTIONS (honorEmptyStrings = false)",
+  "SELECT Id FROM MyDLO__dlm ORDER BY Id LIMIT 10 OFFSET 1 SET OPTIONS (honorEmptyStrings = true, dataspace = 'default')",
+  "select Id from MyDLO__dlm set options (DATASPACE = 'default', HONOREMPTYSTRINGS = TRUE)",
+  "SELECT Id, Name, Age__c, ExPackageNS__Age__c FROM Account SET OPTIONS :opts",
+  "SELECT Id FROM Account WHERE Name = :name WITH USER_MODE ORDER BY Id LIMIT 10 OFFSET 1 FOR VIEW UPDATE TRACKING SET OPTIONS :opts",
+])("SET OPTIONS accepts %s", source => {
+  const [parser, errors] = createParser(source);
+  const context = parser.query();
+  expect(context).toBeInstanceOf(QueryContext);
+  expect(context.setOptionsClause()).not.toBeNull();
+  expect(errors.getNumErrors()).toBe(0);
+  expect(parser.getTokenStream().LA(1)).toBe(-1);
+});
+test.each([
+  "SELECT Id FROM Account SET OPTIONS",
+  "SELECT Id FROM Account SET OPTIONS ()",
+  "SELECT Id FROM Account SET OPTIONS opts",
+  "SELECT Id FROM Account SET OPTIONS :true",
+  "SELECT Id FROM Account SET OPTIONS :'package'",
+  "SELECT Id FROM Account SET OPTIONS :opts.member",
+  "SELECT Id FROM Account SET OPTIONS :opts + 1",
+  "SELECT Id FROM Account SET OPTIONS :getOptions()",
+  "SELECT Id FROM Account SET OPTIONS :",
+  "SELECT Id FROM Account SET OPTIONS (:opts)",
+  "SELECT Id FROM Account SET OPTIONS dataspace = 'default'",
+  "SELECT Id FROM Account SET OPTIONS (dataspace = true)",
+  "SELECT Id FROM Account SET OPTIONS (dataspace = 1)",
+  "SELECT Id FROM Account SET OPTIONS (dataspace = :space)",
+  "SELECT Id FROM Account SET OPTIONS (honorEmptyStrings = 'true')",
+  "SELECT Id FROM Account SET OPTIONS (honorEmptyStrings = 1)",
+  "SELECT Id FROM Account SET OPTIONS (honorEmptyStrings = :flag)",
+  "SELECT Id FROM Account SET OPTIONS (explicitNamespace = true)",
+  "SELECT Id FROM Account SET OPTIONS (explicitNamespace = 'package')",
+  "SELECT Id FROM Account SET OPTIONS (explicitNamespace = :packageName)",
+  "SELECT Id FROM Account SET OPTIONS (unknown = true)",
+  "SELECT Id FROM Account SET OPTIONS (dataspace = 'default',)",
+  "SELECT Id FROM Account SET OPTIONS (dataspace = 'default' honorEmptyStrings = true)",
+  "SELECT Id SET OPTIONS :opts FROM Account",
+  "SELECT Id FROM Account SET OPTIONS :opts WHERE Name = 'Acme'",
+  "SELECT Id FROM Account SET OPTIONS :opts ORDER BY Id",
+  "SELECT Id FROM Account SET OPTIONS :opts LIMIT 1",
+  "SELECT Id FROM Account SET OPTIONS :opts OFFSET 1",
+  "SELECT Id FROM Account SET OPTIONS :opts FOR UPDATE",
+  "SELECT Id FROM Account SET OPTIONS :opts UPDATE TRACKING",
+  "SELECT Id FROM Account SET OPTIONS :opts SET OPTIONS :other",
+  "SELECT Id FROM Account SET OPTIONS :opts, dataspace = 'default'",
+  "SELECT Id, (SELECT Id FROM Contacts SET OPTIONS :opts) FROM Account",
+])("SET OPTIONS rejects %s", source => {
+  const [parser, errors] = createParser(source);
+  parser.query();
+  // query() can parse a prefix; rejection must also check for unconsumed input.
+  expect(
+    errors.getNumErrors() > 0 || parser.getTokenStream().LA(1) !== -1
+  ).toBe(true);
+});
+
+test.each(["(dataspace = 'default')", "(honorEmptyStrings = true)"])(
+  "SET OPTIONS literals excluded from inline Apex: %s",
+  options => {
+    const [parser, errors] = createParser(
+      `[SELECT Id FROM Account SET OPTIONS ${options}]`
+    );
+    parser.soqlLiteral();
+    expect(errors.getNumErrors()).toBeGreaterThan(0);
+  }
+);
+
+test("Query options preserve query shape and boundExpression traversal", () => {
+  const [parser, errors] = createParser(
+    "SELECT Id FROM Account WHERE Name = :name SET OPTIONS :opts"
+  );
+  const context = parser.query();
+  class BindVisitor extends ApexParserBaseVisitor<void> {
+    binds: string[] = [];
+    visitBoundExpression(ctx: BoundExpressionContext): void {
+      this.binds.push(ctx.expression().getText());
+    }
+  }
+  const visitor = new BindVisitor();
+  visitor.visit(context);
+  expect(visitor.binds).toEqual(["name", "opts"]);
+  expect(context.selectList().getText()).toBe("Id");
+  expect(context.fromNameList().getText()).toBe("Account");
+  expect(
+    context.setOptionsClause().boundExpression().expression().getText()
+  ).toBe("opts");
+  expect(errors.getNumErrors()).toBe(0);
+});
+
+test("New option keywords remain Apex and SOQL identifiers", () => {
+  const [parser, errors] = createParser(
+    "SELECT options, dataspace, honorEmptyStrings FROM Account"
+  );
+  parser.query();
+  expect(errors.getNumErrors()).toBe(0);
+  const [apex, apexErrors] = createParser(
+    "Integer options = 1; String dataspace = 'default'; Boolean honorEmptyStrings = true; List<Account> records = [SELECT Id FROM Account];"
+  );
+  apex.anonymousUnit();
+  expect(apexErrors.getNumErrors()).toBe(0);
+});
+
+test.each(["opts", "holder.get('opts')"])(
+  "Live-verified inline query options bind: %s",
+  expression => {
+    const [parser, errors] = createParser(
+      `[SELECT Id FROM Account LIMIT 1 SET OPTIONS :${expression}]`
+    );
+    const literal = parser.soqlLiteral();
+    expect(literal).toBeInstanceOf(SoqlLiteralContext);
+    expect(literal.query()).toBeInstanceOf(QueryContext);
+    expect(literal.query().fromNameList().getText()).toBe("Account");
+    expect(
+      literal
+        .query()
+        .setOptionsClause()
+        .boundExpression()
+        .expression()
+        .getText()
+    ).toBe(expression);
+    class BindVisitor extends ApexParserBaseVisitor<void> {
+      binds: string[] = [];
+      visitBoundExpression(ctx: BoundExpressionContext): void {
+        this.binds.push(ctx.expression().getText());
+      }
+    }
+    const visitor = new BindVisitor();
+    visitor.visit(literal);
+    expect(visitor.binds).toEqual([expression]);
+    expect(errors.getNumErrors()).toBe(0);
+    expect(parser.getTokenStream().LA(1)).toBe(-1);
+  }
+);
+
+test.each([
+  "SELECT COUNT() FROM Account SET OPTIONS :opts",
+  "SELECT Name, COUNT(Id) FROM Account GROUP BY Name LIMIT 1 SET OPTIONS :opts",
+])("Options retain count/aggregate result-shape nodes: %s", source => {
+  const [parser, errors] = createParser(`[${source}]`);
+  const query = parser.soqlLiteral().query();
+  const grouped = source.includes("GROUP BY");
+  const fn = query
+    .selectList()
+    .selectEntry(grouped ? 1 : 0)
+    .soqlFunction();
+  expect(fn.COUNT()).not.toBeNull();
+  if (grouped) {
+    expect(fn.fieldName().getText()).toBe("Id");
+    expect(query.groupByClause().getText()).toBe("GROUPBYName");
+  } else {
+    expect(fn.fieldName()).toBeNull();
+    expect(query.groupByClause()).toBeNull();
+  }
+  expect(query.fromNameList().getText()).toBe("Account");
+  expect(errors.getNumErrors()).toBe(0);
 });

@@ -824,7 +824,7 @@ boundExpression
 // explicitNamespace is configured through Database.QueryOptions, not a literal option.
 setOptionsClause
     : SET OPTIONS ({this.isStandaloneQuery()}? LPAREN queryOption (COMMA queryOption)* RPAREN
-        | boundExpression {!this.isStandaloneQuery() || this.isQueryOptionsBind($boundExpression.ctx)}?)
+        | boundExpression)
     ;
 
 queryOption

@@ -311,12 +311,11 @@ test.each([
   "SELECT Id FROM Account SET OPTIONS",
   "SELECT Id FROM Account SET OPTIONS ()",
   "SELECT Id FROM Account SET OPTIONS opts",
-  "SELECT Id FROM Account SET OPTIONS :true",
-  "SELECT Id FROM Account SET OPTIONS :'package'",
-  "SELECT Id FROM Account SET OPTIONS :opts.member",
-  "SELECT Id FROM Account SET OPTIONS :opts + 1",
-  "SELECT Id FROM Account SET OPTIONS :getOptions()",
   "SELECT Id FROM Account SET OPTIONS :",
+  "SELECT Id FROM Account SET OPTIONS :opts +",
+  "SELECT Id FROM Account SET OPTIONS :(opts",
+  "SELECT Id FROM Account SET OPTIONS :opts.member(",
+  "SELECT Id FROM Account SET OPTIONS :opts + 1 LIMIT 1",
   "SELECT Id FROM Account SET OPTIONS (:opts)",
   "SELECT Id FROM Account SET OPTIONS dataspace = 'default'",
   "SELECT Id FROM Account SET OPTIONS (dataspace = true)",
@@ -450,3 +449,38 @@ test.each([
   expect(query.fromNameList().getText()).toBe("Account");
   expect(errors.getNumErrors()).toBe(0);
 });
+
+// Parser acceptance is not a guarantee of QueryOptions type or dynamic SOQL legality.
+test.each([
+  "(opts)",
+  "opts.member",
+  "getOptions()",
+  "holder.get('opts')",
+  "true",
+  "'package'",
+  "opts + 1",
+])(
+  "Options use normal boundExpression syntax and traversal: %s",
+  expression => {
+    for (const inline of [false, true]) {
+      const query = `SELECT Id FROM Account WHERE Name = :name SET OPTIONS :${expression}`;
+      const [parser, errors] = createParser(inline ? `[${query}]` : query);
+      const tree = inline ? parser.soqlLiteral() : parser.query();
+      const context = tree instanceof SoqlLiteralContext ? tree.query() : tree;
+      const bind = context.setOptionsClause().boundExpression();
+      expect(bind).toBeInstanceOf(BoundExpressionContext);
+      expect(bind.expression().getText()).toBe(expression.replaceAll(" ", ""));
+      class BindVisitor extends ApexParserBaseVisitor<void> {
+        binds: string[] = [];
+        visitBoundExpression(ctx: BoundExpressionContext): void {
+          this.binds.push(ctx.expression().getText());
+        }
+      }
+      const visitor = new BindVisitor();
+      visitor.visit(tree);
+      expect(visitor.binds).toEqual(["name", expression.replaceAll(" ", "")]);
+      expect(errors.getNumErrors()).toBe(0);
+      expect(parser.getTokenStream().LA(1)).toBe(-1);
+    }
+  }
+);

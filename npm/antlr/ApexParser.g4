@@ -8,11 +8,6 @@ private isStandaloneQuery(): boolean {
     }
     return true;
 }
-
-private isQueryOptionsBind(ctx: BoundExpressionContext): boolean {
-    const expr = ctx.expression();
-    return expr instanceof PrimaryExpressionContext && expr.primary() instanceof IdPrimaryContext;
-}
 }
 
 import BaseApexParser;

@@ -326,12 +326,11 @@ public class SOQLParserTest {
       "SELECT Id FROM Account SET OPTIONS",
       "SELECT Id FROM Account SET OPTIONS ()",
       "SELECT Id FROM Account SET OPTIONS opts",
-      "SELECT Id FROM Account SET OPTIONS :true",
-      "SELECT Id FROM Account SET OPTIONS :'package'",
-      "SELECT Id FROM Account SET OPTIONS :opts.member",
-      "SELECT Id FROM Account SET OPTIONS :opts + 1",
-      "SELECT Id FROM Account SET OPTIONS :getOptions()",
       "SELECT Id FROM Account SET OPTIONS :",
+      "SELECT Id FROM Account SET OPTIONS :opts +",
+      "SELECT Id FROM Account SET OPTIONS :(opts",
+      "SELECT Id FROM Account SET OPTIONS :opts.member(",
+      "SELECT Id FROM Account SET OPTIONS :opts + 1 LIMIT 1",
       "SELECT Id FROM Account SET OPTIONS (:opts)",
       "SELECT Id FROM Account SET OPTIONS dataspace = 'default'",
       "SELECT Id FROM Account SET OPTIONS (dataspace = true)",
@@ -476,5 +475,54 @@ public class SOQLParserTest {
     }
     assertEquals("Account", query.fromNameList().getText());
     assertEquals(0, pair.getValue().getNumErrors());
+  }
+
+  // Parser acceptance does not guarantee QueryOptions type or dynamic SOQL legality.
+  @ParameterizedTest
+  @ValueSource(
+    strings = {
+      "(opts)",
+      "opts.member",
+      "getOptions()",
+      "holder.get('opts')",
+      "true",
+      "'package'",
+      "opts + 1",
+    }
+  )
+  void testOptionsUseNormalBoundExpressionSyntaxAndTraversal(
+    String expression
+  ) {
+    for (boolean inline : new boolean[] { false, true }) {
+      String source =
+        "SELECT Id FROM Account WHERE Name = :name SET OPTIONS :" + expression;
+      Map.Entry<ApexParser, SyntaxErrorCounter> pair = createParser(
+        inline ? "[" + source + "]" : source
+      );
+      org.antlr.v4.runtime.ParserRuleContext tree = inline
+        ? pair.getKey().soqlLiteral()
+        : pair.getKey().query();
+      ApexParser.QueryContext query = inline
+        ? ((ApexParser.SoqlLiteralContext) tree).query()
+        : (ApexParser.QueryContext) tree;
+      ApexParser.BoundExpressionContext bind = query
+        .setOptionsClause()
+        .boundExpression();
+      assertNotNull(bind);
+      assertEquals(expression.replace(" ", ""), bind.expression().getText());
+      List<String> binds = new ArrayList<>();
+      new ApexParserBaseVisitor<Void>() {
+        @Override
+        public Void visitBoundExpression(
+          ApexParser.BoundExpressionContext ctx
+        ) {
+          binds.add(ctx.expression().getText());
+          return null;
+        }
+      }.visit(tree);
+      assertEquals(Arrays.asList("name", expression.replace(" ", "")), binds);
+      assertEquals(0, pair.getValue().getNumErrors());
+      assertEquals(-1, pair.getKey().getTokenStream().LA(1));
+    }
   }
 }

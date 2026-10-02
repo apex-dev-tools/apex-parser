@@ -598,6 +598,7 @@ query
         allRowsClause?
         forClauses
         (UPDATE updateList)?
+        setOptionsClause?
         ;
 
 subQuery
@@ -819,6 +820,18 @@ forClauses
 boundExpression
     : COLON expression;
 
+// SET OPTIONS is terminal. Literal options are for standalone SOQL, not inline Apex.
+// explicitNamespace is configured through Database.QueryOptions, not a literal option.
+setOptionsClause
+    : SET OPTIONS ({this.isStandaloneQuery()}? LPAREN queryOption (COMMA queryOption)* RPAREN
+        | boundExpression)
+    ;
+
+queryOption
+    : DATASPACE ASSIGN StringLiteral
+    | HONOR_EMPTY_STRINGS ASSIGN BooleanLiteral
+    ;
+
 dateFormula
     : YESTERDAY
     | TODAY
@@ -1007,6 +1020,9 @@ id
     | ROLLUP
     | TOLABEL
     | OFFSET
+    | OPTIONS
+    | DATASPACE
+    | HONOR_EMPTY_STRINGS
     | DATA
     | CATEGORY
     | AT
@@ -1210,6 +1226,9 @@ anyId
     | ROLLUP
     | TOLABEL
     | OFFSET
+    | OPTIONS
+    | DATASPACE
+    | HONOR_EMPTY_STRINGS
     | DATA
     | CATEGORY
     | AT

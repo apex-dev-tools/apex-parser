@@ -1,5 +1,16 @@
 # apex-parser - Changelog
 
+## 5.3.0 - 2026-10-16
+
+- Support the SOQL `SET OPTIONS` clause at the end of a query ([#165](https://github.com/apex-dev-tools/apex-parser/issues/165)), see [`doc/soql-set-options.md`](doc/soql-set-options.md) for the evidence behind the rules
+  - Standalone SOQL accepts a literal option list, e.g. `SELECT Id FROM Account SET OPTIONS (dataspace='default', honorEmptyStrings=true)`, or a whole-clause bind such as `SET OPTIONS :opts`
+  - Inline Apex SOQL accepts only the bind form, which is parsed with the existing `boundExpression` rule so ordinary Apex expressions are traversed as usual. Literal lists failed live compilation inline, so they are rejected there
+  - `SET OPTIONS` is not accepted in subqueries
+  - New `OPTIONS`, `DATASPACE` and `HONOR_EMPTY_STRINGS` lexer tokens; all three are also accepted as identifiers (`id`/`anyId`), so existing code using them as names is unaffected
+  - Type and execution-context checks on the bound value are left to consumers
+- Add lexer and parser test coverage for CRLF and bare CR line endings inside multi-line string literals
+- Add `SECURITY.md` describing how to report vulnerabilities privately through GitHub
+
 ## 5.2.0 - 2026-08-21
 
 - Tighten the annotation grammar to reject constructs that are inherited from Java but are not legal Apex

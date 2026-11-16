@@ -316,6 +316,20 @@ test.each([
   expect(text.slice(3, -3)).toBe(body);
 });
 
+test.each(["'test\\x'", "'\\u00'", "'\\u00GG'"])(
+  "Invalid string literal %s preserves the surrounding parse tree",
+  literal => {
+    const [parser, errorCounter] = createParser(
+      `public class T { String value = ${literal}; Integer after = 1; }`
+    );
+
+    const context = parser.compilationUnit();
+
+    expect(context).toBeInstanceOf(CompilationUnitContext);
+    expect(errorCounter.getNumErrors()).toEqual(0);
+  }
+);
+
 test("Multiline String Literal in class body", () => {
   const [parser, errorCounter] = createParser(
     "public class Hello { String s = '''\n{\n  \"name\": \"John\"\n}'''; }"

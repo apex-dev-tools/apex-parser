@@ -73,12 +73,24 @@ test("Lexer unicode escapes", () => {
   expect(errorCounter.getNumErrors()).toEqual(0);
 });
 
-test("Lexer error is captured via createLexerAndParser", () => {
+test.each(["'test\\x'", "'\\u00'", "'\\u00GG'"])(
+  "Lexer preserves invalid string literal %s as one token",
+  literal => {
+    const { tokens, errors } = lex(literal);
+
+    expect(errors).toEqual(0);
+    expect(tokens.tokens).toHaveLength(2);
+    expect(tokens.tokens[0].type).toBe(ApexLexer.InvalidStringLiteral);
+    expect(tokens.tokens[0].text).toBe(literal);
+  }
+);
+
+test("Invalid string literal is captured via createLexerAndParser", () => {
   const { parser, errorCounter } = createLexerAndParser(
     "public class X { String s = '\\q'; }"
   );
   parser.compilationUnit();
-  expect(errorCounter.getNumErrors()).toBeGreaterThan(0);
+  expect(errorCounter.getNumErrors()).toEqual(0);
 });
 
 // Salesforce Summer '26 multi-line string literals: '''<NL>...'''

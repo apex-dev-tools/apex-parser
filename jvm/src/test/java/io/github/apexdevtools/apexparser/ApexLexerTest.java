@@ -94,11 +94,32 @@ public class ApexLexerTest {
   }
 
   @Test
-  void testLexerErrorCapturedViaCreateLexerAndParser() {
+  void testLexerPreservesInvalidStringLiterals() {
+    for (String literal : new String[] {
+      "'test\\x'",
+      "'\\u00'",
+      "'\\u00GG'",
+    }) {
+      Map.Entry<ApexLexer, SyntaxErrorCounter> lexerAndCounter = createLexer(
+        literal
+      );
+      CommonTokenStream tokens = new CommonTokenStream(
+        lexerAndCounter.getKey()
+      );
+      tokens.fill();
+
+      assertEquals(0, lexerAndCounter.getValue().getNumErrors());
+      assertEquals(ApexLexer.InvalidStringLiteral, tokens.get(0).getType());
+      assertEquals(literal, tokens.get(0).getText());
+    }
+  }
+
+  @Test
+  void testInvalidStringLiteralCapturedViaCreateLexerAndParser() {
     Map.Entry<LexerAndParser, SyntaxErrorCounter> pairAndCounter =
       createLexerAndParser("public class X { String s = '\\q'; }");
     pairAndCounter.getKey().getParser().compilationUnit();
-    assertTrue(pairAndCounter.getValue().getNumErrors() > 0);
+    assertEquals(0, pairAndCounter.getValue().getNumErrors());
   }
 
   // Salesforce Summer '26 multi-line string literals: '''<NL>...'''

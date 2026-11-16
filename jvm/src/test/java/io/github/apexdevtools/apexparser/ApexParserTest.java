@@ -36,6 +36,21 @@ public class ApexParserTest {
     assertEquals(0, parserAndCounter.getValue().getNumErrors());
   }
 
+  @ParameterizedTest
+  @ValueSource(strings = { "'test\\x'", "'\\u00'", "'\\u00GG'" })
+  void testInvalidStringLiteralPreservesSurroundingParseTree(String literal) {
+    Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(
+      "public class T { String value = " + literal + "; Integer after = 1; }"
+    );
+
+    ApexParser.CompilationUnitContext context = parserAndCounter
+      .getKey()
+      .compilationUnit();
+
+    assertNotNull(context);
+    assertEquals(0, parserAndCounter.getValue().getNumErrors());
+  }
+
   @Test
   void testExpression() {
     Map.Entry<ApexParser, SyntaxErrorCounter> parserAndCounter = createParser(

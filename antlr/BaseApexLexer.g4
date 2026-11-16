@@ -347,6 +347,14 @@ StringLiteral
     :   '\'' StringCharacters? '\''
     ;
 
+// Retain malformed single-line string literals as parser-owned tokens so
+// consumers can report the lexical error without losing the surrounding tree.
+// StringLiteral remains first: valid escapes therefore retain their existing
+// token type when both rules match the same source span.
+InvalidStringLiteral
+    :   '\'' ( EscapeSequence | '\\' ~[\r\n] | ~['\\\r\n] )* '\''
+    ;
+
 fragment
 StringCharacters
     :   StringCharacter+
@@ -476,4 +484,3 @@ COMMENT
 LINE_COMMENT
     :   '//' ~[\r\n]* -> channel(COMMENT_CHANNEL)
     ;
-

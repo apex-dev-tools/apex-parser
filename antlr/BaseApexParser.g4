@@ -252,6 +252,7 @@ literal
     | LongLiteral
     | NumberLiteral
     | StringLiteral
+    | InvalidStringLiteral
     | MultilineStringLiteral
     | BooleanLiteral
     | NULL
@@ -350,6 +351,7 @@ whenLiteral
     : (SUB|ADD)* IntegerLiteral
     | (SUB|ADD)* LongLiteral
     | StringLiteral
+    | InvalidStringLiteral
     | MultilineStringLiteral
     | NULL
     | qualifiedName
@@ -666,7 +668,7 @@ soqlFunction
     | WEEK_IN_MONTH LPAREN dateFieldName RPAREN
     | WEEK_IN_YEAR LPAREN dateFieldName RPAREN
     | FIELDS LPAREN soqlFieldsParameter RPAREN
-    | DISTANCE LPAREN locationValue COMMA locationValue COMMA (StringLiteral | MultilineStringLiteral) RPAREN
+    | DISTANCE LPAREN locationValue COMMA locationValue COMMA (StringLiteral | InvalidStringLiteral | MultilineStringLiteral) RPAREN
     | GROUPING LPAREN fieldName RPAREN
     | CONVERT_CURRENCY LPAREN fieldName RPAREN
     ;
@@ -716,7 +718,7 @@ whereConditionalExpression
 
 whereFieldExpression
     : fieldExpression
-    | FORMULA LPAREN StringLiteral RPAREN comparisonOperator value;
+    | FORMULA LPAREN (StringLiteral | InvalidStringLiteral) RPAREN comparisonOperator value;
 
 logicalExpression
     : conditionalExpression (SOQLAND conditionalExpression)*
@@ -739,6 +741,7 @@ value
     | BooleanLiteral
     | signedNumber
     | StringLiteral
+    | InvalidStringLiteral
     | MultilineStringLiteral
     | DateLiteral
     | TimeLiteral
@@ -828,7 +831,7 @@ setOptionsClause
     ;
 
 queryOption
-    : DATASPACE ASSIGN StringLiteral
+    : DATASPACE ASSIGN (StringLiteral | InvalidStringLiteral)
     | HONOR_EMPTY_STRINGS ASSIGN BooleanLiteral
     ;
 
@@ -904,13 +907,13 @@ soslClauses
     ;
 
 soslWithClause
-    : WITH DIVISION ASSIGN (StringLiteral | MultilineStringLiteral | boundExpression)
+    : WITH DIVISION ASSIGN (StringLiteral | InvalidStringLiteral | MultilineStringLiteral | boundExpression)
     | WITH DATA CATEGORY filteringExpression
     | WITH SNIPPET (LPAREN TARGET_LENGTH ASSIGN IntegerLiteral RPAREN)?
     | WITH NETWORK IN LPAREN networkList RPAREN
-    | WITH NETWORK ASSIGN (StringLiteral | MultilineStringLiteral)
-    | WITH PRICEBOOKID ASSIGN (StringLiteral | MultilineStringLiteral)
-    | WITH METADATA ASSIGN (StringLiteral | MultilineStringLiteral)
+    | WITH NETWORK ASSIGN (StringLiteral | InvalidStringLiteral | MultilineStringLiteral)
+    | WITH PRICEBOOKID ASSIGN (StringLiteral | InvalidStringLiteral | MultilineStringLiteral)
+    | WITH METADATA ASSIGN (StringLiteral | InvalidStringLiteral | MultilineStringLiteral)
     | WITH HIGHLIGHT
     | WITH SPELL_CORRECTION ASSIGN (BooleanLiteral | boundExpression)
     | WITH USER_MODE
@@ -950,7 +953,7 @@ updateType
     : TRACKING | VIEWSTAT;
 
 networkList
-    : (StringLiteral | MultilineStringLiteral) (COMMA networkList)?
+    : (StringLiteral | InvalidStringLiteral | MultilineStringLiteral) (COMMA networkList)?
     ;
 
 soslId
